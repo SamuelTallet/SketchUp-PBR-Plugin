@@ -1,2 +1,2 @@
 # pbr-extension-for-sketchup
-Physically Based Rendering extension for SketchUp (WIP)
+Physically Based Rendering extension for SketchUp 2017+
