@@ -1,7 +1,7 @@
 PBR extension for SketchUp
 ==========================
 
-Add reflections and (normal) reliefs to your SketchUp models, thanks to the [glTF](https://github.com/KhronosGroup/glTF/) format.
+💅 Add reflections and (normal) reliefs to your SketchUp models. 🏃‍♀️ Render in real-time. ✈️ Export to 2D or 3D.
 
 Demo
 ----
