@@ -1,0 +1,82 @@
+
+////////////////////////////////////////////
+// PBR French Translation.
+//
+// Package: PBR extension for SketchUp
+// Translation author: Samuel Tallet-Sabathé
+////////////////////////////////////////////
+
+//
+// File: pbr.rb
+//
+
+"Physically-Based Rendering"="Rendu basé sur la physique";
+"Add reflects and reliefs to your SketchUp models."="Ajoutez des reflets et des reliefs à vos modèles SketchUp.";
+"Get a realistic render in real-time."="Obtenez un rendu réaliste en temps réel.";
+"Export result to image or 3D object."="Exportez le résultat en image ou en objet 3D.";
+
+//
+// File: menu.rb
+//
+
+// Locale note: In French version of SketchUp, menu items are not titleized.
+
+"Edit Materials..."="Modifier les matériaux...";
+"Open Viewport"="Ouvrir la fenêtre de visualisation";
+"Export As 3D Object..."="Exporter en tant qu'objet 3D...";
+
+"Propagate materials to whole model? (Recommended)"="Propager les matériaux à l'ensemble du modèle ? (Recommandé)";
+"Propagate Materials to Whole Model"="Propager les matériaux à l'ensemble du modèle";
+
+//
+// File: material_editor.rb
+//
+
+"PBR Material Editor"="Interface de modification des matériaux RBP";
+"PBR Material Editor is already open."="L'interface de modification des matériaux RBP est déjà ouverte.";
+"Wait, there is no material to edit :p"="Attendez, il n'y a aucun matériau à éditer :p";
+
+//
+// File: material_editor.erb.html
+//
+
+"Metallic"="Métallique";
+"A value of 0 means the material is a dielectric."="Une valeur de 0 signifie que le matériau est un diélectrique.";
+"A value of 1 means the material is a metal."="Une valeur de 1 signifie que le matériau est un métal.";
+"Values between 0 and 1 may represent dirty metal surfaces."="Les valeurs entre 0 et 1 peuvent représenter des surfaces métalliques sales.";
+
+"Roughness"="Rugosité";
+"A value of 0 means the material is completely smooth."="Une valeur de 0 signifie que le matériau est complètement lisse.";
+"A value of 1 means the material is completely rough."="Une valeur de 1 signifie que le matériau est complètement rugueux.";
+
+"Normal map"="Carte de normales";
+"The normal map gives an illusion of relief to the material."="La carte de normales donne une illusion de relief au matériau.";
+"Relief information is stored in image using RGB components in linear space."="Les informations de relief sont stockées dans l'image en utilisant les composantes RVB dans l'espace linéaire.";
+
+"Emissive map"="Carte émissive";
+"The emissive map controls the color of the light being emitted by the material."="La carte émissive contrôle la couleur de la lumière émise par le matériau.";
+"Data about emitted light is stored in image using RGB components in sRGB space."="Les données sur la lumière émise sont stockées dans l'image en utilisant les composantes RVB dans l'espace sRGB.";
+
+"The image format of this map must be JPEG or PNG."="Le format d'image de cette carte doit être JPEG ou PNG.";
+"Remove image from material definition"="Retirer l'image de la définition du matériau";
+
+"Alpha mode"="Mode alpha";
+"Fully opaque"="Complètement opaque";
+"Fully opaque or transparent"="Complètement opaque ou transparent";
+"Combined with background"="Combiné avec l'arrière-plan";
+"Do you have transparency issues with this material? Try to select the last option of Alpha mode:"="Avez-vous des problèmes de transparence avec ce matériau ? Essayez de sélectionner la dernière option du Mode alpha :";
+
+"Apply all changes"="Appliquer tous les changements";
+
+//
+// File: gltf.rb
+//
+
+"Untitled"="Sans titre";
+
+//
+// File: viewport.erb.html
+//
+
+"SketchUp PBR Viewport"="Fenêtre de visu. RBP de SketchUp";
+"Loading..."="Chargement...";

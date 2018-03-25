@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="<%= Sketchup.os_language %>">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="x-copyright" content="© 2018 Samuel Tallet-Sabathé">
+    <meta name="x-license" content="GNU General Public License 3.0">
+
+    <title><%= PBR::TRANSLATE['SketchUp PBR Viewport'] %></title>
+
+    <script src="/lib/claygl/claygl.min.js"></script>
+
+    <link rel="stylesheet" href="/lib/css-loaders/load4.css">
+    <link rel="stylesheet" href="/viewport.css">
+
+</head>
+
+<body class="set-fullscreen">
+
+	<div class="loader"><%= PBR::TRANSLATE['Loading...'] %></div>
+
+    <canvas class="container"></canvas>
+
+    <script src="/viewport.js"></script>
+
+</body>
+
+</html>

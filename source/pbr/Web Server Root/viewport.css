@@ -1,0 +1,35 @@
+/**
+ * PBR Viewport.
+ *
+ * Package: PBR extension for SketchUp
+ *
+ * Copyright: © 2018 Samuel Tallet-Sabathé
+ *
+ * Licence: GNU General Public License 3.0
+ */
+
+body.set-fullscreen {
+
+	margin: 0;
+	overflow: hidden;
+
+}
+
+.container {
+
+	cursor: url('/assets/cursors/360-view.modded.svg'), move;
+
+}
+
+.loader {
+
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+
+	color: rgb(32, 165, 222);
+
+	animation: load4 3.5s infinite linear;
+
+}

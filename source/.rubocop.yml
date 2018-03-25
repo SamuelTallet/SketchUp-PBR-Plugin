@@ -1,0 +1,10 @@
+# See: https://github.com/bbatsov/rubocop If you want to know what is RuboCop.
+
+AllCops:
+  TargetRubyVersion: 2.2
+
+Layout:
+  Enabled: false
+
+Style/AsciiComments:
+  Enabled: false

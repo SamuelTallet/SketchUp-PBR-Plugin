@@ -1,0 +1,130 @@
+/**
+ * PBR Material Editor.
+ *
+ * Package: PBR extension for SketchUp
+ *
+ * Copyright: © 2018 Samuel Tallet-Sabathé
+ *
+ * Licence: GNU General Public License 3.0
+ */
+
+* {
+
+	box-sizing: border-box;
+	vertical-align: middle;
+
+}
+
+.form-row {
+
+	width: 420px;
+	margin: 6px 2px;
+
+	position: relative;
+
+}
+
+.label {
+
+	display: inline-block;
+	width: 144px;
+
+}
+
+.slider {
+
+	width: 178px;
+
+}
+
+.uploader {
+
+	width: 216px;
+
+}
+
+.num-field {
+
+    width: 66.5px;
+	padding: 2px;
+
+}
+
+.drop-down {
+
+	width: 252.5px;
+	padding: 2px;
+
+}
+
+.drop-down.set-full-width {
+
+	width: 100%;
+
+}
+
+.helper {
+
+	display: inline-block;
+
+	font-size: 70%;
+
+	margin-left: 1px;
+
+	opacity: 0.4;
+
+	cursor: default;
+
+}
+
+.helper:hover {
+
+	opacity: 0.6;
+
+}
+
+.tipfy__main {
+
+	line-height: 1.5;
+
+}
+
+.button {
+
+	display: inline-block;
+
+	color: black;
+	text-align: center;
+	
+	padding: 7px 10px;
+	margin: 0 .7px;
+
+	cursor: pointer;
+
+}
+
+.button:hover {
+
+	background-color: #eee;
+
+}
+
+.button.make-unmissable,
+.button.make-unmissable:hover {
+
+	background-color: hsla(149, 60%, 50%, 1);
+
+}
+
+.button.make-unmissable {
+
+    position: fixed;
+    bottom: 0;
+    right: 0;
+
+    color: white;
+    text-shadow: 0 1px 4px rgba(0, 0, 0, .4);
+
+    border-top-left-radius: 10px;
+
+}
