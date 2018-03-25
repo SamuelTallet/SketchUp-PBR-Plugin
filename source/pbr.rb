@@ -41,7 +41,7 @@ module PBR
     'pbr/load.rb'
   )
 
-  extension.version     = '0.9'
+  extension.version     = '1.0'
   extension.creator     = 'Samuel Tallet-Sabathé'
   extension.copyright   = "© 2018 #{extension.creator}"
 
