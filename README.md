@@ -31,7 +31,7 @@ PBR plugin adds a menu "Physically-Based Rendering" in SketchUp "Extensions" men
   - Control camera with middle click and left drag.
   - Save render as image with right then left click.
 
-- **Export as 3D object...**
+- **Export as 3D object**
 
 Known issues and workaround
 ---------------------------
@@ -39,5 +39,5 @@ Known issues and workaround
 Issue | Workaround
 :--- | :---
 In PBR Viewport, loading never ends. | Reopen PBR Viewport, accept to "Propagate Materials to Whole Model".
-In PBR Viewport, texture looks weird with perpendicular lines all around. | Resize texture image to a power of two (e.g. *512x512*, *1024x1024*, *2048x2048*, *4096x4096*). Reimport texture image in SketchUp. Reopen PBR Viewport.
+In PBR Viewport, texture looks weird with perpendicular lines all around. | Resize texture image to a [power of two](https://oeis.org/A000079/list) (e.g. *512x512*, *1024x1024*, *2048x2048*, *4096x4096*). Reimport texture image in SketchUp. Reopen PBR Viewport.
 In PBR Viewport, model disappears. | Press <kbd>F11</kbd> to go fullscreen. If you want to quit fullscreen, press <kbd>F11</kbd> again.
