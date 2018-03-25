@@ -24,8 +24,7 @@ PBR plugin adds a menu "Physically-Based Rendering" in SketchUp "Extensions" men
 
 - **Edit Materials...**
 
-  - Mouse over help icon if you want a little help.
-  - Don't forget to apply changes with green button.
+  - Mouse over question mark icon if you need help.
 
 - **Open Viewport**
 
