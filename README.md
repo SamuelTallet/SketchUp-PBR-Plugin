@@ -49,3 +49,8 @@ Thanks
 ------
 
 PBR plugin project would not have succeeded without: [SketchUp](https://www.sketchup.com), [glTF format](https://www.khronos.org/gltf/), [glTF Export plugin](https://extensions.sketchup.com/content/gltf-exporter) and [ClayGL library](http://claygl.xyz).
+
+Copyright
+---------
+
+© 2018 Samuel Tallet-Sabathé
