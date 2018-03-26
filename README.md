@@ -13,9 +13,10 @@ A SketchUp model rendered `without` PBR extension | Same SketchUp model rendered
 Installation
 ------------
 
-1. Download required plugin: [glTF Export](https://extensions.sketchup.com/content/gltf-exporter).
-2. Download latest PBR plugin in .RBZ format from [Releases](https://github.com/SamuelTS/SketchUp-PBR-Plugin/releases/).
-3. Install both plugins following this [guide](https://help.sketchup.com/article/3000263).
+1. Be sure to have SketchUp 2017 or newer version installed.
+2. Download required plugin: [glTF Export](https://extensions.sketchup.com/content/gltf-exporter).
+3. Download latest PBR plugin in .RBZ format from [Releases](https://github.com/SamuelTS/SketchUp-PBR-Plugin/releases/).
+4. Install both plugins following this [guide](https://help.sketchup.com/article/3000263).
 
 Usage
 -----
