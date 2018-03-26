@@ -24,22 +24,22 @@ PBR plugin adds a menu "Physically-Based Rendering" in SketchUp "Extensions" men
 
 - **Edit materials**
 
-  - Mouse over question mark icon if you need help.
+  - Mouse over question mark ❔ if you need help.
 
 - **Open viewport**
 
   - Control camera with middle click and left drag.
-  - Save render as image with right then left click.
+  - Save render as image with right then left click...
 
 - **Export as 3D object**
 
 Known issues and workaround
 ---------------------------
 
-Issue | Workaround
+Issue in PBR Viewport | Workaround
 :--- | :---
-In PBR Viewport, loading never ends. | Reopen PBR Viewport, accept to "Propagate Materials to Whole Model".
-In PBR Viewport, texture background is white instead of being transparent. | Open PBR Material Editor ("Extensions" > "Physically-Based Rendering" > "Edit Materials..."). Select material. Set "Alpha mode" to "Combined with background".
-In PBR Viewport, texture is fully opaque whereas I set opacity to *n* %. | With your preferred photo editing soft, set opacity **directly** to texture image. Use PNG as exchange format to preserve opacity. Reimport it in SketchUp.
-In PBR Viewport, texture looks weird with perpendicular lines all around. | With your preferred photo editing soft, resize texture image to a [power of two](https://oeis.org/A000079/list) (e.g. *512x512*, *1024x1024*, *2048x2048*, *4096x4096*). Reimport it in SketchUp.
-In PBR Viewport, model disappears. | Press <kbd>F11</kbd> to go fullscreen. If you want to quit fullscreen: press <kbd>F11</kbd> again.
+Loading never ends. | Reopen PBR Viewport, accept to "Propagate Materials to Whole Model".
+Texture background is white instead of being transparent. | Open PBR Material Editor ("Extensions" > "Physically-Based Rendering" > "Edit Materials..."). Select material. Set "Alpha mode" to "Combined with background".
+Texture is fully opaque whereas I set opacity to *n* %. | With your preferred photo editing soft, set opacity **directly** to texture image. Use PNG as exchange format to preserve opacity. Reimport texture image in SketchUp.
+Texture looks weird with perpendicular lines all around. | With your preferred photo editing soft, resize texture image to a [power of two](https://oeis.org/A000079/list) (e.g. *512x512*, *1024x1024*, *2048x2048*, *4096x4096*). Reimport texture image in SketchUp.
+Model disappears at start. | Press <kbd>F11</kbd> to go fullscreen. If you want to quit fullscreen: press <kbd>F11</kbd> again.
