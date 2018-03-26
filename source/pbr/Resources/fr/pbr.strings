@@ -28,6 +28,8 @@
 "Propagate materials to whole model? (Recommended)"="Propager les matériaux à l'ensemble du modèle ? (Recommandé)";
 "Propagate Materials to Whole Model"="Propager les matériaux à l'ensemble du modèle";
 
+"Donate to Plugin Author"="Faire un don à l'auteur de l'extension";
+
 //
 // File: material_editor.rb
 //

@@ -41,14 +41,18 @@ module PBR
 
       @menu = parent_menu.add_submenu(TRANSLATE['Physically-Based Rendering'])
 
-      add_items
+      add_features_items
+
+      @menu.add_separator
+
+      add_author_items
 
     end
 
-    # Adds menu items.
+    # Adds menu items related to features.
     #
     # @return [void]
-    private def add_items
+    private def add_features_items
 
       @menu.add_item(TRANSLATE['Edit Materials...']) { MaterialEditor.show }
       
@@ -69,7 +73,7 @@ module PBR
         # See: PBR::GlTFServlet as this path is completely virtual.
 
       end
-      
+
     end
 
     # Proposes "nil material" fix to user.
@@ -87,6 +91,19 @@ module PBR
       require 'pbr/nil_material_fix'
 
       NilMaterialFix.new(TRANSLATE['Propagate Materials to Whole Model'])
+
+    end
+
+    # Adds menu items related to author.
+    #
+    # @return [void]
+    private def add_author_items
+
+      @menu.add_item('💌 ' + TRANSLATE['Donate to Plugin Author']) do
+
+        UI.openURL('https://www.paypal.me/SamuelTS/')
+        
+      end
 
     end
 
