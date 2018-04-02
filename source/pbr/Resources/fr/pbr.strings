@@ -24,9 +24,12 @@
 "Edit Materials..."="Modifier les matériaux...";
 "Open Viewport"="Ouvrir la fenêtre de visualisation";
 "Export As 3D Object..."="Exporter en tant qu'objet 3D...";
+"Export As glTF"="Exporter en tant que fichier glTF";
+"Model well exported here:"="Modèle bien exporté ici :";
 
 "Propagate materials to whole model? (Recommended)"="Propager les matériaux à l'ensemble du modèle ? (Recommandé)";
 "Propagate Materials to Whole Model"="Propager les matériaux à l'ensemble du modèle";
+"Failure! Try propagate all model materials."="Échec ! Essayez de propager tous les matériaux du modèle.";
 
 "Donate to Plugin Author"="Faire un don à l'auteur de l'extension";
 
@@ -39,7 +42,7 @@
 "Wait, there is no material to edit :p"="Attendez, il n'y a aucun matériau à éditer :p";
 
 //
-// File: material_editor.erb.html
+// File: material-editor.rhtml
 //
 
 "Metallic"="Métallique";
@@ -77,7 +80,7 @@
 "Untitled"="Sans titre";
 
 //
-// File: viewport.erb.html
+// File: viewport.html
 //
 
 "SketchUp PBR Viewport"="Fenêtre de visu. RBP de SketchUp";

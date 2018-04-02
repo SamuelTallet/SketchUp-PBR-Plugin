@@ -20,21 +20,32 @@
 raise 'The PBR plugin requires at least Ruby 2.2.0 or SketchUp 2017.'\
   unless RUBY_VERSION.to_f >= 2.2 # SketchUp 2017 includes Ruby 2.2.4.
 
-require 'pbr/web_server'
 require 'sketchup'
+require 'pbr/observer'
+require 'pbr/web_server'
 require 'pbr/menu'
 
 # PBR plugin namespace.
 module PBR
 
-  # Start PBR plugin local Web server, in background, to
-  # serve dynamic contents inside and outside SketchUp.
-  Thread.new { WebServer.start }
-  # Local Web server is stopped when SketchUp process ends.
+  # Attach PBR observer to SketchUp.
+  Sketchup.add_observer(Observer.new)
+
+  # Stop PBR Web server in case last SketchUp exit was "hard" (e.g. a crash).
+  WebServer.stop
+
+  # Start Web server. For security reasons: server listens to localhost only.
+  WebServer.start
+  # PBR Web server is stopped as soon as SketchUp is exited by SketchUp user.
+
+  # Material Editor is not open yet.
+  SESSION[:mat_editor_open?] = false
 
   # Plug PBR menu into SketchUp UI.
   Menu.new(
     UI.menu('Plugins') # parent_menu
   )
+
+  # Load complete.
 
 end

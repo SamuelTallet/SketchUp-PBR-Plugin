@@ -32,7 +32,7 @@ module PBR
 
   # Load translation if it's available for current locale.
   TRANSLATE = LanguageHandler.new('pbr.strings')
-  # @see "pbr/Resources/#{Sketchup.get_locale}/pbr.strings"
+  # See: "pbr/Resources/#{Sketchup.get_locale}/pbr.strings"
 
   # Register extension.
 
@@ -41,7 +41,7 @@ module PBR
     'pbr/load.rb'
   )
 
-  extension.version     = '1.0.2'
+  extension.version     = '1.1.0'
   extension.creator     = 'Samuel Tallet-Sabathé'
   extension.copyright   = "© 2018 #{extension.creator}"
 
@@ -52,7 +52,7 @@ module PBR
   ]
 
   extension.description = features.join(' ')
-  
+
   Sketchup.register_extension(
     extension,
     true # load_at_start

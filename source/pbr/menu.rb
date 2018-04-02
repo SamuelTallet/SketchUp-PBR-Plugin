@@ -22,6 +22,7 @@ raise 'The PBR plugin requires at least Ruby 2.2.0 or SketchUp 2017.'\
 
 require 'sketchup'
 require 'pbr/material_editor'
+require 'pbr/gltf'
 require 'pbr/web_server'
 
 # PBR plugin namespace.
@@ -54,14 +55,13 @@ module PBR
     # @return [void]
     private def add_features_items
 
-      @menu.add_item(TRANSLATE['Edit Materials...']) { MaterialEditor.show }
+      @menu.add_item(TRANSLATE['Edit Materials...']) { edit_materials }
       
       @menu.add_item('⚫ ' + TRANSLATE['Open Viewport']) do
 
         propose_nil_material_fix
 
-        UI.openURL(WebServer.url('/viewport'))
-        # See: PBR::WebServer.mount_erb_handlers to get real path.
+        open_viewport
 
       end
 
@@ -69,14 +69,75 @@ module PBR
 
         propose_nil_material_fix
 
-        UI.openURL(WebServer.url('/assets/sketchup-model.gltf?export'))
-        # See: PBR::GlTFServlet as this path is completely virtual.
+        export_as_gltf
 
       end
 
     end
 
-    # Proposes "nil material" fix to user.
+    # Runs "Edit Materials..." menu command.
+    #
+    # @return [void]
+    private def edit_materials
+
+      # Show Material Editor if all good conditions are met.
+      MaterialEditor.new.show if MaterialEditor.safe_to_open?
+
+    end
+
+    # Runs "Open Viewport" menu command.
+    #
+    # @return [void]
+    private def open_viewport
+
+      gltf = GlTF.new
+
+      if gltf.valid?
+
+        # Overwrite glTF model. So, Viewport will display an up-to-date model.
+        File.write(
+          File.join(WebServer::ASSETS_DIR, 'sketchup-model.gltf'), gltf.json
+        )
+
+        # Open PBR Viewport in default Web browser.
+        UI.openURL(WebServer::URL + '/viewport.html')
+
+      else
+
+        UI.messagebox(TRANSLATE['Failure! Try propagate all model materials.'])
+        # See: NilMaterialFix
+
+      end
+
+    end
+
+    # Runs "Export As 3D Object..." menu command.
+    #
+    # @return [void]
+    private def export_as_gltf
+
+      user_path = UI.savepanel(TRANSLATE['Export As glTF'], nil, GlTF.filename)
+
+      # Escape if user cancelled export operation.
+      return if user_path.nil?
+
+      gltf = GlTF.new
+
+      if gltf.valid?
+
+        File.write(user_path, gltf.json)
+        UI.messagebox(TRANSLATE['Model well exported here:'] + "\n#{user_path}")
+
+      else
+
+        UI.messagebox(TRANSLATE['Failure! Try propagate all model materials.'])
+        # See: NilMaterialFix
+
+      end
+
+    end
+
+    # Proposes "nil material" fix to SketchUp user.
     #
     # @return [void]
     private def propose_nil_material_fix
@@ -86,10 +147,12 @@ module PBR
         MB_YESNO
       )
 
+      # Escape if user refused that fix.
       return if user_answer == IDNO
 
       require 'pbr/nil_material_fix'
 
+      # Apply "nil material" fix.
       NilMaterialFix.new(TRANSLATE['Propagate Materials to Whole Model'])
 
     end

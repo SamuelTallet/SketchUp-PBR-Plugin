@@ -21,7 +21,7 @@ raise 'The PBR plugin requires at least Ruby 2.2.0 or SketchUp 2017.'\
   unless RUBY_VERSION.to_f >= 2.2 # SketchUp 2017 includes Ruby 2.2.4.
 
 require 'sketchup'
-require 'pbr/web_server'
+require 'pbr/html_dialogs'
 
 # PBR plugin namespace.
 module PBR
@@ -29,41 +29,52 @@ module PBR
   # Allows to edit SketchUp materials with advanced settings such as Roughness.
   class MaterialEditor
 
-    # Material Editor is open?
+    # Is it safe to open Material Editor right now?
     #
-    # Blocks concurrent edits to prevent corruption of active model.
-    SESSION[:mat_editor_is_open] = false
+    # @return [Boolean]
+    def self.safe_to_open?
 
-    # Shows Material Editor unless it's already open.
-    #
-    # @raise [RuntimeError]
+      if Sketchup.active_model.materials.size.zero?
+        UI.messagebox(TRANSLATE['Wait, there is no material to edit :p'])
+        return false
+      end
+
+      if SESSION[:mat_editor_open?]
+        UI.messagebox(TRANSLATE['PBR Material Editor is already open.'])
+        return false
+      end
+
+      true
+
+    end
+
+    # Builds Material Editor.
+    def initialize
+
+      @dialog = create_dialog
+
+      fill_dialog
+
+      configure_dialog
+
+    end
+
+    # Shows Material Editor.
     #
     # @return [void]
-    def self.show
+    def show
 
-      return UI.messagebox(TRANSLATE['Wait, there is no material to edit :p'])\
-        if Sketchup.active_model.materials.size.zero?
-
-      return UI.messagebox(TRANSLATE['PBR Material Editor is already open.'])\
-        if SESSION[:mat_editor_is_open]
-
-      dialog = create_html_dialog
-
-      raise 'HTML dialog not created.' unless dialog.is_a?(UI::HtmlDialog)
-
-      configure_html_dialog(dialog)
-
-      dialog.show
+      @dialog.show
 
       # Material Editor is open.
-      SESSION[:mat_editor_is_open] = true
-    
+      SESSION[:mat_editor_open?] = true
+
     end
 
     # Creates SketchUp HTML dialog that powers PBR Material Editor.
     #
-    # @return [UI::HtmlDialog]
-    def self.create_html_dialog
+    # @return [UI::HtmlDialog] Dialog.
+    private def create_dialog
 
       UI::HtmlDialog.new(
         dialog_title:    TRANSLATE['PBR Material Editor'],
@@ -78,36 +89,47 @@ module PBR
 
     end
 
-    # Configures HTML dialog.
-    #
-    # @param [UI::HtmlDialog] dialog HTML dialog to configure.
+    # Fills HTML dialog.
     #
     # @return [void]
-    def self.configure_html_dialog(dialog)
+    private def fill_dialog
 
-      dialog.set_url(WebServer.url('/material-editor'))
-      # See: PBR::WebServer.mount_erb_handlers to get real path.
-      
-      dialog.add_action_callback('pullMaterials') do
-        dialog.execute_script('PBR.materials = ' + materials_to_edit.to_json)
+      @dialog.set_html(HTMLDialogs.merge(
+
+        # Note: Paths below are relative to `HTMLDialogs::DIR`.
+        document: 'material-editor.rhtml',
+        scripts: ['lib/tipfy/tipfy.min.js', 'material-editor.js'],
+        styles: ['lib/tipfy/tipfy.min.css', 'material-editor.css']
+
+      ))
+
+    end
+
+    # Configures HTML dialog.
+    #
+    # @return [void]
+    private def configure_dialog
+
+      @dialog.add_action_callback('pullMaterials') do
+        @dialog.execute_script('PBR.materials = ' + materials_to_edit.to_json)
       end
 
-      dialog.add_action_callback('pushMaterials') do |_context, edited_mats|
+      @dialog.add_action_callback('pushMaterials') do |_context, edited_mats|
         self.edited_materials = edited_mats
       end
 
-      dialog.add_action_callback('closeDialog') { dialog.close }
+      @dialog.add_action_callback('closeDialog') { @dialog.close }
 
-      dialog.set_on_closed { SESSION[:mat_editor_is_open] = false }
+      @dialog.set_on_closed { SESSION[:mat_editor_open?] = false }
 
-      dialog.center
+      @dialog.center
 
     end
 
     # Collects SketchUp materials attributes to edit in PBR Material Editor.
     #
     # @return [Array<Hash>] Materials to edit. Caution! Array index matters.
-    def self.materials_to_edit
+    private def materials_to_edit
 
       materials_to_edit = []
 
@@ -135,7 +157,7 @@ module PBR
     # @param [Array<Hash>] edited_mats Edited materials.
     #
     # @return [void]
-    def self.edited_materials=(edited_mats)
+    private def edited_materials=(edited_mats)
 
       # For each edited material...
       edited_mats.each_with_index do |mat_attributes, mat_index|
@@ -162,11 +184,6 @@ module PBR
       end
       
     end
-
-    private_class_method :create_html_dialog,
-                         :configure_html_dialog,
-                         :materials_to_edit,
-                         :edited_materials=
 
   end
 

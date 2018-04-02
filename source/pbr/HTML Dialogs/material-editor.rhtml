@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="<%= Sketchup.get_locale %>">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="x-copyright" content="© 2018 Samuel Tallet-Sabathé">
+    <meta name="x-license" content="GNU General Public License 3.0">
+
+	<title><%= TRANSLATE['PBR Material Editor'] %></title>
+
+	<%= scripts['lib/tipfy/tipfy.min.js'] %>
+	<%= scripts['material-editor.js'] %>
+
+	<%= styles['lib/tipfy/tipfy.min.css'] %>
+	<%= styles['material-editor.css'] %>
+
+</head>
+
+<body>
+
+	<form>
+
+		<div class="form-row">
+			
+			<select class="drop-down set-full-width" id="material-selector" autofocus>
+				<%
+				Sketchup.active_model.materials.each_with_index do |material, material_index|
+				%>
+				<option value="<%= material_index %>"><%= material.display_name %></option>
+				<%
+				end
+				%>
+			</select>
+
+		</div>
+
+		<div class="form-row">
+
+			<div class="label"><%= TRANSLATE['Metallic'] %></div>
+
+			<input class="slider material-basic-control" type="range" min="0.0" max="1.0" step="0.1" data-key="metallicFactor" data-pattern="^((0(\.[0-9]+)?)|1(\.0+)?)$">
+
+			<input class="num-field material-basic-control" type="number" min="0.0" max="1.0" step="0.01" data-key="metallicFactor" data-pattern="^((0(\.[0-9]+)?)|1(\.0+)?)$">
+
+			<div class="helper" data-tipfy="<%= TRANSLATE['A value of 0 means the material is a dielectric.'] %> <%= TRANSLATE['A value of 1 means the material is a metal.'] %> <%= TRANSLATE['Values between 0 and 1 may represent dirty metal surfaces.'] %>" data-tipfy-side="left">❔</div>
+
+		</div>
+
+		<div class="form-row">
+
+			<div class="label"><%= TRANSLATE['Roughness'] %></div>
+
+			<input class="slider material-basic-control" type="range" min="0.0" max="1.0" step="0.1" data-key="roughnessFactor" data-pattern="^((0(\.[0-9]+)?)|1(\.0+)?)$">
+
+			<input class="num-field material-basic-control" type="number" min="0.0" max="1.0" step="0.01" data-key="roughnessFactor" data-pattern="^((0(\.[0-9]+)?)|1(\.0+)?)$">
+
+			<div class="helper" data-tipfy="<%= TRANSLATE['A value of 0 means the material is completely smooth.'] %> <%= TRANSLATE['A value of 1 means the material is completely rough.'] %>" data-tipfy-side="left">❔</div>
+
+		</div>
+
+		<div class="form-row">
+
+			<div class="label"><%= TRANSLATE['Normal map'] %></div>
+
+			<input class="uploader material-image-uploader" type="file" data-key="normalTextureURI" data-pattern="^data\:image\/(jpeg|png);.+$" data-pattern-mismatch="<%= TRANSLATE['The image format of this map must be JPEG or PNG.'] %>">
+
+			<div class="button material-image-remove-btn" data-key="normalTextureURI" title="<%= TRANSLATE['Remove image from material definition'] %>">🗑</div>
+
+			<div class="helper" data-tipfy="<%= TRANSLATE['The normal map gives an illusion of relief to the material.'] %> <%= TRANSLATE['Relief information is stored in image using RGB components in linear space.'] %>" data-tipfy-side="left">❔</div>
+
+		</div>
+
+		<div class="form-row">
+
+			<div class="label"><%= TRANSLATE['Emissive map'] %></div>
+
+			<input class="uploader material-image-uploader" type="file" data-key="emissiveTextureURI" data-pattern="^data\:image\/(jpeg|png);.+$" data-pattern-mismatch="<%= TRANSLATE['The image format of this map must be JPEG or PNG.'] %>">
+			
+			<div class="button material-image-remove-btn" data-key="emissiveTextureURI" title="<%= TRANSLATE['Remove image from material definition'] %>">🗑</div>
+
+			<div class="helper" data-tipfy="<%= TRANSLATE['The emissive map controls the color of the light being emitted by the material.'] %> <%= TRANSLATE['Data about emitted light is stored in image using RGB components in sRGB space.'] %>" data-tipfy-side="left">❔</div>
+
+		</div>
+
+		<div class="form-row">
+
+			<div class="label"><%= TRANSLATE['Alpha mode'] %></div>
+
+			<select class="drop-down material-basic-control" data-key="alphaMode" data-pattern="^(OPAQUE|MASK|BLEND)$">
+				<option value="OPAQUE"><%= TRANSLATE['Fully opaque'] %></option>
+				<option value="MASK"><%= TRANSLATE['Fully opaque or transparent'] %></option>
+				<option value="BLEND"><%= TRANSLATE['Combined with background'] %></option>
+			</select>
+
+			<div class="helper" data-tipfy="<%= TRANSLATE['Do you have transparency issues with this material? Try to select the last option of Alpha mode:'] %> <%= TRANSLATE['Combined with background'] %>" data-tipfy-side="left">❔</div>
+
+		</div>
+
+		<div class="form-row">
+			
+			<div class="button make-unmissable" id="material-apply-button"><%= TRANSLATE['Apply all changes'] %></div>
+
+		</div>
+
+	</form>
+
+</body>
+
+</html>

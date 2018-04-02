@@ -20,9 +20,9 @@
 raise 'The PBR plugin requires at least Ruby 2.2.0 or SketchUp 2017.'\
   unless RUBY_VERSION.to_f >= 2.2 # SketchUp 2017 includes Ruby 2.2.4.
 
+require 'sketchup'
 require 'fileutils'
 require 'json'
-require 'sketchup'
 
 # PBR plugin namespace.
 module PBR
@@ -32,26 +32,10 @@ module PBR
   # @see https://www.khronos.org/gltf/ If you want to know what is glTF.
   class GlTF
 
-    # Generates a glTF asset including PBR plugin attributes: Normal map, etc.
-    def initialize
-
-      # The root object for a glTF asset.
-      @gltf = {}
-
-      generate
-
-      complete
-
-      # Tools that generated this glTF model. Useful for debugging.
-      @gltf['asset']['generator'] += ', PBR extension for SketchUp'\
-        if @gltf['asset'].key?('generator')
-
-    end
-
-    # Returns a filename for this glTF asset.
+    # Returns a filename for a glTF asset.
     #
     # @return [String] A filename ending with `.gltf`.
-    def filename
+    def self.filename
 
       # The glTF filename is based on SketchUp active model filename.
       basename = if Sketchup.active_model.path.empty?
@@ -67,7 +51,41 @@ module PBR
 
     end
 
+    # Generates a glTF asset including PBR plugin attributes: Normal map, etc.
+    def initialize
+
+      # The root object for a glTF asset.
+      @gltf = {}
+
+      # A flag to know if asset is valid.
+      @valid = true
+
+      begin
+
+        generate
+
+        complete
+
+      rescue StandardError => _error
+
+        @valid = false
+
+      end
+
+    end
+
+    # Is this glTF asset valid?
+    #
+    # @return [Boolean]
+    def valid?
+
+      @valid
+
+    end
+
     # Returns this glTF asset as JSON.
+    #
+    # Be sure to call `valid?` before.
     #
     # @return [String]
     def json
@@ -99,12 +117,8 @@ module PBR
 
     # Completes this glTF asset with PBR plugin attributes: Normal map, etc.
     #
-    # @raise [RuntimeError] if glTF materials are missing.
-    #
     # @return [void]
     private def complete
-
-      raise 'glTF materials are missing.' unless @gltf.key?('materials')
 
       # For each glTF material in asset:
       @gltf['materials'].each do |gltf_mat|
@@ -121,6 +135,10 @@ module PBR
         update_alpha_mode(gltf_mat, mat.get_attribute(:pbr, :alphaMode))
 
       end
+
+      # Tools that generated this glTF model. Useful for debugging.
+      @gltf['asset']['generator'] += ', PBR extension for SketchUp'\
+        if @gltf['asset'].key?('generator')
 
     end
 
@@ -154,14 +172,14 @@ module PBR
     # only if URI is provided.
     #
     # @param [Hash] gltf_mat glTF material to texture on.
-    # @param [String, nil] normal_tex_uri URI of normal texture or nil.
     # @raise [ArgumentError]
+    #
+    # @param [String, nil] normal_tex_uri URI of normal texture or nil.
     #
     # @return [void]
     private def add_normal_tex(gltf_mat, normal_tex_uri)
 
-      raise ArgumentError, 'glTF material is invalid.'\
-       unless gltf_mat.is_a?(Hash)
+      raise ArgumentError, 'Invalid glTF material.' unless gltf_mat.is_a?(Hash)
 
       return if normal_tex_uri.nil?
 
@@ -183,14 +201,14 @@ module PBR
     # only if URI is provided.
     #
     # @param [Hash] gltf_mat glTF material to texture on.
-    # @param [String, nil] emissive_tex_uri URI of emissive texture or nil.
     # @raise [ArgumentError]
+    #
+    # @param [String, nil] emissive_tex_uri URI of emissive texture or nil.
     #
     # @return [void]
     private def add_emissive_tex(gltf_mat, emissive_tex_uri)
 
-      raise ArgumentError, 'glTF material is invalid.'\
-       unless gltf_mat.is_a?(Hash)
+      raise ArgumentError, 'Invalid glTF material.' unless gltf_mat.is_a?(Hash)
 
       return if emissive_tex_uri.nil?
 
@@ -250,7 +268,7 @@ module PBR
     # @return [Integer] Base color... TEXCOORD index or 0 if it's missing!
     private def base_color_tex_coord(gltf_mat)
 
-      raise ArgumentError, 'Material is not a Hash.' unless gltf_mat.is_a?(Hash)
+      raise ArgumentError, 'Invalid glTF material.' unless gltf_mat.is_a?(Hash)
 
       if gltf_mat.key?('pbrMetallicRoughness')\
         && gltf_mat['pbrMetallicRoughness'].key?('baseColorTexture')\
@@ -268,14 +286,14 @@ module PBR
     # only if mode is provided and distinct to its default value.
     #
     # @param [Hash] gltf_mat glTF material to render...
-    # @param [String, nil] alpha_mode Alpha rendering mode or nil.
     # @raise [ArgumentError]
+    #
+    # @param [String, nil] alpha_mode Alpha rendering mode or nil.
     #
     # @return [void]
     private def update_alpha_mode(gltf_mat, alpha_mode)
 
-      raise ArgumentError, 'glTF material is invalid.'\
-       unless gltf_mat.is_a?(Hash)
+      raise ArgumentError, 'Invalid glTF material.' unless gltf_mat.is_a?(Hash)
 
       return if alpha_mode.nil? || alpha_mode == 'OPAQUE'
 

@@ -20,46 +20,25 @@
 raise 'The PBR plugin requires at least Ruby 2.2.0 or SketchUp 2017.'\
   unless RUBY_VERSION.to_f >= 2.2 # SketchUp 2017 includes Ruby 2.2.4.
 
-require 'fileutils'
+require 'sketchup'
 
 # PBR plugin namespace.
 module PBR
 
-  # A local Web server powered by NGINX.
-  # @see https://nginx.org/
-  module WebServer
+  # Observes SketchUp events and reacts.
+  class Observer < Sketchup::AppObserver
 
-    # Absolute path to document root.
-    DOC_ROOT = File.join(__dir__, 'Web Server', 'html').freeze
+    # rubocop: disable MethodName
 
-    # Absolute path to assets dir.
-    ASSETS_DIR = File.join(DOC_ROOT, 'assets').freeze
+    # As soon SketchUp process ends:
+    def onQuit
 
-    # URL w/o trailing slash.
-    URL = 'http://127.0.0.1:16218'.freeze
-
-    # Starts process.
-    #
-    # @todo Support macOS?
-    #
-    # @return [Integer]
-    def self.start
-
-      # Start PBR Web server process in parallel to avoid SketchUp blocking.
-      Process.spawn('"' + File.join(__dir__, 'web_server.cmd') + '" start')
+      # Stop PBR Web server process.
+      WebServer.stop
 
     end
 
-    # Stops process.
-    #
-    # @todo Support macOS?
-    #
-    # @return [Boolean]
-    def self.stop
-
-      system('"' + File.join(__dir__, 'web_server.cmd') + '" stop')
-
-    end
+    # rubocop: enable MethodName
 
   end
 
