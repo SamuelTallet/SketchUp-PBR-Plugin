@@ -40,7 +40,7 @@ module PBR
       raise ArgumentError, 'Parent menu must be a SketchUp::Menu.'\
         unless parent_menu.is_a?(Sketchup::Menu)
 
-      @menu = parent_menu.add_submenu(TRANSLATE['Physically-Based Rendering'])
+      @menu = parent_menu.add_submenu(NAME)
 
       add_features_items
 

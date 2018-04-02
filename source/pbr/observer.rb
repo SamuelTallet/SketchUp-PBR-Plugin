@@ -38,6 +38,14 @@ module PBR
 
     end
 
+    # When SketchUp user turns off an extension:
+    def onUnloadExtension(extension_name)
+
+    	# Stop PBR Web server if it's about PBR.
+    	WebServer.stop if extension_name == NAME
+
+    end
+
     # rubocop: enable MethodName
 
   end

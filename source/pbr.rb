@@ -34,14 +34,14 @@ module PBR
   TRANSLATE = LanguageHandler.new('pbr.strings')
   # See: "pbr/Resources/#{Sketchup.get_locale}/pbr.strings"
 
+  # Remember extension name. See: PBR::Observer, PBR::Menu.
+  NAME = TRANSLATE['Physically-Based Rendering']
+
   # Register extension.
 
-  extension = SketchupExtension.new(
-    TRANSLATE['Physically-Based Rendering'],
-    'pbr/load.rb'
-  )
+  extension = SketchupExtension.new(NAME, 'pbr/load.rb')
 
-  extension.version     = '1.1.0'
+  extension.version     = '1.1.1'
   extension.creator     = 'Samuel Tallet-Sabathé'
   extension.copyright   = "© 2018 #{extension.creator}"
 
