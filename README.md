@@ -23,6 +23,11 @@ Installation
 3. Download latest PBR plugin in .RBZ format from [Releases](https://github.com/SamuelTS/SketchUp-PBR-Plugin/releases/).
 4. Install both plugins following this [guide](https://help.sketchup.com/article/3000263).
 
+Uninstallation
+--------------
+
+Remember to disable PBR plugin before uninstall it.
+
 Usage
 -----
 
