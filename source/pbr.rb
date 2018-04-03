@@ -41,7 +41,7 @@ module PBR
 
   extension = SketchupExtension.new(NAME, 'pbr/load.rb')
 
-  extension.version     = '1.1.1'
+  extension.version     = '1.1.2'
   extension.creator     = 'Samuel Tallet-Sabathé'
   extension.copyright   = "© 2018 #{extension.creator}"
 
