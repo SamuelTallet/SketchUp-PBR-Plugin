@@ -10,7 +10,7 @@ A SketchUp model rendered `without` PBR extension | Same SketchUp model rendered
 :--- | :---
 ![A SketchUp model rendered without PBR extension](https://github.com/SamuelTS/SketchUp-PBR-Plugin/raw/master/demos/a-sketchup-model-rendered-without-pbr-extension.png) | ![Same SketchUp model rendered with PBR extension](https://github.com/SamuelTS/SketchUp-PBR-Plugin/raw/master/demos/same-sketchup-model-rendered-with-pbr-extension.png)
 
-A virtual reef rendered `with` SketchUp PBR extension. Made with two faces and three textures.
+A virtual reef rendered `with` SketchUp PBR extension. Made with two faces, two materials and three textures.
 --- |
 ![Reef](https://github.com/SamuelTS/SketchUp-PBR-Plugin/raw/master/demos/a-virtual-reef-rendered-with-sketchup-pbr-extension.jpg)
 
