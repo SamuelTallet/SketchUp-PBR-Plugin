@@ -193,7 +193,6 @@ module PBR
 
             material.delete_attribute(:pbr, mat_attr_key)
 
-          # ...
           elsif !mat_attr_value.to_s.empty?
 
             material.set_attribute(:pbr, mat_attr_key, mat_attr_value)
