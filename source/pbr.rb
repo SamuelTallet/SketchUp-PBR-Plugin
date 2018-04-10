@@ -26,9 +26,8 @@ require 'extensions'
 # PBR plugin namespace.
 module PBR
 
-  # Initialize session storage of PBR plugin.
-  SESSION = nil.to_h
-  # Session storage is cleared when SketchUp process ends.
+  VERSION = '1.2.0'.freeze
+  # Get latest here: https://github.com/SamuelTS/SketchUp-PBR-Plugin/releases
 
   # Load translation if it's available for current locale.
   TRANSLATE = LanguageHandler.new('pbr.strings')
@@ -37,11 +36,15 @@ module PBR
   # Remember extension name. See: PBR::Observer, PBR::Menu.
   NAME = TRANSLATE['Physically-Based Rendering']
 
+  # Initialize session storage of PBR plugin.
+  SESSION = nil.to_h
+  # Session storage is cleared when SketchUp process ends.
+
   # Register extension.
 
   extension = SketchupExtension.new(NAME, 'pbr/load.rb')
 
-  extension.version     = '1.2.0'
+  extension.version     = VERSION
   extension.creator     = 'Samuel Tallet-Sabathé'
   extension.copyright   = "© 2018 #{extension.creator}"
 

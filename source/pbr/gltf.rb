@@ -140,7 +140,7 @@ module PBR
       end
 
       # Tools that generated this glTF model. Useful for debugging.
-      @gltf['asset']['generator'] += ', PBR extension for SketchUp'
+      @gltf['asset']['generator'] += ", SketchUp PBR plugin v#{VERSION}"
 
     end
 
