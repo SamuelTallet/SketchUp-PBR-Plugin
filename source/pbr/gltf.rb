@@ -129,16 +129,18 @@ module PBR
         # Get PBR plugin attributes of SketchUp material. Note: `metallicFactor`
         # and `roughnessFactor` have been processed by Centaur's glTF exporter.
 
-        add_normal_tex(gltf_mat, mat.get_attribute(:pbr, :normalTextureURI))
-        add_emissive_tex(gltf_mat, mat.get_attribute(:pbr, :emissiveTextureURI))
+        add_normal_tex(
+          gltf_mat,
+          mat.get_attribute(:pbr, :normalTextureURI),
+          mat.get_attribute(:pbr, :normalTextureScale)
+        )
 
         update_alpha_mode(gltf_mat, mat.get_attribute(:pbr, :alphaMode))
 
       end
 
       # Tools that generated this glTF model. Useful for debugging.
-      @gltf['asset']['generator'] += ', PBR extension for SketchUp'\
-        if @gltf['asset'].key?('generator')
+      @gltf['asset']['generator'] += ', PBR extension for SketchUp'
 
     end
 
@@ -174,10 +176,11 @@ module PBR
     # @param [Hash] gltf_mat glTF material to texture on.
     # @raise [ArgumentError]
     #
-    # @param [String, nil] normal_tex_uri URI of normal texture or nil.
+    # @param [String, nil] normal_tex_uri Normal texture URI or nil.
+    # @param [String, Float, nil] normal_tex_scale Normal texture scale or nil.
     #
     # @return [void]
-    private def add_normal_tex(gltf_mat, normal_tex_uri)
+    private def add_normal_tex(gltf_mat, normal_tex_uri, normal_tex_scale)
 
       raise ArgumentError, 'Invalid glTF material.' unless gltf_mat.is_a?(Hash)
 
@@ -195,37 +198,10 @@ module PBR
 
       }
 
-    end
-
-    # Adds an emissive texture to a glTF material
-    # only if URI is provided.
-    #
-    # @param [Hash] gltf_mat glTF material to texture on.
-    # @raise [ArgumentError]
-    #
-    # @param [String, nil] emissive_tex_uri URI of emissive texture or nil.
-    #
-    # @return [void]
-    private def add_emissive_tex(gltf_mat, emissive_tex_uri)
-
-      raise ArgumentError, 'Invalid glTF material.' unless gltf_mat.is_a?(Hash)
-
-      return if emissive_tex_uri.nil?
-
-      # The emissive map texture.
-      gltf_mat['emissiveTexture'] = {
-
-        # The index of the texture.
-        index: add_texture(emissive_tex_uri),
-
-        # The set index of texture's TEXCOORD...
-        texCoord: base_color_tex_coord(gltf_mat)
-
-      }
-
-      # The emissive factor of the material.
-      # Required to display emissive texture.
-      gltf_mat['emissiveFactor'] = [1.0, 1.0, 1.0]
+      # The scalar multiplier applied to each
+      # normal vector of the normal texture.
+      gltf_mat['normalTexture']['scale'] = normal_tex_scale.to_f\
+       unless normal_tex_scale.nil? || normal_tex_scale.to_f == 1.0
 
     end
 

@@ -128,27 +128,49 @@ module PBR
 
     # Collects SketchUp materials attributes to edit in PBR Material Editor.
     #
+    # @param [Array] mats_to_edit Materials to edit. Default: Empty array.
+    #
     # @return [Array<Hash>] Materials to edit. Caution! Array index matters.
-    private def materials_to_edit
-
-      materials_to_edit = []
+    private def materials_to_edit(mats_to_edit = [])
 
       # For each SketchUp material in active model:
-      Sketchup.active_model.materials.each_with_index do |material, mat_index|
+      Sketchup.active_model.materials.each_with_index do |mat, mat_index|
 
-        materials_to_edit[mat_index] = {
+        mats_to_edit[mat_index] = {
 
           # Get PBR plugin attributes to edit.
-          metallicFactor:  material.get_attribute(:pbr, :metallicFactor, 0.0),
-          roughnessFactor: material.get_attribute(:pbr, :roughnessFactor, 0.7),
-          # @note To speed up stream, texture images are not transmitted here. 
-          alphaMode:       material.get_attribute(:pbr, :alphaMode, 'OPAQUE')
+          
+          metallicFactor:     mat.get_attribute(:pbr, :metallicFactor, 0.0),
+          roughnessFactor:    mat.get_attribute(:pbr, :roughnessFactor, 0.7),
+
+          # Get status of texture image, not its contents. To speed up stream.
+          normalTextureURI:   normal_texture_uri_status(mat),
+          normalTextureScale: mat.get_attribute(:pbr, :normalTextureScale, 1.0),
+
+          alphaMode:          mat.get_attribute(:pbr, :alphaMode, 'OPAQUE')
 
         }
         
       end
 
-      materials_to_edit
+      mats_to_edit
+
+    end
+
+    # Returns status of a normal texture image.
+    #
+    # @param [Sketchup::Material] mat Material.
+    # @raise [ArgumentError]
+    #
+    # @return [String, nil] Empty string if texture image is defined, else nil.
+    private def normal_texture_uri_status(mat)
+
+      raise ArgumentError, 'Invalid SketchUp material.'\
+       unless mat.is_a?(Sketchup::Material)
+
+      normal_texture_uri = mat.get_attribute(:pbr, :normalTextureURI)
+
+      normal_texture_uri.is_a?(String) ? '' : nil
 
     end
 
@@ -167,14 +189,13 @@ module PBR
         # attribute:
         mat_attributes.each do |mat_attr_key, mat_attr_value|
 
-          if mat_attr_value == 'DELETE_ATTRIBUTE'
+          if mat_attr_value == false
 
-            # Remove attribute from SketchUp material definition or...
             material.delete_attribute(:pbr, mat_attr_key)
 
-          elsif !mat_attr_value.nil?
+          # ...
+          elsif !mat_attr_value.to_s.empty?
 
-            # replace attribute value of SketchUp material.
             material.set_attribute(:pbr, mat_attr_key, mat_attr_value)
 
           end

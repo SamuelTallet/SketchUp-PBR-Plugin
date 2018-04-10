@@ -39,7 +39,16 @@
 
 .uploader {
 
-	width: 216px;
+	width: 192px;
+
+	/* Hide text :-S */
+	color: transparent;
+
+}
+
+.checkbox.enlarge {
+
+	transform: scale(1.5);
 
 }
 
@@ -100,6 +109,14 @@
 	margin: 0 .7px;
 
 	cursor: pointer;
+
+}
+
+.button.fix-position {
+
+	position: relative;
+	bottom: 1px;
+	right: 0;
 
 }
 

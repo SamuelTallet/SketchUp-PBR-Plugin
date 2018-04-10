@@ -63,9 +63,12 @@
 
 			<div class="label"><%= TRANSLATE['Normal map'] %></div>
 
-			<input class="uploader material-image-uploader" type="file" data-key="normalTextureURI" data-pattern="^data\:image\/(jpeg|png);.+$" data-pattern-mismatch="<%= TRANSLATE['The image format of this map must be JPEG or PNG.'] %>">
+			<!-- Default `title` attribute value is muted to avoid confusion. -->
+			<input class="uploader material-image-uploader" type="file" title=" " data-key="normalTextureURI" data-pattern="^data\:image\/(jpeg|png);.+$" data-pattern-mismatch="<%= TRANSLATE['The image format of this map must be JPEG or PNG.'] %>">
 
-			<div class="button material-image-remove-btn" data-key="normalTextureURI" title="<%= TRANSLATE['Remove image from material definition'] %>">🗑</div>
+			<input class="checkbox enlarge material-image-status" type="checkbox" disabled title="<%= TRANSLATE['A texture image is defined?'] %>" data-key="normalTextureURI" >
+
+			<div class="button fix-position material-image-remove-btn" data-key="normalTextureURI" title="<%= TRANSLATE['Discard texture image'] %>">🗑</div>
 
 			<div class="helper" data-tipfy="<%= TRANSLATE['The normal map gives an illusion of relief to the material.'] %> <%= TRANSLATE['Relief information is stored in image using RGB components in linear space.'] %>" data-tipfy-side="left">❔</div>
 
@@ -73,13 +76,13 @@
 
 		<div class="form-row">
 
-			<div class="label"><%= TRANSLATE['Emissive map'] %></div>
+			<div class="label"><%= TRANSLATE['Normal scale'] %></div>
 
-			<input class="uploader material-image-uploader" type="file" data-key="emissiveTextureURI" data-pattern="^data\:image\/(jpeg|png);.+$" data-pattern-mismatch="<%= TRANSLATE['The image format of this map must be JPEG or PNG.'] %>">
-			
-			<div class="button material-image-remove-btn" data-key="emissiveTextureURI" title="<%= TRANSLATE['Remove image from material definition'] %>">🗑</div>
+			<input class="slider material-basic-control" type="range" min="0.1" max="3.0" step="0.1" data-key="normalTextureScale" data-pattern="^((0\.[1-9][0-9]*)|([1-2](\.[0-9]+)?)|3(\.0+)?)$">
 
-			<div class="helper" data-tipfy="<%= TRANSLATE['The emissive map controls the color of the light being emitted by the material.'] %> <%= TRANSLATE['Data about emitted light is stored in image using RGB components in sRGB space.'] %>" data-tipfy-side="left">❔</div>
+			<input class="num-field material-basic-control" type="number" min="0.1" max="3.0" step="0.01" data-key="normalTextureScale" data-pattern="^((0\.[1-9][0-9]*)|([1-2](\.[0-9]+)?)|3(\.0+)?)$">
+
+			<div class="helper" data-tipfy="<%= TRANSLATE['The scalar multiplier applied to each vector of the normal map.'] %> <%= TRANSLATE['Adjust strength of relief with this value.'] %>" data-tipfy-side="left">❔</div>
 
 		</div>
 

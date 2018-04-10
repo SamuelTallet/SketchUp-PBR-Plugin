@@ -45,7 +45,7 @@ PBR.selectedMaterial = () => PBR.materials[
 /**
  * Selects value of all "basic" attributes of selected material.
  *
- * @param {object} _event - Unused arg.
+ * @param {object} _event - Unused argument.
  * @param {string} whereKey - Restrict to one attribute (e.g. metallicFactor).
  */
 PBR.showMaterialBasicValues = (_event, whereKey = '') => {
@@ -64,6 +64,24 @@ PBR.showMaterialBasicValues = (_event, whereKey = '') => {
 			PBR.selectedMaterial()[materialBasicControl.dataset.key];
 
 	}
+
+};
+
+/**
+ * Indicates status of all texture images of selected material.
+ *
+ * @param {object} _event - Unused argument.
+ */
+PBR.checkMaterialImagesStatus = _event => {
+
+	PBR.queryAll('.material-image-status').forEach(materialImageStatus => {
+
+		var materialImage = PBR.selectedMaterial()[materialImageStatus.dataset.key];
+
+		// Check box if texture image is defined.
+		materialImageStatus.checked = ( typeof materialImage === 'string' );
+
+	});
 
 };
 
@@ -119,6 +137,8 @@ PBR.uploadMaterialImage = event => {
 
 			PBR.selectedMaterial()[materialImageUploader.dataset.key] =
 				imageFile.result;
+
+			PBR.checkMaterialImagesStatus(null);
 			
 		} else {
 			window.alert(materialImageUploader.dataset.patternMismatch);
@@ -140,13 +160,9 @@ PBR.removeMaterialImage = event => {
 
 	var materialImageRemoveButton = event.target;
 
-	PBR.selectedMaterial()[materialImageRemoveButton.dataset.key] = 'DELETE_ATTRIBUTE';
+	PBR.selectedMaterial()[materialImageRemoveButton.dataset.key] = false;
 
-	var materialImageUploaderSelector = '.material-image-uploader[data-key="';
-	materialImageUploaderSelector += materialImageRemoveButton.dataset.key + '"]';
-
-	// Reset related `input [type=file]` value to visually confirm image was deleted.
-	document.querySelector(materialImageUploaderSelector).value = '';
+	PBR.checkMaterialImagesStatus(null);
 
 };
 
@@ -154,7 +170,7 @@ PBR.removeMaterialImage = event => {
  * Sends materials attributes to SketchUp.
  * Then closes PBR Material Editor dialog.
  *
- * @param {object} _event - Unused arg.
+ * @param {object} _event - Unused argument.
  */
 PBR.pushMaterialsThenClose = _event => {
 
@@ -168,7 +184,7 @@ PBR.pushMaterialsThenClose = _event => {
 
 /**
  * Receives materials attributes from SketchUp.
- * Then adds events listeners to UI components.
+ * Then adds events listeners to PBR Material Editor UI.
  */
 PBR.pullMaterialsThenListen = () => {
 
@@ -179,8 +195,14 @@ PBR.pullMaterialsThenListen = () => {
 			document.getElementById('material-selector')
 				.addEventListener('change', PBR.showMaterialBasicValues);
 
+			document.getElementById('material-selector')
+				.addEventListener('change', PBR.checkMaterialImagesStatus);
+
 			// Display first material values.
 			PBR.showMaterialBasicValues(null);
+
+			// Check first material images status.
+			PBR.checkMaterialImagesStatus(null);
 
 			PBR.queryAll('.material-basic-control').forEach(materialBasicControl => {
 				materialBasicControl.addEventListener('change', PBR.holdMaterialBasicValue);
@@ -204,13 +226,13 @@ PBR.pullMaterialsThenListen = () => {
 };
 
 /**
- * Initializes PBR Material Editor as soon DOM is ready.
+ * Initializes PBR Material Editor UI as soon DOM is ready.
  */
 document.addEventListener('DOMContentLoaded', _event => {
 
 	if ( typeof sketchup === 'object' ) {
 
-		PBR.pullMaterialsThenListen(); // "Main" UI.
+		PBR.pullMaterialsThenListen();
 		new Tipfy('[data-tipfy]'); // Tooltips.
 
 	} else {
