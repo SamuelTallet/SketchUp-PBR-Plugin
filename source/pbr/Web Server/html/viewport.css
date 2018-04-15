@@ -15,6 +15,20 @@ body.set-fullscreen {
 
 }
 
+.gamepad-icon {
+
+	display: none;
+
+	position: absolute;
+	top: 0;
+	right: 10px;
+
+	font-size: xx-large;
+
+	cursor: default;
+
+}
+
 .container {
 
 	cursor: url('/assets/cursors/360-view.modded.svg'), move;
