@@ -55,6 +55,10 @@ PBR plugin adds a menu "Physically-Based Rendering" in SketchUp "Extensions" men
 Known issues and workaround
 ---------------------------
 
+Issue in SketchUp | Workaround
+:--- | :---
+glTF export failed. | ① Retry but when PBR plugin asks: "Propagate materials to whole model?", say: "Yes". ② Be sure **all** texture images are in JPEG or PNG format. ③ Check if the required [glTF Export plugin](https://extensions.sketchup.com/content/gltf-exporter) is installed and enabled.
+
 Issue in PBR Viewport | Workaround
 :--- | :---
 Texture background is white instead of being transparent. | Open PBR Material Editor ("Extensions" > "Physically-Based Rendering" > "Edit Materials..."). Select material. Set "Alpha mode" to "Combined with background".
