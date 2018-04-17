@@ -39,7 +39,7 @@ Remember to disable PBR plugin before uninstall it.
 Usage
 -----
 
-PBR plugin adds a menu "Physically-Based Rendering" in SketchUp "Extensions" menu. From this new menu, you can:
+PBR plugin adds a "Physically-Based Rendering" menu in SketchUp "Extensions" menu. From this new menu, you can:
 
 - **Edit materials**
 
@@ -57,7 +57,7 @@ Known issues and workaround
 
 Issue in SketchUp | Workaround
 :--- | :---
-glTF export failed. | ① Retry but when PBR plugin asks: "Propagate materials to whole model?", say: "Yes". ② Be sure **all** texture images are in JPEG or PNG format. ③ Check if the required [glTF Export plugin](https://extensions.sketchup.com/content/gltf-exporter) is installed and enabled.
+glTF export failed. | ① Retry but when PBR plugin asks: "Propagate materials to whole model?", say: "Yes". ② Be sure **all** texture images are in JPEG or PNG format. ③ Check if the required [glTF export plugin](https://extensions.sketchup.com/content/gltf-exporter) is installed and enabled.
 
 Issue in PBR Viewport | Workaround
 :--- | :---
