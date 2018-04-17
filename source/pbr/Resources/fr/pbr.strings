@@ -29,7 +29,8 @@
 
 "Propagate materials to whole model? (Recommended)"="Propager les matériaux à l'ensemble du modèle ? (Recommandé)";
 "Propagate Materials to Whole Model"="Propager les matériaux à l'ensemble du modèle";
-"Failure! Try propagate all model materials."="Échec ! Essayez de propager tous les matériaux du modèle.";
+
+"glTF export failed :/ but help arrives :)"="L'export glTF a échoué :/ mais l'aide arrive :)";
 
 "Donate to Plugin Author"="Faire un don à l'auteur de l'extension";
 

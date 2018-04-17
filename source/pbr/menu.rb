@@ -104,8 +104,8 @@ module PBR
 
       else
 
-        UI.messagebox(TRANSLATE['Failure! Try propagate all model materials.'])
-        # See: NilMaterialFix
+        UI.messagebox(TRANSLATE['glTF export failed :/ but help arrives :)'])
+        redirect_to_online_help
 
       end
 
@@ -129,9 +129,9 @@ module PBR
         UI.messagebox(TRANSLATE['Model well exported here:'] + "\n#{user_path}")
 
       else
-
-        UI.messagebox(TRANSLATE['Failure! Try propagate all model materials.'])
-        # See: NilMaterialFix
+        
+        UI.messagebox(TRANSLATE['glTF export failed :/ but help arrives :)'])
+        redirect_to_online_help
 
       end
 
@@ -154,6 +154,20 @@ module PBR
 
       # Apply "nil material" fix.
       NilMaterialFix.new(TRANSLATE['Propagate Materials to Whole Model'])
+
+    end
+
+    # Redirects SketchUp user to online help.
+    #
+    # @return [void]
+    private def redirect_to_online_help
+
+      help_url = HOMEPAGE_URL + '/blob/master/'
+
+      # Help may be translated.
+      help_url += TRANSLATE['README.md#known-issues-and-workaround']
+
+      UI.openURL(help_url)
 
     end
 

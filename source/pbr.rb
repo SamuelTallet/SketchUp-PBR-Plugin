@@ -27,7 +27,9 @@ require 'extensions'
 module PBR
 
   VERSION = '1.2.0'.freeze
-  # Get latest here: https://github.com/SamuelTS/SketchUp-PBR-Plugin/releases
+
+  # Homepage's URL. Thanks to GitHub for hosting and tools.
+  HOMEPAGE_URL = 'https://github.com/SamuelTS/SketchUp-PBR-Plugin'.freeze
 
   # Load translation if it's available for current locale.
   TRANSLATE = LanguageHandler.new('pbr.strings')
