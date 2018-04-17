@@ -52,8 +52,8 @@ PBR plugin adds a menu "Physically-Based Rendering" in SketchUp "Extensions" men
 
 - **Export as 3D object**
 
-Known issues
-------------
+Known issues and workaround
+---------------------------
 
 Issue in SketchUp | Workaround
 :--- | :---
