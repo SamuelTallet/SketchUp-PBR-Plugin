@@ -26,7 +26,7 @@ require 'extensions'
 # PBR plugin namespace.
 module PBR
 
-  VERSION = '1.2.1'.freeze
+  VERSION = '1.2.2'.freeze
 
   # Homepage's URL. Thanks to GitHub for hosting and tools.
   HOMEPAGE_URL = 'https://github.com/SamuelTS/SketchUp-PBR-Plugin'.freeze

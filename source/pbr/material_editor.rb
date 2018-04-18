@@ -128,15 +128,15 @@ module PBR
 
     # Collects SketchUp materials attributes to edit in PBR Material Editor.
     #
-    # @param [Array] mats_to_edit Materials to edit. Default: Empty array.
+    # @param [Hash] mats_to_edit Materials to edit. Default: Empty hash.
     #
-    # @return [Array<Hash>] Materials to edit. Caution! Array index matters.
-    private def materials_to_edit(mats_to_edit = [])
+    # @return [Hash<Hash>] Materials to edit.
+    private def materials_to_edit(mats_to_edit = {})
 
       # For each SketchUp material in active model:
-      Sketchup.active_model.materials.each_with_index do |mat, mat_index|
+      Sketchup.active_model.materials.each do |mat|
 
-        mats_to_edit[mat_index] = {
+        mats_to_edit[mat.object_id] = {
 
           # Get PBR plugin attributes to edit.
           
@@ -176,15 +176,15 @@ module PBR
 
     # Syncs SketchUp materials with attributes edited in PBR Material Editor.
     #
-    # @param [Array<Hash>] edited_mats Edited materials.
+    # @param [Hash<Hash>] edited_mats Edited materials.
     #
     # @return [void]
     private def edited_materials=(edited_mats)
 
       # For each edited material...
-      edited_mats.each_with_index do |mat_attributes, mat_index|
+      edited_mats.each do |mat_object_id, mat_attributes|
 
-        material = Sketchup.active_model.materials[mat_index]
+        material = ObjectSpace._id2ref(mat_object_id.to_i)
 
         # attribute:
         mat_attributes.each do |mat_attr_key, mat_attr_value|

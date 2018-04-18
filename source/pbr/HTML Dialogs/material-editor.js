@@ -39,7 +39,7 @@ PBR.materials = [];
  * @returns {object}
  */
 PBR.selectedMaterial = () => PBR.materials[
-	document.getElementById('material-selector').selectedIndex
+	document.getElementById('material-selector').value
 ];
 
 /**

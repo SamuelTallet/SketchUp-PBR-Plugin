@@ -28,10 +28,10 @@
 				# Identifier of selected material in Materials Tray.
 				selected_material_oid = Sketchup.active_model.materials.current.object_id
 
-				Sketchup.active_model.materials.each_with_index do |material, material_index|
+				Sketchup.active_model.materials.each do |material|
 				%>
 				<option
-					value="<%= material_index %>"
+					value="<%= material.object_id %>"
 					<%= material.object_id == selected_material_oid ? 'selected' : '' %>
 				>
 					<%= material.display_name %>

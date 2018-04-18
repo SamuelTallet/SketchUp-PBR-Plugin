@@ -78,9 +78,10 @@ PBR.Viewport.app = clay.application.create('.container', {
 		// Create an ambient light.
 		app.createAmbientCubemapLight(
 
-			'/assets/pisa.modded.hdr',  // Panorama environment image.
-			1,                          // Intensity of specular light.
-			1                           // Intensity of diffuse light.
+			// Panorama environment image.
+			'/assets/cayley_interior_2k.hdr',  
+			1, // Intensity of specular light.
+			1  // Intensity of diffuse light.
 
 		);
 
