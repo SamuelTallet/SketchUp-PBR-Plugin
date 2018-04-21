@@ -72,23 +72,28 @@
 
 }
 
-.helper {
+.tooltip {
 
 	display: inline-block;
-
-	font-size: 70%;
-
-	margin-left: 1px;
-
-	opacity: 0.4;
-
-	cursor: default;
+	margin-left: 3.5px;
 
 }
 
-.helper:hover {
+.info-icon {
 
-	opacity: 0.6;
+	opacity: .5;
+
+}
+
+.info-icon:hover {
+
+	opacity: 1;
+
+}
+
+.info-icon::after {
+
+	content: 'ℹ';
 
 }
 
@@ -112,17 +117,19 @@
 
 }
 
-.button.fix-position {
+.button:hover {
+
+	background-color: #eee;
+
+}
+
+.trash-icon::after {
 
 	position: relative;
 	bottom: 1px;
 	right: 0;
 
-}
-
-.button:hover {
-
-	background-color: #eee;
+	content: '🗑';
 
 }
 

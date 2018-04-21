@@ -20,44 +20,42 @@
 raise 'The PBR plugin requires at least Ruby 2.2.0 or SketchUp 2017.'\
   unless RUBY_VERSION.to_f >= 2.2 # SketchUp 2017 includes Ruby 2.2.4.
 
-require 'sketchup'
-require 'extensions'
-
 # PBR plugin namespace.
 module PBR
 
-  VERSION = '1.2.3'.freeze
+  # Things related to GitHub. Thanks to GitHub for their hosting ;)
+  module GitHub
 
-  # Load translation if it's available for current locale.
-  TRANSLATE = LanguageHandler.new('pbr.strings')
-  # See: "pbr/Resources/#{Sketchup.get_locale}/pbr.strings"
+    # Homepage URL w/o trailing slash.
+    URL = 'https://github.com/SamuelTS/SketchUp-PBR-Plugin'.freeze
 
-  # Remember extension name. See: PBR::Observer, PBR::Menu.
-  NAME = TRANSLATE['Physically-Based Rendering']
+    # Gives Help URL, maybe translated.
+    #
+    # @param [String] context Context.
+    # @raise [ArgumentError]
+    #
+    # @return [String]
+    def self.translated_help_url(context)
 
-  # Initialize session storage of PBR plugin.
-  SESSION = nil.to_h
-  # Session storage is cleared when SketchUp process ends.
+      raise ArgumentError, 'Invalid context.' unless context.is_a?(String)\
+        && context =~ /^(PBR_VIEWPORT|SKETCHUP)$/
 
-  # Register extension.
+      help_url = URL + '/blob/master/docs/'
 
-  extension = SketchupExtension.new(NAME, 'pbr/load.rb')
+      if context == 'PBR_VIEWPORT'
 
-  extension.version     = VERSION
-  extension.creator     = 'Samuel Tallet-Sabathé'
-  extension.copyright   = "© 2018 #{extension.creator}"
+        help_url += TRANSLATE['help.md#in-pbr-viewport']
 
-  features = [
-    TRANSLATE['Add reflects and reliefs to your SketchUp models.'],
-    TRANSLATE['Get a realistic render in real-time.'],
-    TRANSLATE['Export result to image or 3D object.']
-  ]
+      elsif context == 'SKETCHUP'
 
-  extension.description = features.join(' ')
+        help_url += TRANSLATE['help.md#in-sketchup']
 
-  Sketchup.register_extension(
-    extension,
-    true # load_at_start
-  )
+      end
+      
+      help_url
+
+    end
+
+  end
 
 end

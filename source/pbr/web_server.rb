@@ -50,6 +50,30 @@ module PBR
 
     end
 
+    # Gives Viewport URL.
+    #
+    # @return [String]
+    def self.viewport_url
+
+      viewport_url = URL + '/viewport.html'
+
+      require 'pbr/github'
+
+      # Viewport translation will be forwarded via URL parameters.
+      viewport_url_params = {
+
+        document_title: TRANSLATE['SketchUp PBR Viewport'],
+        help_link_href: GitHub.translated_help_url('PBR_VIEWPORT'),
+        help_link_text: TRANSLATE['Help']
+
+      }
+
+      require 'uri'
+
+      viewport_url + '?' + URI.encode_www_form(viewport_url_params)
+
+    end
+
     # Stops process.
     #
     # @todo Support macOS?

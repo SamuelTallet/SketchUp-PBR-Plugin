@@ -30,7 +30,7 @@
 "Propagate materials to whole model? (Recommended)"="Propager les matériaux à l'ensemble du modèle ? (Recommandé)";
 "Propagate Materials to Whole Model"="Propager les matériaux à l'ensemble du modèle";
 
-"glTF export failed :/ but help arrives :)"="L'export glTF a échoué :/ mais l'aide arrive :)";
+"glTF export failed. Do you want help?"="L'export glTF a échoué. Voulez-vous de l'aide ?";
 
 "Donate to Plugin Author"="Faire un don à l'auteur de l'extension";
 
@@ -71,7 +71,7 @@
 "Fully opaque"="Complètement opaque";
 "Fully opaque or transparent"="Complètement opaque ou transparent";
 "Combined with background"="Combiné avec l'arrière-plan";
-"Do you have transparency issues with this material? Try to select the last option of Alpha mode:"="Avez-vous des problèmes de transparence avec ce matériau ? Essayez de sélectionner la dernière option du Mode alpha :";
+"The alpha rendering mode of the material."="Le mode de rendu alpha du matériau.";
 
 "Apply all changes"="Appliquer tous les changements";
 
@@ -82,8 +82,8 @@
 "Untitled"="Sans titre";
 
 //
-// File: viewport.html
+// File: web_server.rb
 //
 
 "SketchUp PBR Viewport"="Fenêtre de visu. RBP de SketchUp";
-"Loading..."="Chargement...";
+"Help"="Aide";

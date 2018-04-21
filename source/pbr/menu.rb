@@ -100,12 +100,11 @@ module PBR
         )
 
         # Open PBR Viewport in default Web browser.
-        UI.openURL(WebServer::URL + '/viewport.html')
+        UI.openURL(WebServer.viewport_url)
 
       else
 
-        UI.messagebox(TRANSLATE['glTF export failed :/ but help arrives :)'])
-        redirect_to_online_help
+        propose_help(TRANSLATE['glTF export failed. Do you want help?'])
 
       end
 
@@ -130,8 +129,7 @@ module PBR
 
       else
         
-        UI.messagebox(TRANSLATE['glTF export failed :/ but help arrives :)'])
-        redirect_to_online_help
+        propose_help(TRANSLATE['glTF export failed. Do you want help?'])
 
       end
 
@@ -157,17 +155,22 @@ module PBR
 
     end
 
-    # Redirects SketchUp user to online help.
+    # Proposes help to SketchUp user.
+    #
+    # @param [String] message Help proposal message.
     #
     # @return [void]
-    private def redirect_to_online_help
+    private def propose_help(message)
 
-      help_url = HOMEPAGE_URL + '/blob/master/'
+      user_answer = UI.messagebox(message, MB_YESNO)
 
-      # Help may be translated.
-      help_url += TRANSLATE['README.md#known-issues-and-workaround']
+      # Escape if user refused that help.
+      return if user_answer == IDNO
 
-      UI.openURL(help_url)
+      require 'pbr/github'
+
+      # Open help of PBR plugin in default Web browser.
+      UI.openURL(GitHub.translated_help_url('SKETCHUP'))
 
     end
 

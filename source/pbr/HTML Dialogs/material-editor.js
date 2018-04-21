@@ -233,7 +233,7 @@ document.addEventListener('DOMContentLoaded', _event => {
 	if ( typeof sketchup === 'object' ) {
 
 		PBR.pullMaterialsThenListen();
-		new Tipfy('[data-tipfy]'); // Tooltips.
+		new Tipfy('.tooltip');
 
 	} else {
 

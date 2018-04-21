@@ -53,7 +53,7 @@
 
 			<input class="num-field material-basic-control" type="number" min="0.0" max="1.0" step="0.01" data-key="metallicFactor" data-pattern="^((0(\.[0-9]+)?)|1(\.0+)?)$">
 
-			<div class="helper" data-tipfy="<%= TRANSLATE['A value of 0 means the material is a dielectric.'] %> <%= TRANSLATE['A value of 1 means the material is a metal.'] %> <%= TRANSLATE['Values between 0 and 1 may represent dirty metal surfaces.'] %>" data-tipfy-side="left">❔</div>
+			<div class="tooltip info-icon" data-tipfy="<%= TRANSLATE['A value of 0 means the material is a dielectric.'] %> <%= TRANSLATE['A value of 1 means the material is a metal.'] %> <%= TRANSLATE['Values between 0 and 1 may represent dirty metal surfaces.'] %>" data-tipfy-side="left"></div>
 
 		</div>
 
@@ -65,7 +65,7 @@
 
 			<input class="num-field material-basic-control" type="number" min="0.0" max="1.0" step="0.01" data-key="roughnessFactor" data-pattern="^((0(\.[0-9]+)?)|1(\.0+)?)$">
 
-			<div class="helper" data-tipfy="<%= TRANSLATE['A value of 0 means the material is completely smooth.'] %> <%= TRANSLATE['A value of 1 means the material is completely rough.'] %>" data-tipfy-side="left">❔</div>
+			<div class="tooltip info-icon" data-tipfy="<%= TRANSLATE['A value of 0 means the material is completely smooth.'] %> <%= TRANSLATE['A value of 1 means the material is completely rough.'] %>" data-tipfy-side="left"></div>
 
 		</div>
 
@@ -78,9 +78,9 @@
 
 			<input class="checkbox enlarge material-image-status" type="checkbox" disabled title="<%= TRANSLATE['A texture image is defined?'] %>" data-key="normalTextureURI" >
 
-			<div class="button fix-position material-image-remove-btn" data-key="normalTextureURI" title="<%= TRANSLATE['Discard texture image'] %>">🗑</div>
+			<div class="button material-image-remove-btn trash-icon" data-key="normalTextureURI" title="<%= TRANSLATE['Discard texture image'] %>"></div>
 
-			<div class="helper" data-tipfy="<%= TRANSLATE['The normal map gives an illusion of relief to the material.'] %> <%= TRANSLATE['Relief information is stored in image using RGB components in linear space.'] %>" data-tipfy-side="left">❔</div>
+			<div class="tooltip info-icon" data-tipfy="<%= TRANSLATE['The normal map gives an illusion of relief to the material.'] %> <%= TRANSLATE['Relief information is stored in image using RGB components in linear space.'] %>" data-tipfy-side="left"></div>
 
 		</div>
 
@@ -92,7 +92,7 @@
 
 			<input class="num-field material-basic-control" type="number" min="0.1" max="3.0" step="0.01" data-key="normalTextureScale" data-pattern="^((0\.[1-9][0-9]*)|([1-2](\.[0-9]+)?)|3(\.0+)?)$">
 
-			<div class="helper" data-tipfy="<%= TRANSLATE['The scalar multiplier applied to each vector of the normal map.'] %> <%= TRANSLATE['Adjust strength of relief with this value.'] %>" data-tipfy-side="left">❔</div>
+			<div class="tooltip info-icon" data-tipfy="<%= TRANSLATE['The scalar multiplier applied to each vector of the normal map.'] %> <%= TRANSLATE['Adjust strength of relief with this value.'] %>" data-tipfy-side="left"></div>
 
 		</div>
 
@@ -106,7 +106,7 @@
 				<option value="BLEND"><%= TRANSLATE['Combined with background'] %></option>
 			</select>
 
-			<div class="helper" data-tipfy="<%= TRANSLATE['Do you have transparency issues with this material? Try to select the last option of Alpha mode:'] %> <%= TRANSLATE['Combined with background'] %>" data-tipfy-side="left">❔</div>
+			<div class="tooltip info-icon" data-tipfy="<%= TRANSLATE['The alpha rendering mode of the material.'] %>" data-tipfy-side="left"></div>
 
 		</div>
 

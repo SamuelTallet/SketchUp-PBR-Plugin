@@ -8,34 +8,35 @@
  * Licence: GNU General Public License 3.0
  */
 
-body.set-fullscreen {
+.pbr-viewport.set-fullscreen {
 
 	margin: 0;
 	overflow: hidden;
 
 }
 
-.gamepad-icon {
-
-	display: none;
+.pbr-viewport .help-link {
 
 	position: absolute;
 	top: 0;
-	right: 10px;
+	right: 0;
 
-	font-size: xx-large;
+	margin: 10px;
 
-	cursor: default;
+	color: black;
+	text-decoration: none;
 
-}
-
-.container {
-
-	cursor: url('/assets/cursors/360-view.modded.svg'), move;
+	cursor: pointer;
 
 }
 
-.loader {
+.pbr-viewport .help-link:hover {
+
+	text-decoration: underline;
+
+}
+
+.pbr-viewport .loader {
 
 	position: fixed;
 	top: 50%;
@@ -45,5 +46,36 @@ body.set-fullscreen {
 	color: rgb(32, 165, 222);
 
 	animation: load4 3.5s infinite linear;
+
+}
+
+.pbr-viewport .container {
+
+	cursor: url('/assets/cursors/360-view.modded.svg'), move;
+
+}
+
+.pbr-viewport .gamepad-icon::before {
+
+	content: '🎮';
+	font-size: 32px;
+	
+}
+
+.pbr-viewport .gamepad {
+
+	display: none;
+
+	position: absolute;
+	bottom: 1px;
+	right: 5px;
+
+	cursor: default;
+
+}
+
+.pbr-viewport .gamepad.is-ready {
+
+	display: block;
 
 }

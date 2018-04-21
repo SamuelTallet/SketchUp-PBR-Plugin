@@ -21,6 +21,36 @@ PBR = {};
 PBR.Viewport = {};
 
 /**
+ * Translates Viewport strings.
+ *
+ * @returns {boolean} `true` on success, `false` otherwise.
+ */
+PBR.Viewport.translate = function() {
+
+	// If browser doesn't support URL API:
+	if (typeof URL === 'undefined') {
+
+		alert('Please upgrade your browser to support URL API.');
+		return false;
+
+	}
+
+	// Get translation from URL parameters.
+
+	var url = new URL(document.location);
+
+	document.title = url.searchParams.get('document_title');
+
+	var helpLink = document.querySelector('.help-link');
+
+	helpLink.href = url.searchParams.get('help_link_href');
+	helpLink.textContent = url.searchParams.get('help_link_text');
+
+	return true;
+
+};
+
+/**
  * Function to call once model loaded in Viewport.
  *
  * @param {object} _result - Unused argument.
@@ -137,3 +167,6 @@ PBR.Viewport.resizeContainer = function(_event) {
 
 // each time browser window is resized by user.
 window.onresize = PBR.Viewport.resizeContainer;
+
+// When document is ready: translate Viewport.
+document.addEventListener('DOMContentLoaded', PBR.Viewport.translate);
