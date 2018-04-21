@@ -8,15 +8,15 @@ Demos
 
 A SketchUp model rendered `without` PBR extension | Same SketchUp model rendered `with` PBR extension
 :--- | :---
-![A SketchUp model rendered without PBR extension](https://github.com/SamuelTS/SketchUp-PBR-Plugin/raw/master/demos/a-sketchup-model-rendered-without-pbr-extension.png) | ![Same SketchUp model rendered with PBR extension](https://github.com/SamuelTS/SketchUp-PBR-Plugin/raw/master/demos/same-sketchup-model-rendered-with-pbr-extension.png)
+![A SketchUp model rendered without PBR extension](https://github.com/SamuelTS/SketchUp-PBR-Plugin/raw/master/docs/demos/a-sketchup-model-rendered-without-pbr-extension.png) | ![Same SketchUp model rendered with PBR extension](https://github.com/SamuelTS/SketchUp-PBR-Plugin/raw/master/docs/demos/same-sketchup-model-rendered-with-pbr-extension.png)
 
 A virtual reef rendered `with` SketchUp PBR extension. Made with two faces, two materials and three textures.
 --- |
-![Reef](https://github.com/SamuelTS/SketchUp-PBR-Plugin/raw/master/demos/a-virtual-reef-rendered-with-sketchup-pbr-extension.jpg)
+![Reef](https://github.com/SamuelTS/SketchUp-PBR-Plugin/raw/master/docs/demos/a-virtual-reef-rendered-with-sketchup-pbr-extension.jpg)
 
 A virtual bark rendered `with` SketchUp PBR extension. Made with two cylinders, two materials and three textures.
 --- |
-![Bark](https://github.com/SamuelTS/SketchUp-PBR-Plugin/raw/master/demos/a-virtual-bark-rendered-with-sketchup-pbr-extension.png)
+![Bark](https://github.com/SamuelTS/SketchUp-PBR-Plugin/raw/master/docs/demos/a-virtual-bark-rendered-with-sketchup-pbr-extension.png)
 
 OS support
 ----------
