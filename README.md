@@ -18,23 +18,18 @@ A virtual bark rendered `with` SketchUp PBR extension. Made with two cylinders, 
 --- |
 ![Bark](https://github.com/SamuelTS/SketchUp-PBR-Plugin/raw/master/docs/demos/a-virtual-bark-rendered-with-sketchup-pbr-extension.png)
 
-OS support
-----------
+Quick start
+-----------
 
-Only Windows is supported.
-
-Installation
-------------
-
-1. Be sure to have SketchUp 2017 or newer version installed.
+1. Be sure to have SketchUp 2017 or newer version installed. NB: Only Windows is supported.
 2. Download required plugin: [glTF Export](https://extensions.sketchup.com/content/gltf-exporter).
 3. Download latest PBR plugin in .RBZ format from [Releases](https://github.com/SamuelTS/SketchUp-PBR-Plugin/releases/).
 4. Install both plugins following this [guide](https://help.sketchup.com/article/3000263).
 
 Now, you should have a "Physically-Based Rendering" menu in SketchUp "Extensions" menu. 👍
 
-Help
-----
+Documentation
+-------------
 
 A [help document](https://github.com/SamuelTS/SketchUp-PBR-Plugin/blob/master/docs/help.md) is available.
 
