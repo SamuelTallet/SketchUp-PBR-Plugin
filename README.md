@@ -21,7 +21,7 @@ A virtual bark rendered `with` SketchUp PBR extension. Made with two cylinders, 
 OS support
 ----------
 
-Windows is supported. macOS is not supported.
+Only Windows is supported.
 
 Installation
 ------------
@@ -35,6 +35,8 @@ Now, you should have a "Physically-Based Rendering" menu in SketchUp "Extensions
 
 Help
 ----
+
+A [help document](https://github.com/SamuelTS/SketchUp-PBR-Plugin/blob/master/docs/help.md) is available.
 
 Thanks
 ------
