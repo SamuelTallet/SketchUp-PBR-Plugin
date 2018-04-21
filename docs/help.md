@@ -18,11 +18,11 @@ In PBR Viewport
 
 You can control scene camera with a mouse.
 
-🖱 Pan with middle click. Orbit with left drag. Zoom with wheel.
+🖱 Pan with **middle click**. Orbit with **left drag**. Zoom with **wheel**.
 
 ### How to save render as image?
 
-🖱 Right click then left click on "Save as image..." menu entry.
+🖱 **Right click** then **left click** on "Save as image..." menu entry.
 
 ### Known issues and workaround
 
