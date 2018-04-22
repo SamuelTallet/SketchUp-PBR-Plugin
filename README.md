@@ -27,6 +27,7 @@ Quick start
 4. Install both plugins following this [guide](https://help.sketchup.com/article/3000263).
 
 Now, you should have a "Physically-Based Rendering" menu in SketchUp "Extensions" menu. 👍
+From this new menu, you can: "Edit Materials", "Open Viewport" and "Export As 3D Object".
 
 Documentation
 -------------
