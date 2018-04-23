@@ -18,8 +18,8 @@ A virtual bark rendered `with` SketchUp PBR extension. Made with two cylinders, 
 --- |
 ![Bark](https://github.com/SamuelTS/SketchUp-PBR-Plugin/raw/master/docs/demos/a-virtual-bark-rendered-with-sketchup-pbr-extension.png)
 
-Quick start
------------
+Installation
+------------
 
 1. Be sure to have SketchUp 2017 or newer version installed. NB: Only Windows is supported.
 2. Download required plugin: [glTF Export](https://extensions.sketchup.com/content/gltf-exporter).
