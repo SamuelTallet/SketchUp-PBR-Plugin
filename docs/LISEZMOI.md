@@ -1,7 +1,7 @@
 Extension RBP pour SketchUp
 ===========================
 
-💅 Ajoutez des reflets et des reliefs (carte de normales) à vos modèles SketchUp. 🏃♀️ Obtenez un rendu en temps réel. ✈️ Exportez en 2D ou en 3D.
+💅 Ajoutez des reflets et des reliefs à vos modèles SketchUp. 🏃‍♀️ Obtenez un rendu en temps réel. ✈️ Exportez en 2D/3D.
 
 Démonstrations
 --------------
@@ -14,7 +14,7 @@ Un récif virtuel rendu `avec` l'extension SketchUp RBP. Fait avec deux faces, d
 --- |
 ![Récif](https://github.com/SamuelTS/SketchUp-PBR-Plugin/raw/master/docs/demos/a-virtual-reef-rendered-with-sketchup-pbr-extension.jpg)
 
-Une écorce virtuelle rendue `avec` l'extension SketchUp RBP. Faite avec deux cylindres, deux matériaux et trois textures.
+Une écorce rendue `avec` l'extension SketchUp RBP. Faite avec deux cylindres, deux matériaux et trois textures.
 --- |
 ![Écorce](https://github.com/SamuelTS/SketchUp-PBR-Plugin/raw/master/docs/demos/a-virtual-bark-rendered-with-sketchup-pbr-extension.png)
 
@@ -27,7 +27,7 @@ Installation
 4. Installer les deux plugins en suivant ce [guide](https://help.sketchup.com/article/3000263).
 
 Maintenant, vous devriez avoir un menu "Rendu basé sur la physique" dans le menu "Extensions" de SketchUp. 👍
-À partir de ce nouveau menu, vous pouvez : "Modifier les matériaux", "Ouvrir la fenêtre de visualisation" et "Exporter en tant qu'objet 3D".
+À partir d'ici, vous pouvez : "Modifier les matériaux", "Ouvrir la fenêtre de visualisation" et "Exporter en tant qu'objet 3D".
 
 Documentation
 -------------
