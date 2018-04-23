@@ -1,3 +1,5 @@
+<a href="https://github.com/SamuelTS/SketchUp-PBR-Plugin/blob/master/docs/LISEZMOI.md">Version française <img height="16" width="16" src="https://emojipedia-us.s3.amazonaws.com/thumbs/60/google/119/flag-for-france_1f1eb-1f1f7.png"></a>
+
 PBR extension for SketchUp
 ==========================
 
