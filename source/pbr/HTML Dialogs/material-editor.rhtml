@@ -71,6 +71,21 @@
 
 		<div class="form-row">
 
+			<div class="label"><%= TRANSLATE['Metal-rough map'] %></div>
+
+			<!-- Default `title` attribute value is muted to avoid confusion. -->
+			<input class="uploader material-image-uploader" type="file" title=" " data-key="metalRoughTextureURI" data-pattern="^data\:image\/(jpeg|png);.+$" data-pattern-mismatch="<%= TRANSLATE['The image format of this map must be JPEG or PNG.'] %>">
+
+			<input class="checkbox enlarge material-image-status" type="checkbox" disabled title="<%= TRANSLATE['A texture image is defined?'] %>" data-key="metalRoughTextureURI" >
+
+			<div class="button material-image-remove-btn trash-icon" data-key="metalRoughTextureURI" title="<%= TRANSLATE['Discard texture image'] %>"></div>
+
+			<div class="tooltip info-icon" data-tipfy="<%= TRANSLATE['The metallic-roughness map is more precise than single value of Metallic or Roughness.'] %> <%= TRANSLATE['Metallic values are sampled from blue channel of texture image. Roughness values are sampled from green channel of texture image.'] %>" data-tipfy-side="left"></div>
+
+		</div>
+
+		<div class="form-row">
+
 			<div class="label"><%= TRANSLATE['Normal map'] %></div>
 
 			<!-- Default `title` attribute value is muted to avoid confusion. -->
@@ -86,7 +101,7 @@
 
 		<div class="form-row">
 
-			<div class="label"><%= TRANSLATE['Normal scale'] %></div>
+			<div class="label"><%= TRANSLATE['Normal map scale'] %></div>
 
 			<input class="slider material-basic-control" type="range" min="0.1" max="3.0" step="0.1" data-key="normalTextureScale" data-pattern="^((0\.[1-9][0-9]*)|([1-2](\.[0-9]+)?)|3(\.0+)?)$">
 

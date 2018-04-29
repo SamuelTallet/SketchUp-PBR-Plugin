@@ -55,6 +55,8 @@ module PBR
 
       fill_dialog
 
+      @materials_to_edit = {}
+
       configure_dialog
 
     end
@@ -82,9 +84,9 @@ module PBR
         scrollable:      true,
         width:           455,
         # @todo Calc. height depending on material attributes count?
-        height:          315,
+        height:          330,
         min_width:       455,
-        min_height:      315
+        min_height:      330
       )
 
     end
@@ -111,7 +113,10 @@ module PBR
     private def configure_dialog
 
       @dialog.add_action_callback('pullMaterials') do
-        @dialog.execute_script('PBR.materials = ' + materials_to_edit.to_json)
+
+        collect_materials_to_edit
+        @dialog.execute_script('PBR.materials = ' + @materials_to_edit.to_json)
+
       end
 
       @dialog.add_action_callback('pushMaterials') do |_context, edited_mats|
@@ -128,49 +133,52 @@ module PBR
 
     # Collects SketchUp materials attributes to edit in PBR Material Editor.
     #
-    # @param [Hash] mats_to_edit Materials to edit. Default: Empty hash.
-    #
-    # @return [Hash<Hash>] Materials to edit.
-    private def materials_to_edit(mats_to_edit = {})
+    # @return [void]
+    private def collect_materials_to_edit
 
       # For each SketchUp material in active model:
       Sketchup.active_model.materials.each do |mat|
 
-        mats_to_edit[mat.object_id] = {
+        @materials_to_edit[mat.object_id] = {
 
           # Get PBR plugin attributes to edit.
           
-          metallicFactor:     mat.get_attribute(:pbr, :metallicFactor, 0.0),
-          roughnessFactor:    mat.get_attribute(:pbr, :roughnessFactor, 0.7),
+          metallicFactor: mat.get_attribute(:pbr, :metallicFactor, 0.0),
+          roughnessFactor: mat.get_attribute(:pbr, :roughnessFactor, 0.7),
 
-          # Get status of texture image, not its contents. To speed up stream.
-          normalTextureURI:   normal_texture_uri_status(mat),
+          # Get status of texture images, not its contents. To speed up stream.
+
+          metalRoughTextureURI: texture_uri_status(mat, 'metalRoughTextureURI'),
+          normalTextureURI: texture_uri_status(mat, 'normalTextureURI'),
+
           normalTextureScale: mat.get_attribute(:pbr, :normalTextureScale, 1.0),
 
-          alphaMode:          mat.get_attribute(:pbr, :alphaMode, 'OPAQUE')
+          alphaMode: mat.get_attribute(:pbr, :alphaMode, 'OPAQUE')
 
         }
         
       end
 
-      mats_to_edit
-
     end
 
-    # Returns status of a normal texture image.
+    # Returns status of a texture image.
     #
-    # @param [Sketchup::Material] mat Material.
+    # @param [Sketchup::Material] material Material.
+    # @param [String] texture_uri_key Texture URI attr. key in attr. dictionary.
     # @raise [ArgumentError]
     #
     # @return [String, nil] Empty string if texture image is defined, else nil.
-    private def normal_texture_uri_status(mat)
+    private def texture_uri_status(material, texture_uri_key)
 
       raise ArgumentError, 'Invalid SketchUp material.'\
-       unless mat.is_a?(Sketchup::Material)
+       unless material.is_a?(Sketchup::Material)
 
-      normal_texture_uri = mat.get_attribute(:pbr, :normalTextureURI)
+      raise ArgumentError, 'Texture URI key must be a String.'\
+       unless texture_uri_key.is_a?(String)
 
-      normal_texture_uri.is_a?(String) ? '' : nil
+      texture_uri = material.get_attribute(:pbr, texture_uri_key)
+
+      texture_uri.is_a?(String) ? '' : nil
 
     end
 

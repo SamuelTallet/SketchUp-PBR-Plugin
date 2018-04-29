@@ -44,10 +44,8 @@ module PBR
                    File.basename(Sketchup.active_model.path, '.skp')
                  end
 
-      # Filter Win/Mac reserved characters & superfluous whitespace.
-      basename = basename.gsub(%r{[\x00-\x1F<>:"/\\|?*]}u, '').strip
-
-      basename.concat('.gltf')
+      # BTW, filter Win/Mac reserved characters & superfluous whitespace.
+      basename.gsub(%r{[\x00-\x1F<>:"/\\|?*]}u, '').strip.concat('.gltf')
 
     end
 
@@ -129,11 +127,10 @@ module PBR
         # Get PBR plugin attributes of SketchUp material. Note: `metallicFactor`
         # and `roughnessFactor` have been processed by Centaur's glTF exporter.
 
-        add_normal_tex(
-          gltf_mat,
-          mat.get_attribute(:pbr, :normalTextureURI),
-          mat.get_attribute(:pbr, :normalTextureScale)
-        )
+        add_mr_tex(gltf_mat, mat.get_attribute(:pbr, :metalRoughTextureURI))
+
+        add_normal_tex(gltf_mat, mat.get_attribute(:pbr, :normalTextureURI),
+          mat.get_attribute(:pbr, :normalTextureScale))
 
         update_alpha_mode(gltf_mat, mat.get_attribute(:pbr, :alphaMode))
 
@@ -146,20 +143,19 @@ module PBR
 
     # Retrieves SketchUp material with its display name.
     # 
-    # @param [String] display_name SketchUp material display name.
+    # @param [String] dp_name SketchUp material display name.
     # @raise [ArgumentError]
     #
     # @return [Sketchup::Material, nil] SketchUp material or nil.
-    private def skp_mat_by_display_name(display_name)
+    private def skp_mat_by_display_name(dp_name)
 
-      raise ArgumentError, 'Display name must be a String.'\
-       unless display_name.is_a?(String)
+      raise ArgumentError, 'Name must be a String.' unless dp_name.is_a?(String)
 
       material = nil
 
       Sketchup.active_model.materials.each do |mat|
 
-        if mat.display_name == display_name
+        if mat.display_name == dp_name
           material = mat
           break
         end
@@ -167,6 +163,38 @@ module PBR
       end
 
       material
+
+    end
+
+    # Adds a metallic-roughness texture to a glTF material
+    # only if URI is provided.
+    #
+    # @param [Hash] gltf_mat glTF material to texture on.
+    # @raise [ArgumentError]
+    #
+    # @param [String, nil] metal_rough_tex_uri Metal-Rough texture URI or nil.
+    #
+    # @return [void]
+    private def add_mr_tex(gltf_mat, metal_rough_tex_uri)
+
+      raise ArgumentError, 'Invalid glTF material.' unless gltf_mat.is_a?(Hash)
+
+      return if metal_rough_tex_uri.nil?
+
+      gltf_mat['pbrMetallicRoughness'] = {}\
+       unless gltf_mat.key?('pbrMetallicRoughness')
+
+      # The metallic-roughness texture.
+      gltf_mat['pbrMetallicRoughness']['metallicRoughnessTexture'] = {
+
+        # The index of the texture.
+        index: add_texture(metal_rough_tex_uri),
+
+        # The set index of texture's TEXCOORD
+        # property used for coordinate mapping.
+        texCoord: base_color_tex_coord(gltf_mat)
+
+      }
 
     end
 
@@ -213,7 +241,7 @@ module PBR
     # @return [Integer] Index of texture added.
     private def add_texture(uri)
 
-      raise ArgumentError, 'URI is not a String' unless uri.is_a?(String)
+      raise ArgumentError, 'URI is not a String.' unless uri.is_a?(String)
 
       # An array of images. An image defines data used to create a texture.
       @gltf['images'] = [] unless @gltf.key?('images')
