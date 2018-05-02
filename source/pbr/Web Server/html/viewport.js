@@ -65,6 +65,30 @@ PBR.Viewport.onModelLoaded = function(_result) {
 };
 
 /**
+ * Function to call once a **standard** gamepad is ready to use.
+ *
+ * @see https://w3c.github.io/gamepad/#remapping about standard.
+ *
+ * @param {Gamepad} _gamepad
+ */
+PBR.Viewport.onStandardGamepadReady = function(_gamepad) {
+
+	document.querySelector('.gamepad').classList.add('is-ready');
+	
+};
+
+/**
+ * Function to call once a gamepad is disconnected.
+ *
+ * @param {Gamepad} _gamepad
+ */
+PBR.Viewport.onGamepadDisconnected = function(_gamepad) {
+
+	document.querySelector('.gamepad').classList.remove('is-ready');
+	
+};
+
+/**
  * PBR Viewport app created thanks to ClayGL library.
  * @see http://docs.claygl.xyz/api/
  *
@@ -116,19 +140,26 @@ PBR.Viewport.app = clay.application.create('.container', {
 		);
 
 		// Plug-and-use an orbit control.
-		this._control = new clay.plugin.OrbitControl({
+		this._orbitControl = new clay.plugin.OrbitControl({
 
-			// Target of orbit control. Usually, it's a camera.
+			// Scene node to control.
 			target: this._camera,
 
-			// HTMLElement where we need to addEventListener().
-			domElement: app.container,
+			// DOM element to bind with mouse events.
+			domElement: app.container
 
-			/**
-			 * TODO: Set zoom sensitivity according to units options?
-			 * @see http://ruby.sketchup.com/Length.html
-			 */
-			zoomSensitivity: 0.8
+		});
+
+		// Plug-and-use a gamepad control.
+		this._gamepadControl = new clay.plugin.GamepadControl({
+
+			// Scene node to control.
+			target: this._camera,
+
+			// Gamepad event handlers.
+
+			onStandardGamepadReady: PBR.Viewport.onStandardGamepadReady,
+			onGamepadDisconnected: PBR.Viewport.onGamepadDisconnected
 
 		});
 
@@ -147,8 +178,10 @@ PBR.Viewport.app = clay.application.create('.container', {
 	// Each render frame:
 	loop: function(app) {
 
-		// Update status of orbit control.
-		this._control.update(app.frameTime);
+		// Update status of controls.
+		
+		this._orbitControl.update(app.frameTime);
+		this._gamepadControl.update(app.frameTime);
 
 	}
 
