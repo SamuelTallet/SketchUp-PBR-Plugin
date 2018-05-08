@@ -51,155 +51,236 @@ PBR.Viewport.translate = function() {
 };
 
 /**
- * Function to call once model loaded in Viewport.
- *
- * @param {object} _result - Unused argument.
+ * Viewport configuration.
  */
-PBR.Viewport.onModelLoaded = function(_result) {
-
-	// Remove loading animation.
-	document.body.removeChild(
-		document.querySelector('.loader')
-	);
-
-};
+PBR.Viewport.cfg = {};
 
 /**
- * Function to call once a **standard** gamepad is ready to use.
- *
- * @see https://w3c.github.io/gamepad/#remapping about standard.
- *
- * @param {Gamepad} _gamepad
- */
-PBR.Viewport.onStandardGamepadReady = function(_gamepad) {
-
-	document.querySelector('.gamepad').classList.add('is-ready');
-	
-};
-
-/**
- * Function to call once a gamepad is disconnected.
- *
- * @param {Gamepad} _gamepad
- */
-PBR.Viewport.onGamepadDisconnected = function(_gamepad) {
-
-	document.querySelector('.gamepad').classList.remove('is-ready');
-	
-};
-
-/**
- * PBR Viewport app created thanks to ClayGL library.
- * @see http://docs.claygl.xyz/api/
+ * Graphic configuration for basic rendering.
  *
  * @type {object}
  */
-PBR.Viewport.app = clay.application.create('.container', {
+PBR.Viewport.cfg.basicGraphics = {
 
-	// Graphic configuration:
-	graphic: {
+	shadow: true,
+	tonemapping: true,
+	linear: true
+	
+};
 
-		shadow: true,       // Shadows: ON.
-		tonemapping: true,  // ACES tone mapping: ON.
-		linear: true        // Linear color space: ON.
-		
+/**
+ * Graphic configuration for advanced rendering.
+ *
+ * @type {object}
+ */
+PBR.Viewport.cfg.advancedGraphics = {
+				
+	shadow: true,
+
+	temporalSuperSampling: {
+		enable: false
 	},
 
-	// Fullscreen: ON.
-	width: window.innerWidth,
-	height: window.innerHeight,
-	devicePixelRatio: window.devicePixelRatio,
+	postEffect: {
 
-	// When initializing app:
-	init: function(app) {
+		enable: true,
 
-		// Create a perspective camera.
-		this._camera = app.createCamera(
+		bloom: {
+			enable: false
+		},
 
-			[-3, 0, -2],  // Position.
-			[0, 0, 0]     // Target.
+		screenSpaceAmbientOcclusion: {
+			enable: true,
+			intensity: 1.3
+		},
 
-		);
-
-		// Create a directional light...
-		app.createDirectionalLight(
-
-			// from top right to left bottom, away from camera.
-			[-1, -1, -1]
-
-		);
-
-		// Create an ambient light.
-		app.createAmbientCubemapLight(
-
-			// Panorama environment image.
-			'/assets/cayley_interior_2k.hdr',  
-			1, // Intensity of specular light.
-			1  // Intensity of diffuse light.
-
-		);
-
-		// Plug-and-use an orbit control.
-		this._orbitControl = new clay.plugin.OrbitControl({
-
-			// Scene node to control.
-			target: this._camera,
-
-			// DOM element to bind with mouse events.
-			domElement: app.container
-
-		});
-
-		// Plug-and-use a gamepad control.
-		this._gamepadControl = new clay.plugin.GamepadControl({
-
-			// Scene node to control.
-			target: this._camera,
-
-			// Gamepad event handlers.
-
-			onStandardGamepadReady: PBR.Viewport.onStandardGamepadReady,
-			onGamepadDisconnected: PBR.Viewport.onGamepadDisconnected
-
-		});
-
-		/*
-		 * Load SketchUp model. Return a load promise so
-		 * the display will be started after model load...
-		 */
-		return app.loadModel('/assets/sketchup-model.gltf', {
-
-			waitTextureLoaded: true // all textures included.
-
-		}).then(PBR.Viewport.onModelLoaded);
-
-	},
-
-	// Each render frame:
-	loop: function(app) {
-
-		// Update status of controls.
-		
-		this._orbitControl.update(app.frameTime);
-		this._gamepadControl.update(app.frameTime);
+		FXAA: {
+			enable: false // FIXME
+		}
 
 	}
 
-});
+};
 
 /**
- * Resizes Viewport app container (canvas)...
- *
- * @param {object} _event - Unused argument.
+ * Configuration: Use advanced renderer?
+ * 
+ * @type {boolean}
  */
-PBR.Viewport.resizeContainer = function(_event) {
+PBR.Viewport.cfg.useAdvancedRenderer = false;
 
-	PBR.Viewport.app.resize(window.innerWidth, window.innerHeight);
+/**
+ * Viewport app.
+ *
+ * @type {object}
+ */
+PBR.Viewport.app = null;
+
+/**
+ * Creates Viewport app thanks to ClayGL library.
+ * @see http://docs.claygl.xyz/api/
+ *
+ * @returns {object}
+ */
+PBR.Viewport.createApp = function() {
+
+	return clay.application.create('.container', {
+
+		// Set fullscreen.
+		width: window.innerWidth,
+		height: window.innerHeight,
+
+		devicePixelRatio: window.devicePixelRatio,
+
+		graphic: PBR.Viewport.cfg.basicGraphics,
+
+		// Use basic (auto) renderer instead of advanced renderer?
+		autoRender: !PBR.Viewport.cfg.useAdvancedRenderer,
+
+		// When initializing app:
+		init: function(app) {
+
+			var self = this;
+
+			if (PBR.Viewport.cfg.useAdvancedRenderer) {
+
+				// Instantiate an advanced renderer.
+				this._advancedRenderer = new ClayAdvancedRenderer(
+
+					app.renderer,
+					app.scene,
+					app.timeline,
+					PBR.Viewport.cfg.advancedGraphics
+
+				);
+
+			}
+
+			// Create a perspective camera.
+			this._camera = app.createCamera(
+
+				[5, 0, 0],	// Position.
+				[0, 0, 0]	// Target.
+
+			);
+
+			// Create a directional light...
+			this._light = app.createDirectionalLight(
+
+				// from top right to left bottom, away from camera.
+				[-1, -1, -1]
+
+			);
+
+			this._light.shadowResolution = 2048;
+
+			// Set an orbit control.
+			this._orbitControl = new clay.plugin.OrbitControl({
+
+				// Scene node to control.
+				target: this._camera,
+
+				// DOM element to bind with mouse events.
+				domElement: app.container,
+
+				timeline: app.timeline
+
+			});
+
+			// Set a gamepad control.
+			this._gamepadControl = new clay.plugin.GamepadControl({
+
+				// Scene node to control.
+				target: this._camera,
+
+				timeline: app.timeline,
+
+				// Gamepad event handlers.
+
+				onStandardGamepadReady: function(_gamepad) {
+					document.querySelector('.gamepad')
+						.classList.add('is-ready');
+				},
+
+				onGamepadDisconnected: function(_gamepad) {
+					document.querySelector('.gamepad')
+						.classList.remove('is-ready');
+				}
+
+			});
+
+			if (PBR.Viewport.cfg.useAdvancedRenderer) {
+
+				// Sync controls with advanced rendering.
+
+				this._orbitControl.on('update', function() {
+					self._advancedRenderer.render();
+				}, this);
+
+				this._gamepadControl.on('update', function() {
+					self._advancedRenderer.render();
+				}, this);
+
+			}
+
+			// Create an ambient light.
+			return app.createAmbientCubemapLight(
+
+				// Panorama environment image.
+				'/assets/environment-map.hdr',  
+				1,	// Intensity of specular light.
+				1,	// Intensity of diffuse light.
+				0.7	// Exposure of HDR image.
+
+			).then(function(ambientLight) {
+
+				// Wrap scene in a Skybox.
+				var skybox = new clay.plugin.Skybox({
+					scene: app.scene,
+					environmentMap: ambientLight.environmentMap
+				});
+
+				// Load SketchUp model.
+				app.loadModel('/assets/sketchup-model.gltf', {
+
+					waitTextureLoaded: true
+
+				}).then(function(_model) {
+
+					// Remove loading animation.
+					document.body.removeChild(
+						document.querySelector('.loader')
+					);
+
+					if (PBR.Viewport.cfg.useAdvancedRenderer) {
+
+						// Render with advanced graphics.
+						self._advancedRenderer.render();
+
+					}
+
+				});
+
+			});
+
+		}
+
+	});
 
 };
 
-// each time browser window is resized by user.
-window.onresize = PBR.Viewport.resizeContainer;
+// When document is ready:
+document.addEventListener('DOMContentLoaded', function() {
 
-// When document is ready: translate Viewport.
-document.addEventListener('DOMContentLoaded', PBR.Viewport.translate);
+	PBR.Viewport.translate();
+
+	PBR.Viewport.app = PBR.Viewport.createApp();
+
+	// Each time browser window is resized by user:
+	window.addEventListener('resize', function(_event) {
+
+		PBR.Viewport.app.resize(window.innerWidth, window.innerHeight);
+
+	});
+
+});
