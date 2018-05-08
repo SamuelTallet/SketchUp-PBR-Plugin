@@ -22,6 +22,7 @@ raise 'The PBR plugin requires at least Ruby 2.2.0 or SketchUp 2017.'\
 
 require 'sketchup'
 require 'pbr/material_editor'
+require 'fileutils'
 require 'pbr/gltf'
 require 'pbr/web_server'
 
@@ -56,6 +57,8 @@ module PBR
     private def add_features_items
 
       @menu.add_item(TRANSLATE['Edit Materials...']) { edit_materials }
+
+      @menu.add_item(TRANSLATE['Change Environment Map...']) { change_env_map }
       
       @menu.add_item('⚫ ' + TRANSLATE['Open Viewport']) do
 
@@ -82,6 +85,28 @@ module PBR
 
       # Show Material Editor if all good conditions are met.
       MaterialEditor.new.show if MaterialEditor.safe_to_open?
+
+    end
+
+    # Runs "Change Environment Map..." menu command.
+    #
+    # @return [void]
+    private def change_env_map
+
+      user_path = UI.openpanel(
+        TRANSLATE['Select New Environment Map'],
+        nil, TRANSLATE['HDR Image'] + '|*.hdr||'
+      )
+
+      # Escape if user cancelled env. map change.
+      return if user_path.nil?
+      
+      FileUtils.copy(
+        user_path,
+        File.join(WebServer::ASSETS_DIR, 'environment-map.hdr')
+      )
+
+      UI.messagebox(TRANSLATE['Environment map successfully changed.'])
 
     end
 
