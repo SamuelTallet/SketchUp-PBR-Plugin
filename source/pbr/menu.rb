@@ -58,8 +58,6 @@ module PBR
 
       @menu.add_item(TRANSLATE['Edit Materials...']) { edit_materials }
 
-      @menu.add_item(TRANSLATE['Change Environment Map...']) { change_env_map }
-      
       @menu.add_item('⚫ ' + TRANSLATE['Open Viewport']) do
 
         propose_nil_material_fix
@@ -67,6 +65,8 @@ module PBR
         open_viewport
 
       end
+
+      @menu.add_item(TRANSLATE['Change Environment Map...']) { change_env_map }
 
       @menu.add_item(TRANSLATE['Export As 3D Object...']) do
 
@@ -106,7 +106,7 @@ module PBR
         File.join(WebServer::ASSETS_DIR, 'environment-map.hdr')
       )
 
-      UI.messagebox(TRANSLATE['Environment map successfully changed.'])
+      UI.messagebox(TRANSLATE['Refresh PBR Viewport to see the change.'])
 
     end
 

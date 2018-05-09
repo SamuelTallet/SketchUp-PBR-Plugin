@@ -25,7 +25,7 @@
 "Change Environment Map..."="Changer la carte d'environnement...";
 "Select New Environment Map"="Sélectionner la nouvelle carte d'environnement";
 "HDR Image"="Image HDR";
-"Environment map successfully changed."="Carte d'environnement changée avec succès.";
+"Refresh PBR Viewport to see the change."="Actualisez la fenêtre de visu. RBP pour voir le changement.";
 "Open Viewport"="Ouvrir la fenêtre de visualisation";
 "Export As 3D Object..."="Exporter en tant qu'objet 3D...";
 "Export As glTF"="Exporter en tant que fichier glTF";
