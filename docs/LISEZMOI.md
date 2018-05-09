@@ -27,7 +27,7 @@ Installation
 4. Installer les deux plugins en suivant ce [guide](https://help.sketchup.com/article/3000263).
 
 Maintenant, vous devriez avoir un menu "Rendu basé sur la physique" dans le menu "Extensions" de SketchUp. 👍
-À partir d'ici, vous pouvez : "Modifier les matériaux", "Ouvrir la fenêtre de visualisation" et "Exporter en tant qu'objet 3D".
+À partir d'ici, vous pouvez : "Modifier les matériaux", "Ouvrir la fenêtre de visualisation", "Changer la carte d'environnement" et "Exporter en tant qu'objet 3D".
 
 Documentation
 -------------
