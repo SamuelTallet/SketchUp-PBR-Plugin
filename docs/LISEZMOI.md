@@ -32,7 +32,7 @@ Maintenant, vous devriez avoir un menu "Rendu basé sur la physique" dans le men
 Documentation
 -------------
 
-Un [document d'aide](https://github.com/SamuelTS/SketchUp-PBR-Plugin/blob/master/docs/help.md) est disponible.
+Un [document d'aide](https://github.com/SamuelTS/SketchUp-PBR-Plugin/blob/master/docs/aide.md) est disponible.
 
 Remerciements
 -------------
