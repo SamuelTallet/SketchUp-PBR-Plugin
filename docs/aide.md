@@ -7,7 +7,7 @@ Dans SketchUp
 
 ### Problème connu et solutions de contournement
 
-Problème | Solutions de contournement
+Problème | Solution de contournement
 :--- | :---
 L'export glTF a échoué. | ① Réessayez mais quand l'extension SketchUp RBP demande : "Propager les matériaux à l'ensemble du modèle ?", répondez : "Oui". ② Assurez-vous que **toutes** les images des textures sont au format JPEG ou PNG. Le cas échéant, convertissez-les avec un outil tel que [celui-ci](https://image.online-convert.com/fr/convertir-en-png) puis réimportez-les dans SketchUp.
 
