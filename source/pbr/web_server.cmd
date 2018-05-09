@@ -9,7 +9,7 @@
 title PBR Web server
 
 :: Go to NGINX directory.
-cd %~dp0 && cd Web Server
+cd /d "%~dp0%Web Server"
 
 ::
 :: Parse argument passed to this script.
