@@ -90,6 +90,13 @@
 "Untitled"="Sans titre";
 
 //
+// File: github.rb
+//
+
+"help.md#in-pbr-viewport"="aide.md#dans-la-fenêtre-de-visualisation-rbp";
+"help.md#in-sketchup"="aide.md#dans-sketchup";
+
+//
 // File: web_server.rb
 //
 
