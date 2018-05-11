@@ -16,9 +16,9 @@ A virtual reef rendered `with` SketchUp PBR extension. Made with two faces, two 
 --- |
 ![Reef](https://github.com/SamuelTS/SketchUp-PBR-Plugin/raw/master/docs/demos/a-virtual-reef-rendered-with-sketchup-pbr-extension.jpg)
 
-A virtual bark rendered `with` SketchUp PBR extension. Made with two cylinders, two materials and three textures.
+A futuristic shuttle rendered `with` SketchUp PBR extension. Photo credit: ESO/P. Horálek. Model credit: 3DHaupt.
 --- |
-![Bark](https://github.com/SamuelTS/SketchUp-PBR-Plugin/raw/master/docs/demos/a-virtual-bark-rendered-with-sketchup-pbr-extension.png)
+![Futuristic shuttle](https://github.com/SamuelTS/SketchUp-PBR-Plugin/raw/master/docs/demos/a-futuristic-shuttle-rendered-with-sketchup-pbr-extension.jpg)
 
 Installation
 ------------
