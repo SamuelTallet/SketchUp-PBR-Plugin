@@ -14,9 +14,9 @@ Un récif virtuel rendu `avec` l'extension SketchUp RBP. Fait avec deux faces, d
 --- |
 ![Récif](https://github.com/SamuelTS/SketchUp-PBR-Plugin/raw/master/docs/demos/a-virtual-reef-rendered-with-sketchup-pbr-extension.jpg)
 
-Une écorce rendue `avec` l'extension SketchUp RBP. Faite avec deux cylindres, deux matériaux et trois textures.
+Une navette futuriste rendue `avec` l'extension SketchUp RBP. Crédit photo : ESO/P. Horálek. Crédit modèle : 3DHaupt.
 --- |
-![Écorce](https://github.com/SamuelTS/SketchUp-PBR-Plugin/raw/master/docs/demos/a-virtual-bark-rendered-with-sketchup-pbr-extension.png)
+![Navette futuriste](https://github.com/SamuelTS/SketchUp-PBR-Plugin/raw/master/docs/demos/a-futuristic-shuttle-rendered-with-sketchup-pbr-extension.jpg)
 
 Installation
 ------------
