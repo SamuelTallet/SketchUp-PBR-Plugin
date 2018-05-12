@@ -91,7 +91,7 @@ PBR.Viewport.cfg.advancedGraphics = {
 
 		screenSpaceAmbientOcclusion: {
 			enable: true,
-			intensity: 1.3
+			intensity: 1.2
 		},
 
 		FXAA: {
@@ -230,7 +230,7 @@ PBR.Viewport.createApp = function() {
 				'/assets/environment-map.hdr',  
 				1,	// Intensity of specular light.
 				1,	// Intensity of diffuse light.
-				0.7	// Exposure of HDR image.
+				0.8	// Exposure of HDR image.
 
 			).then(function(ambientLight) {
 
