@@ -135,11 +135,32 @@ PBR.uploadMaterialImage = event => {
 
 		if ( (new RegExp(materialImageUploader.dataset.pattern, 'g')).test(imageFile.result) ) {
 
-			PBR.selectedMaterial()[materialImageUploader.dataset.key] =
-				imageFile.result;
+			// If image needs to be packed into a channel. e.g. Metallic map is packed in blue channel.
+			if ( typeof materialImageUploader.dataset.channel === 'string' ) {
 
-			PBR.checkMaterialImagesStatus(null);
-			
+				new ImageChannelPacker(
+
+					imageFile.result, // inputImageSource
+					PBR.selectedMaterial()[materialImageUploader.dataset.key], // outputImageSource
+					materialImageUploader.dataset.channel, // imageChannel
+					function(outputImageSource) { // onComplete
+
+						PBR.selectedMaterial()[materialImageUploader.dataset.key] = outputImageSource;
+						PBR.checkMaterialImagesStatus(null);
+
+					}
+
+				);
+
+			} else {
+
+				PBR.selectedMaterial()[materialImageUploader.dataset.key] =
+					imageFile.result;
+
+				PBR.checkMaterialImagesStatus(null);
+
+			}
+
 		} else {
 			window.alert(materialImageUploader.dataset.patternMismatch);
 		}

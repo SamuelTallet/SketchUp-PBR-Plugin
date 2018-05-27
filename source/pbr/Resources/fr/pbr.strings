@@ -59,9 +59,12 @@
 "A value of 0 means the material is completely smooth."="Une valeur de 0 signifie que le matériau est complètement lisse.";
 "A value of 1 means the material is completely rough."="Une valeur de 1 signifie que le matériau est complètement rugueux.";
 
-"Metal-rough map"="Carte métallique-rugosité";
-"The metallic-roughness map is more precise than single value of Metallic or Roughness."="La carte métallique-rugosité est plus précise que la valeur unique Métallique ou Rugosité.";
-"Metallic values are sampled from blue channel of texture image. Roughness values are sampled from green channel of texture image."="Les valeurs métalliques sont extraites de la couche bleue de l'image de la texture. Les valeurs de rugosité sont extraites de la couche verte de l'image de la texture.";
+"Metallic map"="Carte métallique";
+"The metallic map is more precise than single value of Metallic."="La carte métallique est plus précise que la valeur unique Métallique.";
+"Metallic and roughness maps are automatically merged."="Les cartes métalliques et de rugosité sont automatiquement fusionnées.";
+
+"Roughness map"="Carte de rugosité";
+"The roughness map is more precise than single value of Roughness."="La carte de rugosité est plus précise que la valeur unique Rugosité.";
 
 "Normal map"="Carte de normales";
 "The normal map gives an illusion of relief to the material."="La carte de normales donne une illusion de relief au matériau.";

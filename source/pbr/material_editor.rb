@@ -84,9 +84,9 @@ module PBR
         scrollable:      true,
         width:           455,
         # @todo Calc. height depending on material attributes count?
-        height:          330,
+        height:          365,
         min_width:       455,
-        min_height:      330
+        min_height:      365
       )
 
     end
@@ -100,7 +100,11 @@ module PBR
 
         # Note: Paths below are relative to `HTMLDialogs::DIR`.
         document: 'material-editor.rhtml',
-        scripts: ['lib/tipfy/tipfy.min.js', 'material-editor.js'],
+        scripts: [
+          'lib/tipfy/tipfy.min.js',
+          'lib/image-channel-packer.js',
+          'material-editor.js'
+        ],
         styles: ['lib/tipfy/tipfy.min.css', 'material-editor.css']
 
       ))
