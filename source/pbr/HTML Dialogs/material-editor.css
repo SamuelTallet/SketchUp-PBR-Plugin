@@ -144,7 +144,7 @@
 
     position: fixed;
     bottom: 0;
-    right: 0;
+    right: -1px; /* FIXME */
 
     color: white;
     text-shadow: 0 1px 4px rgba(0, 0, 0, .4);

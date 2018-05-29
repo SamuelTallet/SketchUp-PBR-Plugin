@@ -84,9 +84,9 @@ module PBR
         scrollable:      true,
         width:           455,
         # @todo Calc. height depending on material attributes count?
-        height:          365,
+        height:          370,
         min_width:       455,
-        min_height:      365
+        min_height:      370
       )
 
     end

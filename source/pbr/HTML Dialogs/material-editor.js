@@ -27,6 +27,13 @@ PBR = {};
 PBR.queryAll = selector => Array.from(document.querySelectorAll(selector));
 
 /**
+ * An operations is in progress?
+ *
+ * @type {boolean}
+ */
+PBR.anOperationIsInProgress = false;
+
+/**
  * Materials attributes.
  *
  * @type {Array.<object>}
@@ -148,9 +155,14 @@ PBR.uploadMaterialImage = event => {
 						PBR.selectedMaterial()[materialImageUploader.dataset.key] = outputImageSource;
 						PBR.checkMaterialImagesStatus(null);
 
+						// XXX Asynchronous operation ended.
+						PBR.anOperationIsInProgress = false;
+
 					}
 
 				);
+
+				PBR.anOperationIsInProgress = true;
 
 			} else {
 
@@ -192,8 +204,17 @@ PBR.removeMaterialImage = event => {
  * Then closes PBR Material Editor dialog.
  *
  * @param {object} _event - Unused argument.
+ *
+ * @returns {void} if another operation is in progress.
  */
-PBR.pushMaterialsThenClose = _event => {
+PBR.pushMaterialsThenClose = event => {
+
+	if ( PBR.anOperationIsInProgress ) {
+
+		window.alert(event.target.dataset.opInProgress);
+		return;
+
+	}
 
 	sketchup.pushMaterials(PBR.materials, {
 

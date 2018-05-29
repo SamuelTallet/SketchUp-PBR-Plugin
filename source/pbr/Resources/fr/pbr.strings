@@ -84,6 +84,7 @@
 "Combined with background"="Combiné avec l'arrière-plan";
 "The alpha rendering mode of the material."="Le mode de rendu alpha du matériau.";
 
+"Another operation is in progress. Please retry later."="Une autre opération est en cours. Veuillez réessayer plus tard.";
 "Apply all changes"="Appliquer tous les changements";
 
 //
