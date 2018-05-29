@@ -91,7 +91,7 @@ class ImageChannelPacker {
 
 				this.combine_image_data();
 
-				onComplete(this.outputCanvas.toDataURL());
+				onComplete(this.outputCanvas.toDataURL('image/jpeg', 0.95));
 
 			};
 
