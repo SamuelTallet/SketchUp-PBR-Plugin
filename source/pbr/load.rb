@@ -22,6 +22,7 @@ raise 'The PBR plugin requires at least Ruby 2.2.0 or SketchUp 2017.'\
 
 require 'sketchup'
 require 'pbr/observer'
+require 'pbr/material_library'
 require 'pbr/web_server'
 require 'pbr/menu'
 
@@ -30,6 +31,9 @@ module PBR
 
   # Attach PBR observer to SketchUp.
   Sketchup.add_observer(Observer.new)
+
+  # Install (skm) materials library.
+  MaterialLibrary.install
 
   # Stop PBR Web server in case last SketchUp exit was "hard" (e.g. a crash).
   WebServer.stop
