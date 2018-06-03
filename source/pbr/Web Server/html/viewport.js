@@ -74,24 +74,19 @@ PBR.Viewport.cfg.basicGraphics = {
  * @type {object}
  */
 PBR.Viewport.cfg.advancedGraphics = {
-				
-	shadow: true,
-
+	
 	temporalSuperSampling: {
-		enable: false
+		enable: false // FIXME
 	},
 
 	postEffect: {
-
-		enable: true,
 
 		bloom: {
 			enable: false
 		},
 
 		screenSpaceAmbientOcclusion: {
-			enable: true,
-			intensity: 1.2
+			enable: true // FIXME
 		},
 
 		FXAA: {
