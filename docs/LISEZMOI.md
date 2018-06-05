@@ -40,7 +40,7 @@ Un [document d'aide](https://github.com/SamuelTS/SketchUp-PBR-Plugin/blob/master
 Remerciements
 -------------
 
-Le projet du plugin RBP n'aurait pas abouti sans : [SketchUp](https://www.sketchup.com/fr), [glTF](https://www.khronos.org/gltf/), [le plugin glTF Export](https://extensions.sketchup.com/fr/content/gltf-exporter), [nginx](https://nginx.org) et [la bibliothèque ClayGL](http://claygl.xyz).
+Le projet du plugin RBP n'aurait pas abouti sans : [SketchUp](https://www.sketchup.com/fr), [glTF](https://www.khronos.org/gltf/), [le plugin glTF Export](https://extensions.sketchup.com/fr/content/gltf-exporter), [Chromium](https://www.chromium.org/) et [la bibliothèque ClayGL](http://claygl.xyz).
 
 Droits d'auteur
 ---------------
