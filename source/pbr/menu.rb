@@ -22,9 +22,9 @@ raise 'The PBR plugin requires at least Ruby 2.2.0 or SketchUp 2017.'\
 
 require 'sketchup'
 require 'pbr/material_editor'
+require 'pbr/viewport'
 require 'fileutils'
 require 'pbr/gltf'
-require 'pbr/web_server'
 
 # PBR plugin namespace.
 module PBR
@@ -43,7 +43,11 @@ module PBR
 
       @menu = parent_menu.add_submenu(NAME)
 
-      add_features_items
+      add_primary_feat_items
+
+      @menu.add_separator
+
+      add_secondary_feat_items
 
       @menu.add_separator
 
@@ -51,30 +55,14 @@ module PBR
 
     end
 
-    # Adds menu items related to features.
+    # Adds menu items related to primary features.
     #
     # @return [void]
-    private def add_features_items
+    private def add_primary_feat_items
 
-      @menu.add_item(TRANSLATE['Edit Materials...']) { edit_materials }
+      @menu.add_item('⬕ ' + TRANSLATE['Edit Materials...']) { edit_materials }
 
-      @menu.add_item('⚫ ' + TRANSLATE['Open Viewport']) do
-
-        propose_nil_material_fix
-
-        open_viewport
-
-      end
-
-      @menu.add_item(TRANSLATE['Change Environment Map...']) { change_env_map }
-
-      @menu.add_item(TRANSLATE['Export As 3D Object...']) do
-
-        propose_nil_material_fix
-
-        export_as_gltf
-
-      end
+      @menu.add_item('🌐 ' + TRANSLATE['Change Env. Map...']) { change_env_map }
 
     end
 
@@ -88,7 +76,7 @@ module PBR
 
     end
 
-    # Runs "Change Environment Map..." menu command.
+    # Runs "Change Env. Map..." menu command.
     #
     # @return [void]
     private def change_env_map
@@ -103,35 +91,49 @@ module PBR
       
       FileUtils.copy(
         user_path,
-        File.join(WebServer::ASSETS_DIR, 'environment-map.hdr')
+        File.join(Viewport::ASSETS_DIR, 'environment-map.hdr')
       )
 
-      UI.messagebox(TRANSLATE['Refresh PBR Viewport to see the change.'])
+      # Refresh PBR Viewport.
+      Viewport.reopen
 
     end
 
-    # Runs "Open Viewport" menu command.
+    # Adds menu items related to secondary features.
     #
     # @return [void]
-    private def open_viewport
+    private def add_secondary_feat_items
 
-      gltf = GlTF.new
+      @menu.add_item(TRANSLATE['Force Viewport Update']) do
 
-      if gltf.valid?
+        propose_nil_material_fix
 
-        # Overwrite glTF model. So, Viewport will display an up-to-date model.
-        File.write(
-          File.join(WebServer::ASSETS_DIR, 'sketchup-model.gltf'), gltf.json
-        )
-
-        # Open PBR Viewport in default Web browser.
-        UI.openURL(WebServer.viewport_url)
-
-      else
-
-        propose_help(TRANSLATE['glTF export failed. Do you want help?'])
+        update_viewport
 
       end
+
+      @menu.add_item(TRANSLATE['Export As 3D Object...']) do
+
+        propose_nil_material_fix
+
+        export_as_gltf
+
+      end
+
+    end
+
+    # Runs "Force Viewport Update" menu command.
+    #
+    # Note: This only updates glTF model asset.
+    #
+    # @return [void]
+    private def update_viewport
+
+      propose_help(TRANSLATE['glTF export failed. Do you want help?'])\
+        unless Viewport.update_model
+
+      # Refresh PBR Viewport.
+      Viewport.reopen
 
     end
 

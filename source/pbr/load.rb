@@ -21,34 +21,40 @@ raise 'The PBR plugin requires at least Ruby 2.2.0 or SketchUp 2017.'\
   unless RUBY_VERSION.to_f >= 2.2 # SketchUp 2017 includes Ruby 2.2.4.
 
 require 'sketchup'
-require 'pbr/observer'
-require 'pbr/material_library'
-require 'pbr/web_server'
+require 'pbr/app_observer'
+require 'pbr/model_observer'
 require 'pbr/menu'
+require 'pbr/material_library'
+require 'pbr/viewport'
 
 # PBR plugin namespace.
 module PBR
 
-  # Attach PBR observer to SketchUp.
-  Sketchup.add_observer(Observer.new)
+  # Attach PBR App Observer to SketchUp.
+  Sketchup.add_observer(AppObserver.new)
 
-  # Install (skm) materials library.
-  MaterialLibrary.install
-
-  # Stop PBR Web server in case last SketchUp exit was "hard" (e.g. a crash).
-  WebServer.stop
-
-  # Start Web server. For security reasons: server listens to localhost only.
-  WebServer.start
-  # PBR Web server is stopped as soon as SketchUp is exited by SketchUp user.
+  # Attach PBR Model Observer to SketchUp active model.
+  Sketchup.active_model.add_observer(ModelObserver.new)
 
   # Material Editor is not open yet.
   SESSION[:mat_editor_open?] = false
+
+  # Storage for Chromium process ID.
+  SESSION[:viewport_pid] = 0
 
   # Plug PBR menu into SketchUp UI.
   Menu.new(
     UI.menu('Plugins') # parent_menu
   )
+
+  # Install (skm) materials library.
+  MaterialLibrary.install
+
+  # Translate Viewport.
+  Viewport.translate
+
+  # Open Viewport.
+  Viewport.open
 
   # Load complete.
 

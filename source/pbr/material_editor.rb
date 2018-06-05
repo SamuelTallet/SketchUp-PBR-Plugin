@@ -57,7 +57,9 @@ module PBR
 
       @materials_to_edit = {}
 
-      configure_dialog
+      configure_dialog_part_1
+
+      configure_dialog_part_2
 
     end
 
@@ -111,23 +113,40 @@ module PBR
 
     end
 
-    # Configures HTML dialog.
+    # Configures HTML dialog (part #1).
     #
     # @return [void]
-    private def configure_dialog
+    private def configure_dialog_part_1
 
       @dialog.add_action_callback('pullMaterials') do
 
         collect_materials_to_edit
+
         @dialog.execute_script('PBR.materials = ' + @materials_to_edit.to_json)
 
       end
 
       @dialog.add_action_callback('pushMaterials') do |_context, edited_mats|
+
         self.edited_materials = edited_mats
+        
       end
 
-      @dialog.add_action_callback('closeDialog') { @dialog.close }
+    end
+
+    # Configures HTML dialog (part #2).
+    #
+    # @return [void]
+    private def configure_dialog_part_2
+
+      @dialog.add_action_callback('closeDialog') do
+
+        @dialog.close
+
+        # Update and refresh PBR Viewport model.
+        Viewport.reopen if Viewport.update_model
+
+      end
 
       @dialog.set_on_closed { SESSION[:mat_editor_open?] = false }
 

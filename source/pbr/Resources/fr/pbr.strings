@@ -22,11 +22,11 @@
 // Locale note: In French version of SketchUp, menu items are not titleized.
 
 "Edit Materials..."="Modifier les matériaux...";
-"Change Environment Map..."="Changer la carte d'environnement...";
+"Change Env. Map..."="Changer la carte d'environnement...";
 "Select New Environment Map"="Sélectionner la nouvelle carte d'environnement";
 "HDR Image"="Image HDR";
 "Refresh PBR Viewport to see the change."="Actualisez la fenêtre de visu. RBP pour voir le changement.";
-"Open Viewport"="Ouvrir la fenêtre de visualisation";
+"Force Viewport Update"="Forcer la màj de la fenêtre de visu.";
 "Export As 3D Object..."="Exporter en tant qu'objet 3D...";
 "Export As glTF"="Exporter en tant que fichier glTF";
 "Model well exported here:"="Modèle bien exporté ici :";
@@ -101,7 +101,7 @@
 "help.md#in-sketchup"="aide.md#dans-sketchup";
 
 //
-// File: web_server.rb
+// File: viewport.rb
 //
 
 "SketchUp PBR Viewport"="Fenêtre de visu. RBP de SketchUp";
