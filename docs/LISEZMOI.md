@@ -28,7 +28,7 @@ Installation
 5. Redémarrer SketchUp.
 
 Maintenant, vous devriez avoir un menu "Rendu basé sur la physique" dans le menu "Extensions" de SketchUp. 👍
-À partir de ce nouveau menu, vous pouvez : "Modifier les matériaux", "Ouvrir la fenêtre de visualisation", "Changer la carte d'environnement" et "Exporter en tant qu'objet 3D".
+À partir de ce nouveau menu, vous pouvez : "Modifier les matériaux", "Changer la carte d'environnement", "Forcer la màj de la fenêtre de visu." et "Exporter en tant qu'objet 3D".
 
 De plus, vous devriez avoir une nouvelle collection de matières "PBR" dans la palette "Matières". Enjoy! 😊
 
