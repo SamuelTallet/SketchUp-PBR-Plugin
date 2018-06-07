@@ -21,7 +21,7 @@ Une navette futuriste rendue `avec` l'extension SketchUp RBP. Crédit photo : ES
 Installation
 ------------
 
-1. S'assurer d'avoir SketchUp 2017 ou une version plus récente installée. NB : Seul Windows est pris en charge.
+1. S'assurer d'avoir SketchUp 2017 ou une version plus récente installée.
 2. Télécharger le plugin requis : [glTF Export](https://extensions.sketchup.com/fr/content/gltf-exporter).
 3. Télécharger le dernier plugin RBP au format .RBZ depuis la page [Releases](https://github.com/SamuelTS/SketchUp-PBR-Plugin/releases/).
 4. Installer les deux plugins en suivant ce [guide](https://help.sketchup.com/article/3000263).
