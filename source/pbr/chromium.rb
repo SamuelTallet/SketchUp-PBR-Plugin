@@ -25,11 +25,24 @@ require 'sketchup'
 # PBR plugin namespace.
 module PBR
 
-  # A wrapper for the Chromium Web browser.
+  # A simple wrapper for the Chromium Web browser.
   module Chromium
 
-    # Absolute path to Chromium executable.
-    EXE = File.join(__dir__, 'Chromium', 'chrome.exe').freeze
+    # Absolute path to Chromium browsers folder.
+    DIR = File.join(__dir__, 'Chromium').freeze
+
+    # Returns absolute path to Chromium executable.
+    #
+    # @return [String]
+    def self.executable
+
+      if Sketchup.platform == :platform_osx
+        File.join(DIR, 'Mac', 'Chromium.app', 'Contents', 'MacOS', 'Chromium')
+      else
+        File.join(DIR, 'Win', 'chrome.exe')
+      end
+
+    end
 
   end
 

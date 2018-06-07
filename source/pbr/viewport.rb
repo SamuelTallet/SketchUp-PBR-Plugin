@@ -76,7 +76,7 @@ module PBR
 
       SESSION[:viewport_pid] = Process.spawn(
 
-        Chromium::EXE,
+        Chromium.executable,
 
         File.join(ROOT, 'viewport.html'),
 
@@ -87,6 +87,9 @@ module PBR
         '--incognito'
 
       )
+
+      rescue StandardError => _error
+        UI.messagebox("Unable to find: \"#{Chromium.executable}\". Get latest.")
 
     end
 

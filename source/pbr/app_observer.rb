@@ -52,6 +52,14 @@ module PBR
 
     end
 
+    # When SketchUp user turns off an extension:
+    def onUnloadExtension(extension_name)
+
+      # Close PBR Viewport if it's about PBR.
+      Viewport.close if extension_name == NAME
+
+    end
+
     # As soon SketchUp process ends:
     def onQuit
 
