@@ -22,7 +22,6 @@ raise 'The PBR plugin requires at least Ruby 2.2.0 or SketchUp 2017.'\
 
 require 'sketchup'
 require 'pbr/app_observer'
-require 'pbr/model_observer'
 require 'pbr/menu'
 require 'pbr/material_library'
 require 'pbr/viewport'
@@ -32,9 +31,6 @@ module PBR
 
   # Attach PBR App Observer to SketchUp.
   Sketchup.add_observer(AppObserver.new)
-
-  # Attach PBR Model Observer to SketchUp active model.
-  Sketchup.active_model.add_observer(ModelObserver.new)
 
   # Material Editor is not open yet.
   SESSION[:mat_editor_open?] = false
