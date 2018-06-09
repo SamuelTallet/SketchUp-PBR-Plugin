@@ -93,6 +93,61 @@ PBR.Viewport.cfg.advancedGraphics = {
 PBR.Viewport.cfg.useAdvancedRenderer = false;
 
 /**
+ * Viewport pseudo sunlight.
+ *
+ * @type {object}
+ */
+PBR.Viewport.pseudoSunlight = null;
+
+/**
+ * Viewport ambient light.
+ *
+ * @type {object}
+ */
+PBR.Viewport.ambientLight = null;
+
+/**
+ * Viewport unified light color.
+ *
+ * @type {Array}
+ */
+PBR.Viewport.lightColor = [1.0, 1.0, 1.0];
+
+/**
+ * Shifts unified light color of Viewport
+ * in order to change light exposure. :-p
+ */
+PBR.Viewport.shiftLightColor = function() {
+
+	if ( parseInt(PBR.Viewport.lightColor[0]) == 2 ) {
+
+		PBR.Viewport.lightColor = [
+			0.1,
+			0.1,
+			0.1
+		]
+
+	} else {
+
+		PBR.Viewport.lightColor = [
+			PBR.Viewport.lightColor[0] += 0.1,
+			PBR.Viewport.lightColor[1] += 0.1,
+			PBR.Viewport.lightColor[2] += 0.1
+		]
+
+	}
+
+	// Update all lights.
+
+	PBR.Viewport.pseudoSunlight.color = PBR.Viewport.lightColor;
+
+	PBR.Viewport.ambientLight.diffuse.color = PBR.Viewport.lightColor;
+	PBR.Viewport.ambientLight.specular.color = PBR.Viewport.lightColor;
+	PBR.Viewport.ambientLight.environmentMap.exposure = PBR.Viewport.lightColor[0]; // FIXME
+
+};
+
+/**
  * Viewport app.
  *
  * @type {object}
@@ -157,6 +212,8 @@ PBR.Viewport.createApp = function() {
 
 			this._light.shadowResolution = 2048;
 
+			PBR.Viewport.pseudoSunlight = this._light;
+
 			// Set an orbit control.
 			this._orbitControl = new clay.plugin.OrbitControl({
 
@@ -217,6 +274,8 @@ PBR.Viewport.createApp = function() {
 
 			).then(function(ambientLight) {
 
+				PBR.Viewport.ambientLight = ambientLight;
+
 				// Wrap scene in a Skybox.
 				var skybox = new clay.plugin.Skybox({
 					scene: app.scene,
@@ -258,6 +317,10 @@ document.addEventListener('DOMContentLoaded', function() {
 	PBR.Viewport.translate();
 
 	PBR.Viewport.app = PBR.Viewport.createApp();
+
+	// On exposure control click:
+	document.querySelector('.exposure-control')
+		.addEventListener('click', PBR.Viewport.shiftLightColor);
 
 	// Each time browser window is resized by user:
 	window.addEventListener('resize', function(_event) {
