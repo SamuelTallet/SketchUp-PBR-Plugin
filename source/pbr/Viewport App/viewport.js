@@ -93,57 +93,109 @@ PBR.Viewport.cfg.advancedGraphics = {
 PBR.Viewport.cfg.useAdvancedRenderer = false;
 
 /**
- * Viewport pseudo sunlight.
+ * Loads camera position from IndexedDB.
  *
- * @type {object}
+ * @param {function} successCallback
  */
-PBR.Viewport.pseudoSunlight = null;
+PBR.Viewport.loadCameraPosition = function(successCallback) {
+
+	localforage.getItem(
+
+		'camera_position'
+
+	).then(function(cameraPosition) {
+	
+		// XXX Default or current.
+		cameraPosition = ( cameraPosition === null ) ? [1.5, 0, 0] : cameraPosition;
+ 
+		successCallback(cameraPosition);
+
+	});
+
+};
 
 /**
- * Viewport ambient light.
+ * Saves camera position into IndexedDB.
  *
- * @type {object}
+ * @param {Array<Number>} cameraPosition
  */
-PBR.Viewport.ambientLight = null;
+PBR.Viewport.saveCameraPosition = function(cameraPosition) {
+
+	localforage.setItem('camera_position', cameraPosition);
+
+};
 
 /**
- * Viewport unified light color.
+ * Loads light exposure from IndexedDB.
  *
- * @type {Array}
+ * @param {function} successCallback
  */
-PBR.Viewport.lightColor = [1.0, 1.0, 1.0];
+PBR.Viewport.loadLightExposure = function(successCallback) {
+
+	localforage.getItem(
+
+		'light_exposure'
+
+	).then(function(lightExposure) {
+
+		// XXX Default or current.
+		lightExposure = ( lightExposure === null ) ? 1.00 : Number(parseFloat(lightExposure).toFixed(2));
+
+		successCallback(lightExposure);
+
+	});
+
+};
 
 /**
- * Shifts unified light color of Viewport
- * in order to change light exposure. :-p
+ * Saves light exposure into IndexedDB.
+ *
+ * @param {number|string} lightExposure
+ * @param {function} successCallback
  */
-PBR.Viewport.shiftLightColor = function() {
+PBR.Viewport.saveLightExposure = function(lightExposure, successCallback) {
 
-	if ( parseInt(PBR.Viewport.lightColor[0]) == 2 ) {
+	localforage.setItem(
 
-		PBR.Viewport.lightColor = [
-			0.1,
-			0.1,
-			0.1
-		]
+		'light_exposure',
+		Number(parseFloat(lightExposure).toFixed(2))
 
-	} else {
+	).then(function(_lightExposure) {
 
-		PBR.Viewport.lightColor = [
-			PBR.Viewport.lightColor[0] += 0.1,
-			PBR.Viewport.lightColor[1] += 0.1,
-			PBR.Viewport.lightColor[2] += 0.1
-		]
+		successCallback();
 
-	}
+	});
 
-	// Update all lights.
+};
 
-	PBR.Viewport.pseudoSunlight.color = PBR.Viewport.lightColor;
+/**
+ * Shifts light exposure according to a cycle.
+ */
+PBR.Viewport.shiftLightExposure = function() {
 
-	PBR.Viewport.ambientLight.diffuse.color = PBR.Viewport.lightColor;
-	PBR.Viewport.ambientLight.specular.color = PBR.Viewport.lightColor;
-	PBR.Viewport.ambientLight.environmentMap.exposure = PBR.Viewport.lightColor[0]; // FIXME
+	PBR.Viewport.loadLightExposure(function(lightExposure) {
+
+		// XXX Maximum.
+		if ( lightExposure === 1.40 ) {
+
+			// XXX Minimum.
+			lightExposure = 0.20;
+
+		} else {
+
+			// XXX Step.
+			lightExposure += 0.20;
+
+		}
+
+		PBR.Viewport.saveLightExposure(
+
+			lightExposure,
+			PBR.Viewport.update
+
+		);
+
+	});
 
 };
 
@@ -183,7 +235,7 @@ PBR.Viewport.createApp = function() {
 			if (PBR.Viewport.cfg.useAdvancedRenderer) {
 
 				// Instantiate an advanced renderer.
-				this._advancedRenderer = new ClayAdvancedRenderer(
+				self._advancedRenderer = new ClayAdvancedRenderer(
 
 					app.renderer,
 					app.scene,
@@ -194,112 +246,118 @@ PBR.Viewport.createApp = function() {
 
 			}
 
-			// Create a perspective camera.
-			this._camera = app.createCamera(
+			PBR.Viewport.loadCameraPosition(function(cameraPosition) {
 
-				[5, 0, 0],	// Position.
-				[0, 0, 0]	// Target.
+				// Create a perspective camera.
+				self._camera = app.createCamera(
 
-			);
+					cameraPosition,
+					[0, 0, 0] // Target.
 
-			// Create a directional light...
-			this._light = app.createDirectionalLight(
+				);
 
-				// from top right to left bottom, away from camera.
-				[-1, -1, -1]
+				PBR.Viewport.loadLightExposure(function(lightExposure) {
 
-			);
+					// Create a pseudo sunlight with a directional light...
+					self._pseudoSunlight = app.createDirectionalLight(
 
-			this._light.shadowResolution = 2048;
+						// from top right to left bottom, away from camera.
+						[-1, -1, -1],
+						[lightExposure, lightExposure, lightExposure], // Color.
+						lightExposure // Intensity.
 
-			PBR.Viewport.pseudoSunlight = this._light;
-
-			// Set an orbit control.
-			this._orbitControl = new clay.plugin.OrbitControl({
-
-				// Scene node to control.
-				target: this._camera,
-
-				// DOM element to bind with mouse events.
-				domElement: app.container,
-
-				timeline: app.timeline
-
-			});
-
-			// Set a gamepad control.
-			this._gamepadControl = new clay.plugin.GamepadControl({
-
-				// Scene node to control.
-				target: this._camera,
-
-				timeline: app.timeline,
-
-				// Gamepad event handlers.
-
-				onStandardGamepadReady: function(_gamepad) {
-					document.querySelector('.gamepad')
-						.classList.add('is-ready');
-				},
-
-				onGamepadDisconnected: function(_gamepad) {
-					document.querySelector('.gamepad')
-						.classList.remove('is-ready');
-				}
-
-			});
-
-			if (PBR.Viewport.cfg.useAdvancedRenderer) {
-
-				// Sync controls with advanced rendering.
-
-				this._orbitControl.on('update', function() {
-					self._advancedRenderer.render();
-				}, this);
-
-				this._gamepadControl.on('update', function() {
-					self._advancedRenderer.render();
-				}, this);
-
-			}
-
-			// Create an ambient light.
-			return app.createAmbientCubemapLight(
-
-				// Panorama environment image.
-				'assets/environment-map.hdr',  
-				1,	// Intensity of specular light.
-				1,	// Intensity of diffuse light.
-				0.8	// Exposure of HDR image.
-
-			).then(function(ambientLight) {
-
-				PBR.Viewport.ambientLight = ambientLight;
-
-				// Wrap scene in a Skybox.
-				var skybox = new clay.plugin.Skybox({
-					scene: app.scene,
-					environmentMap: ambientLight.environmentMap
-				});
-
-				// Load SketchUp model.
-				app.loadModel('assets/sketchup-model.gltf', {
-
-					waitTextureLoaded: true
-
-				}).then(function(_model) {
-
-					// Remove loading animation.
-					document.body.removeChild(
-						document.querySelector('.loader')
 					);
+
+					self._pseudoSunlight.shadowResolution = 4096;
+
+					// Set an orbit control.
+					self._orbitControl = new clay.plugin.OrbitControl({
+
+						// Scene node to control.
+						target: self._camera,
+
+						// DOM element to bind with mouse events.
+						domElement: app.container,
+
+						timeline: app.timeline
+
+					});
+
+					// Set a gamepad control.
+					self._gamepadControl = new clay.plugin.GamepadControl({
+
+						// Scene node to control.
+						target: self._camera,
+
+						timeline: app.timeline,
+
+						// Gamepad event handlers.
+
+						onStandardGamepadReady: function(_gamepad) {
+							document.querySelector('.gamepad')
+								.classList.add('is-ready');
+						},
+
+						onGamepadDisconnected: function(_gamepad) {
+							document.querySelector('.gamepad')
+								.classList.remove('is-ready');
+						}
+
+					});
 
 					if (PBR.Viewport.cfg.useAdvancedRenderer) {
 
-						// Render with advanced graphics.
-						self._advancedRenderer.render();
+						// Sync controls with advanced rendering.
+
+						self._orbitControl.on('update', function() {
+							self._advancedRenderer.render();
+						}, self);
+
+						self._gamepadControl.on('update', function() {
+							self._advancedRenderer.render();
+						}, self);
 
 					}
+
+					// Create an ambient light from HDRi.
+					return app.createAmbientCubemapLight(
+
+						// Panorama environment image.
+						'assets/environment-map.hdr',
+						lightExposure,	// Intensity of specular light.
+						lightExposure,	// Intensity of diffuse light.
+						lightExposure 	// Exposure of HDR (pano) image. 
+
+					).then(function(ambientLight) {
+
+						// Wrap scene in a Skybox.
+						var _skybox = new clay.plugin.Skybox({
+							scene: app.scene,
+							environmentMap: ambientLight.environmentMap
+						});
+
+						// Load SketchUp model.
+						app.loadModel('assets/sketchup-model.gltf', {
+
+							waitTextureLoaded: true
+
+						}).then(function(_model) {
+
+							// Remove loading animation.
+							document.body.removeChild(
+								document.querySelector('.loader')
+							);
+
+							if (PBR.Viewport.cfg.useAdvancedRenderer) {
+
+								// Render with advanced graphics.
+								self._advancedRenderer.render();
+
+							}
+
+						});
+
+					});
 
 				});
 
@@ -311,22 +369,53 @@ PBR.Viewport.createApp = function() {
 
 };
 
-// When document is ready:
-document.addEventListener('DOMContentLoaded', function() {
+/**
+ * Initializes. XXX This is the start point.
+ */
+PBR.Viewport.initialize = function() {
 
 	PBR.Viewport.translate();
 
+	localforage.config({
+		driver 		: localforage.INDEXEDDB,
+		name 		: 'PBR Viewport',
+		version 	: 1.0,
+		storeName 	: 'pbr_viewport'
+	});
+
 	PBR.Viewport.app = PBR.Viewport.createApp();
 
-	// On exposure control click:
-	document.querySelector('.exposure-control')
-		.addEventListener('click', PBR.Viewport.shiftLightColor);
+	// Each time user clicks on light exposure control:
+	document.querySelector('.light-exposure-control')
+		.addEventListener('click', PBR.Viewport.shiftLightExposure);
 
-	// Each time browser window is resized by user:
+	// Each time user resizes browser window:
 	window.addEventListener('resize', function(_event) {
 
 		PBR.Viewport.app.resize(window.innerWidth, window.innerHeight);
 
 	});
 
-});
+	// Every 2 seconds:
+	window.setInterval(function() {
+
+		PBR.Viewport.saveCameraPosition(
+			PBR.Viewport.app.scene.getMainCamera().position.array
+		);
+
+	}, 2000);
+
+};
+
+/**
+ * Updates to apply last changes.
+ */
+PBR.Viewport.update = function() {
+
+	// TODO: Find a soft way.
+	window.location.reload();
+
+};
+
+// When document is ready:
+document.addEventListener('DOMContentLoaded', PBR.Viewport.initialize);

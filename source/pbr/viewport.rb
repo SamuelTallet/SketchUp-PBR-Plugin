@@ -83,8 +83,7 @@ module PBR
         # See: https://peter.sh/experiments/chromium-command-line-switches/
         '--allow-file-access-from-files',
         '--no-default-browser-check',
-        '--disable-infobars',
-        '--incognito'
+        '--disable-infobars'
 
       )
 
