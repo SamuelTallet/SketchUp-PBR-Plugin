@@ -29,12 +29,14 @@ PBR.Viewport.translate = function() {
 
 	document.title = viewport_locale.document_title;
 
+	var lightExposureControl = document.querySelector('.light-exposure-control');
+
+	lightExposureControl.setAttribute('title', viewport_locale.change_exposure);
+
 	var helpLink = document.querySelector('.help-link');
 
 	helpLink.href = viewport_locale.help_link_href;
 	helpLink.textContent = viewport_locale.help_link_text;
-
-	viewport_locale = undefined;
 
 };
 

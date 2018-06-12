@@ -104,7 +104,7 @@ module PBR
     # @return [void]
     private def add_secondary_feat_items
 
-      @menu.add_item(TRANSLATE['Force Viewport Update']) do
+      @menu.add_item(TRANSLATE['Reopen Viewport']) do
 
         propose_nil_material_fix
 

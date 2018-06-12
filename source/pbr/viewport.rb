@@ -61,6 +61,7 @@ module PBR
 
       localization = {
         document_title: TRANSLATE['SketchUp PBR Viewport'],
+        change_exposure: TRANSLATE['Change light exposure'],
         help_link_href: GitHub.translated_help_url('PBR_VIEWPORT'),
         help_link_text: TRANSLATE['Help']
       }
@@ -73,6 +74,8 @@ module PBR
     #
     # @return [Numeric] Viewport process ID.
     def self.open
+
+      Chromium.make_exec
 
       SESSION[:viewport_pid] = Process.spawn(
 

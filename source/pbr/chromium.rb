@@ -21,6 +21,7 @@ raise 'The PBR plugin requires at least Ruby 2.2.0 or SketchUp 2017.'\
   unless RUBY_VERSION.to_f >= 2.2 # SketchUp 2017 includes Ruby 2.2.4.
 
 require 'sketchup'
+require 'fileutils'
 
 # PBR plugin namespace.
 module PBR
@@ -42,6 +43,16 @@ module PBR
         File.join(DIR, 'Win', 'chrome.exe')
       end
 
+    end
+
+    # Makes Chromium executable.
+    #
+    # Note: Useful on macOS.
+    #
+    def self.make_exec
+
+      FileUtils.chmod('+x', executable) if Sketchup.platform == :platform_osx
+      
     end
 
   end
