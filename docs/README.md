@@ -37,13 +37,12 @@ Additionally, you should have a new "PBR" materials collection in "Materials" tr
 Workflow
 --------
 
-PBR Viewport opens **automatically** when:
+PBR Viewport updates **automatically** when:
 
-- SketchUp starts,
 - You create or open a SketchUp model,
 - You apply changes in PBR Material Editor.
 
-But you may want open **manually** PBR Viewport. To do so, I recommend you to [map a keyboard shortcut](https://help.sketchup.com/article/3000232) to menu entry: "Extensions" > "Physically-Based Rendering" > "Reopen Viewport".
+But you may want update **manually** PBR Viewport. To do so, I recommend you to [map a keyboard shortcut](https://help.sketchup.com/article/3000232) to menu entry: "Extensions" > "Physically-Based Rendering" > "Reopen Viewport".
 
 Documentation
 -------------
