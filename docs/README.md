@@ -41,6 +41,7 @@ PBR Viewport updates **automatically** when:
 
 - You create or open a SketchUp model,
 - You apply changes in PBR Material Editor.
+- You change environment map from menu.
 
 But you may want update **manually** PBR Viewport. To do so, I recommend you to [map a keyboard shortcut](https://help.sketchup.com/article/3000232) to menu entry: "Extensions" > "Physically-Based Rendering" > "Reopen Viewport".
 
