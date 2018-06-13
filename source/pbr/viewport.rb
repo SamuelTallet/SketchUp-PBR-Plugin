@@ -54,10 +54,34 @@ module PBR
 
     end
 
+    # Updates Viewport sunlight direction.
+    #
+    # @param [Sketchup::ShadowInfo, nil] shadow_info
+    def self.update_sun_direction(shadow_info = nil)
+
+      sun_vec = Geom::Vector3d.new([-1.0, -1.0, -1.0])
+
+      if shadow_info.is_a?(Sketchup::ShadowInfo)
+
+        sun_vec = shadow_info['SunDirection']
+
+      end
+
+      sun_dir = {}
+      sun_dir[:x] = sun_vec.x
+      sun_dir[:y] = sun_vec.y
+      sun_dir[:z] = sun_vec.z
+
+      sun_dir_path = File.join(ASSETS_DIR, 'sketchup-sun-direction.json')
+
+      File.write(sun_dir_path, 'SketchUp.sunDir = ' + sun_dir.to_json + ';')
+
+    end
+
     # Translates Viewport strings.
     def self.translate
 
-      locale_path = File.join(ROOT, 'locale.json')
+      locale_path = File.join(ASSETS_DIR, 'sketchup-locale.json')
 
       localization = {
         document_title: TRANSLATE['SketchUp PBR Viewport'],
@@ -66,7 +90,7 @@ module PBR
         help_link_text: TRANSLATE['Help']
       }
 
-      File.write(locale_path, 'viewport_locale = ' + localization.to_json + ';')
+      File.write(locale_path, 'SketchUp.locale = ' + localization.to_json + ';')
 
     end
 

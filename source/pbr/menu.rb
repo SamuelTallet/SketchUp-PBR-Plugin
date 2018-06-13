@@ -94,7 +94,6 @@ module PBR
         File.join(Viewport::ASSETS_DIR, 'environment-map.hdr')
       )
 
-      # Refresh PBR Viewport.
       Viewport.reopen
 
     end
@@ -108,7 +107,7 @@ module PBR
 
         propose_nil_material_fix
 
-        update_viewport
+        reopen_viewport
 
       end
 
@@ -122,17 +121,16 @@ module PBR
 
     end
 
-    # Runs "Force Viewport Update" menu command.
+    # Runs "Reopen Viewport" menu command.
     #
     # Note: This only updates glTF model asset.
     #
     # @return [void]
-    private def update_viewport
+    private def reopen_viewport
 
       propose_help(TRANSLATE['glTF export failed. Do you want help?'])\
         unless Viewport.update_model
 
-      # Refresh PBR Viewport.
       Viewport.reopen
 
     end

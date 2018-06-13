@@ -27,16 +27,16 @@ PBR.Viewport = {};
  */
 PBR.Viewport.translate = function() {
 
-	document.title = viewport_locale.document_title;
+	document.title = SketchUp.locale.document_title;
 
 	var lightExposureControl = document.querySelector('.light-exposure-control');
 
-	lightExposureControl.setAttribute('title', viewport_locale.change_exposure);
+	lightExposureControl.setAttribute('title', SketchUp.locale.change_exposure);
 
 	var helpLink = document.querySelector('.help-link');
 
-	helpLink.href = viewport_locale.help_link_href;
-	helpLink.textContent = viewport_locale.help_link_text;
+	helpLink.href = SketchUp.locale.help_link_href;
+	helpLink.textContent = SketchUp.locale.help_link_text;
 
 };
 
@@ -260,17 +260,16 @@ PBR.Viewport.createApp = function() {
 
 				PBR.Viewport.loadLightExposure(function(lightExposure) {
 
-					// Create a pseudo sunlight with a directional light...
-					self._pseudoSunlight = app.createDirectionalLight(
+					// Create a sunlight with a directional light...
+					self._sunlight = app.createDirectionalLight(
 
-						// from top right to left bottom, away from camera.
-						[-1, -1, -1],
+						[SketchUp.sunDir.z, SketchUp.sunDir.x, SketchUp.sunDir.y], // Direction. FIXME
 						[lightExposure, lightExposure, lightExposure], // Color.
 						lightExposure // Intensity.
 
 					);
 
-					self._pseudoSunlight.shadowResolution = 4096;
+					self._sunlight.shadowResolution = 4096;
 
 					// Set an orbit control.
 					self._orbitControl = new clay.plugin.OrbitControl({
