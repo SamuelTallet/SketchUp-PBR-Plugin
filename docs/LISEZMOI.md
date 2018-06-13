@@ -39,7 +39,7 @@ La fenêtre de visualisation RBP s'ouvre **automatiquement** lorsque :
 
 - Vous ouvrez ou créez un modèle SketchUp,
 - Vous appliquez les changements dans l'interface de modification des matériaux RBP,
-- Vous changez la carte d'environnement à partir du menu "Rendu basé sur la physique".
+- Vous changez la carte d'environnement à partir du menu RBP.
 
 Mais vous voudrez peut-être mettre à jour **manuellement** la fenêtre de visualisation RBP. Pour ce faire, je vous recommande d'[assigner un raccourci clavier](https://help.sketchup.com/article/3000232) à l'entrée de menu : "Extensions" > "Rendu basé sur la physique" > "Rouvrir la fenêtre de visualisation".
 
