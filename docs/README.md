@@ -39,7 +39,7 @@ Workflow
 
 PBR Viewport updates **automatically** when:
 
-- You open or create an empty SketchUp model,
+- You open or create a SketchUp model,
 - You apply changes in PBR Material Editor,
 - You change environment map from PBR menu.
 
