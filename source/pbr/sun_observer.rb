@@ -29,6 +29,10 @@ module PBR
   # Observes SketchUp shadows events and reacts.
   class SunObserver < Sketchup::ShadowInfoObserver
 
+    # Maximum seconds between two events.
+    # @note Used to block click flooding.
+    EVENT_INTERVAL = 7
+
     # rubocop: disable MethodName
 
     # When user changes shadow settings:
@@ -36,6 +40,12 @@ module PBR
 
       # Escape if it's not about "Time/Date sliders".
       return unless type.zero?
+
+      event_time = Time.now.to_f
+
+      return if (event_time - SESSION[:allowed_sun_event_time]) < EVENT_INTERVAL
+
+      SESSION[:allowed_sun_event_time] = event_time
 
       Viewport.reopen if Viewport.update_sun_direction(shadow_info)
 

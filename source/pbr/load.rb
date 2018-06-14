@@ -34,7 +34,8 @@ module PBR
 
   Sketchup.active_model.shadow_info.add_observer(SunObserver.new)
 
-  Viewport.update_sun_direction
+  # Event timestamp. See: SunObserver
+  SESSION[:allowed_sun_event_time] = 0
 
   # Material Editor is not open yet.
   SESSION[:mat_editor_open?] = false
@@ -49,9 +50,7 @@ module PBR
 
   MaterialLibrary.install
 
-  Viewport.translate
-
-  Viewport.open
+  Viewport.open if Viewport.translate && Viewport.update_sun_direction
 
   # Load complete.
 

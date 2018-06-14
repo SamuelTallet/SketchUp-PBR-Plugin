@@ -54,6 +54,22 @@ module PBR
 
     end
 
+    # Translates Viewport strings.
+    def self.translate
+
+      locale_path = File.join(ASSETS_DIR, 'sketchup-locale.json')
+
+      localization = {
+        document_title: TRANSLATE['SketchUp PBR Viewport'],
+        change_exposure: TRANSLATE['Change light exposure'],
+        help_link_href: GitHub.translated_help_url('PBR_VIEWPORT'),
+        help_link_text: TRANSLATE['Help']
+      }
+
+      File.write(locale_path, 'SketchUp.locale = ' + localization.to_json + ';')
+
+    end
+
     # Updates Viewport sunlight direction.
     #
     # @param [Sketchup::ShadowInfo, nil] shadow_info
@@ -75,22 +91,6 @@ module PBR
       sun_dir_path = File.join(ASSETS_DIR, 'sketchup-sun-direction.json')
 
       File.write(sun_dir_path, 'SketchUp.sunDir = ' + sun_dir.to_json + ';')
-
-    end
-
-    # Translates Viewport strings.
-    def self.translate
-
-      locale_path = File.join(ASSETS_DIR, 'sketchup-locale.json')
-
-      localization = {
-        document_title: TRANSLATE['SketchUp PBR Viewport'],
-        change_exposure: TRANSLATE['Change light exposure'],
-        help_link_href: GitHub.translated_help_url('PBR_VIEWPORT'),
-        help_link_text: TRANSLATE['Help']
-      }
-
-      File.write(locale_path, 'SketchUp.locale = ' + localization.to_json + ';')
 
     end
 
