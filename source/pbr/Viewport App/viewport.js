@@ -263,7 +263,12 @@ PBR.Viewport.createApp = function() {
 					// Create a sunlight with a directional light...
 					self._sunlight = app.createDirectionalLight(
 
-						[SketchUp.sunDir.z, SketchUp.sunDir.x, SketchUp.sunDir.y], // Direction. FIXME
+						// Direction. FIXME
+						[
+							SketchUp.sunDir.x * -1,
+							SketchUp.sunDir.y,
+							-0.9 + SketchUp.sunDir.z * -1
+						],
 						[lightExposure, lightExposure, lightExposure], // Color.
 						lightExposure // Intensity.
 

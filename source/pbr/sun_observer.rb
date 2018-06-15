@@ -36,7 +36,7 @@ module PBR
     # rubocop: disable MethodName
 
     # When user changes shadow settings:
-    def onShadowInfoChanged(shadow_info, type)
+    def onShadowInfoChanged(_shadow_info, type)
 
       # Escape if it's not about "Time/Date sliders".
       return unless type.zero?
@@ -47,7 +47,7 @@ module PBR
 
       SESSION[:allowed_sun_event_time] = event_time
 
-      Viewport.reopen if Viewport.update_sun_direction(shadow_info)
+      Viewport.reopen if Viewport.update_sun_direction
 
     end
 
