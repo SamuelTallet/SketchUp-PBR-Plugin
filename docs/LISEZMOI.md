@@ -10,7 +10,7 @@ Un modèle SketchUp rendu `sans` l'extension RBP | Le même modèle SketchUp ren
 :--- | :---
 ![Un modèle SketchUp rendu sans l'extension RBP](https://github.com/SamuelTS/SketchUp-PBR-Plugin/raw/master/docs/demos/a-sketchup-model-rendered-without-pbr-extension.png) | ![Le même modèle SketchUp rendu avec l'extension RBP](https://github.com/SamuelTS/SketchUp-PBR-Plugin/raw/master/docs/demos/same-sketchup-model-rendered-with-pbr-extension.png)
 
-Un récif virtuel rendu `avec` l'extension SketchUp RBP. Fait avec deux faces, deux matériaux et trois textures.
+Un récif virtuel rendu `avec` l'extension SketchUp RBP.
 --- |
 ![Récif](https://github.com/SamuelTS/SketchUp-PBR-Plugin/raw/master/docs/demos/a-virtual-reef-rendered-with-sketchup-pbr-extension.jpg)
 
