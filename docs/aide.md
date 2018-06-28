@@ -30,12 +30,4 @@ Je ne vois pas les derniers changements effectués dans SketchUp. | Actualisez l
 
 ### Comment contrôler la caméra de la scène ?
 
-Contrôlez la caméra de la scène avec une souris ou une manette de jeu standard.
-
-🖱 Déplacez-vous en panoramique avec le **bouton du milieu**. Orbitez en traînant le **bouton gauche**. Zoomez avec la **molette**.
-
-🎮 Déplacez-vous avec le **stick/pad gauche**. Regardez autour de vous avec le **stick droit**.
-
-### Comment enregistrer le rendu en tant qu'image ?
-
-🖱 **Clic droit** puis **clic gauche** sur l'entrée de menu "Enregistrer l'image sous...".
+Contrôlez la caméra de la scène avec une souris : Déplacez-vous en panoramique avec le **bouton du milieu**. Orbitez en traînant le **bouton gauche**. Zoomez avec la **molette**.
