@@ -30,7 +30,7 @@ Installation
 5. Restart SketchUp.
 
 Now, you should have a "Physically-Based Rendering" menu in SketchUp "Extensions" menu. 👍
-From this new menu, you can: "Edit Materials", "Change Env. Map", "Reopen Viewport"  and "Export As 3D Object".
+From this new menu, you can: "Edit Materials", "Reopen Viewport"  and "Export As 3D Object".
 
 Additionally, you should have a new "PBR" materials collection in "Materials" tray. Enjoy! 😊
 
