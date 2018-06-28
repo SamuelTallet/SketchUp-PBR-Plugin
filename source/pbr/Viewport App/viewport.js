@@ -21,407 +21,308 @@ PBR = {};
 PBR.Viewport = {};
 
 /**
- * Translates Viewport strings.
+ * Translates Viewport app strings.
  *
- * @see locale.json
+ * @see assets/sketchup-locale.json
  */
-PBR.Viewport.translate = function() {
+PBR.Viewport.translateStrings = function() {
 
-	document.title = SketchUp.locale.document_title;
+	document.title = sketchUpLocale.document_title;
 
-	var lightExposureControl = document.querySelector('.light-exposure-control');
+	document.getElementById('toggleCloudsButton')
+		.setAttribute('title', sketchUpLocale.toggle_clouds);
 
-	lightExposureControl.setAttribute('title', SketchUp.locale.change_exposure);
+	var helpLink = document.getElementById('helpLink');
 
-	var helpLink = document.querySelector('.help-link');
+	helpLink.href = sketchUpLocale.help_link_href;
+	helpLink.textContent = sketchUpLocale.help_link_text;
 
-	helpLink.href = SketchUp.locale.help_link_href;
-	helpLink.textContent = SketchUp.locale.help_link_text;
+	document.getElementById('saveAsImageButton')
+		.setAttribute('title', sketchUpLocale.save_as_image);
+
+	document.querySelector('.a-enter-vr-button')
+		.setAttribute('title', sketchUpLocale.enter_vr_mode);
 
 };
 
 /**
- * Viewport configuration.
+ * Makes environment sky fully spherical.
  */
-PBR.Viewport.cfg = {};
+PBR.Viewport.makeEnvSkyFullySpherical = function() {
 
-/**
- * Graphic configuration for basic rendering.
- *
- * @type {object}
- */
-PBR.Viewport.cfg.basicGraphics = {
+	document.querySelector('#environment a-sky').setAttribute('theta-length', 360);
 
-	shadow: true,
-	tonemapping: true,
-	linear: true
-	
 };
 
 /**
- * Graphic configuration for advanced rendering.
+ * Toggles environment sky visibility.
  *
- * @type {object}
+ * XXX This function may reveal scene background (clouds in our case).
  */
-PBR.Viewport.cfg.advancedGraphics = {
-	
-	temporalSuperSampling: {
-		enable: false // FIXME
-	},
+PBR.Viewport.toggleEnvSkyVisibility = function() {
 
-	postEffect: {
+	var envSky = document.querySelector('#environment a-sky');
 
-		bloom: {
-			enable: false
-		},
+	envSky.setAttribute('visible', !envSky.getAttribute('visible'));
 
-		screenSpaceAmbientOcclusion: {
-			enable: true // FIXME
-		},
+};
 
-		FXAA: {
-			enable: false // FIXME
+/**
+ * Returns ambient lightness value according to sunlight position...
+ *
+ * @param {number} sunlightPositionY - Sunlight position Y.
+ *
+ * @returns {number} Ambient lightness.
+ */
+PBR.Viewport.guessAmbientLightnessBySunPosY = function(sunlightPositionY) {
+
+	// XXX Arbitrary values.
+
+	var ambientLightness = 0;
+
+		switch (parseFloat(sunlightPositionY).toFixed(1)) {
+
+			case '1.0':
+				ambientLightness = 60;
+				break;
+
+			case '0.9':
+				ambientLightness = 55;
+				break;
+
+			case '0.8':
+				ambientLightness = 50;
+				break;
+
+			case '0.7':
+				ambientLightness = 45;
+				break;
+
+			case '0.6':
+				ambientLightness = 40;
+				break;
+
+			case '0.5':
+				ambientLightness = 35;
+				break;
+
+			case '0.4':
+				ambientLightness = 30;
+				break;
+
+			case '0.3':
+				ambientLightness = 25;
+				break;
+
+			case '0.2':
+				ambientLightness = 20;
+				break;
+
+			case '0.1':
+				ambientLightness = 15;
+				break;
+
+			case '0.0':
+				ambientLightness = 10;
+				break;
+
+			case '-0.1':
+				ambientLightness = 5;
+				break;
+
 		}
+
+
+	return ambientLightness;
+
+};
+
+/**
+ * Defines ambient lightness.
+ *
+ * @param {number} lightness
+ */
+PBR.Viewport.setAmbientLightness = function(lightness) {
+
+	var ambientLight = document.getElementById('ambientLight');
+
+	// XXX Arbitrary values.
+
+	var hue = 195;
+	var saturation = 5;
+
+	var hslColor = 'hsl(' 
+		+ hue + ','
+		+ saturation + '%,' 
+	 	+ lightness + '%)';
+
+	ambientLight.setAttribute('light', 'color: ' + hslColor);
+
+};
+
+/**
+ * Defines environment light position.
+ *
+ * @param {number} x
+ * @param {number} y
+ * @param {number} z
+ */
+PBR.Viewport.setEnvLightPosition = function(x, y, z) {
+
+	document.getElementById('environment')
+		.setAttribute(
+			'environment',
+			'lightPosition: ' + x + ' ' + y + ' ' + z
+		);
+
+};
+
+/**
+ * Returns sunlight position.
+ *
+ * @returns {Array.<number>}
+ */
+PBR.Viewport.getSunlightPosition = function() {
+
+	return document.getElementById('sunlight').getAttribute('position');
+
+};
+
+/**
+ * Defines sunlight position.
+ *
+ * @param {number} x
+ * @param {number} y
+ * @param {number} z
+ */
+PBR.Viewport.setSunlightPosition = function(x, y, z) {
+
+	document.getElementById('sunlight')
+		.setAttribute('position', x + ' ' + y + ' ' + z);
+
+};
+
+/**
+ * Defines sunlight position Y.
+ *
+ * @param {number} y
+ */
+PBR.Viewport.setSunlightPositionY = function(y) {
+
+	var sunlight = document.getElementById('sunlight');
+
+	var sunlightPosition = PBR.Viewport.getSunlightPosition();
+
+	sunlight.setAttribute(
+		'position',
+		sunlightPosition.x + ' ' +
+		y + ' ' +
+		sunlightPosition.z
+	);
+
+};
+
+/**
+ * Switches lights on or off.
+ *
+ * @param {string} switchPosition
+ */
+PBR.Viewport.switchLights = function(switchPosition) {
+
+	lightIsVisible = ( switchPosition === 'on' ) ? true : false;
+
+	var lights = document.querySelectorAll('a-entity[light]');
+
+	for (var lightIndex = 0; lightIndex < lights.length; lightIndex++) {
+
+		lights[lightIndex].setAttribute('visible', lightIsVisible);
 
 	}
 
 };
 
 /**
- * Configuration: Use advanced renderer?
- * 
- * @type {boolean}
+ * Synchronizes lights.
  */
-PBR.Viewport.cfg.useAdvancedRenderer = false;
+PBR.Viewport.syncLights = function() {
 
-/**
- * Loads camera position from IndexedDB.
- *
- * @param {function} successCallback
- */
-PBR.Viewport.loadCameraPosition = function(successCallback) {
+	var sunlightPosition = PBR.Viewport.getSunlightPosition();
 
-	localforage.getItem(
+	// XXX Because A-Frame environment component draws a sun.
+	PBR.Viewport.setEnvLightPosition(
+		sunlightPosition.x,
+		sunlightPosition.y,
+		sunlightPosition.z
+	);
 
-		'camera_position'
+	var ambientLightness = PBR.Viewport
+		.guessAmbientLightnessBySunPosY(sunlightPosition.y);
 
-	).then(function(cameraPosition) {
-	
-		// XXX Default or current.
-		cameraPosition = ( cameraPosition === null ) ? [1.5, 0, 0] : cameraPosition;
- 
-		successCallback(cameraPosition);
+	PBR.Viewport.setAmbientLightness(ambientLightness);
 
-	});
+	// If sun is above horizon:
+	if ( sunlightPosition.y > 0 ) {
+
+		PBR.Viewport.switchLights('on');
+
+	} else {
+
+		PBR.Viewport.switchLights('off');
+
+	}
 
 };
 
 /**
- * Saves camera position into IndexedDB.
- *
- * @param {Array<Number>} cameraPosition
+ * Takes a screenshot.
  */
-PBR.Viewport.saveCameraPosition = function(cameraPosition) {
+PBR.Viewport.takeScreenshot = function() {
 
-	localforage.setItem('camera_position', cameraPosition);
+	document.querySelector('a-scene')
+		.sceneEl.components.screenshot.capture('perspective');
 
 };
 
 /**
- * Loads light exposure from IndexedDB.
- *
- * @param {function} successCallback
+ * Adds event listeners.
  */
-PBR.Viewport.loadLightExposure = function(successCallback) {
+PBR.Viewport.addEventListeners = function() {
 
-	localforage.getItem(
+	document.getElementById('sunElevationSlider')
+		.addEventListener('change', function(event) {
 
-		'light_exposure'
-
-	).then(function(lightExposure) {
-
-		// XXX Default or current.
-		lightExposure = ( lightExposure === null ) ? 1.00 : Number(parseFloat(lightExposure).toFixed(2));
-
-		successCallback(lightExposure);
-
+			PBR.Viewport.setSunlightPositionY(event.target.value);
+			PBR.Viewport.syncLights();
+		
 	});
 
-};
+	document.getElementById('saveAsImageButton')
+		.addEventListener('click', function(_event) {
 
-/**
- * Saves light exposure into IndexedDB.
- *
- * @param {number|string} lightExposure
- * @param {function} successCallback
- */
-PBR.Viewport.saveLightExposure = function(lightExposure, successCallback) {
-
-	localforage.setItem(
-
-		'light_exposure',
-		Number(parseFloat(lightExposure).toFixed(2))
-
-	).then(function(_lightExposure) {
-
-		successCallback();
-
+			PBR.Viewport.takeScreenshot();
+		
 	});
 
-};
+	document.getElementById('toggleCloudsButton')
+		.addEventListener('click', function(_event) {
 
-/**
- * Shifts light exposure according to a cycle.
- */
-PBR.Viewport.shiftLightExposure = function() {
-
-	PBR.Viewport.loadLightExposure(function(lightExposure) {
-
-		// XXX Maximum.
-		if ( lightExposure === 1.40 ) {
-
-			// XXX Minimum.
-			lightExposure = 0.20;
-
-		} else {
-
-			// XXX Step.
-			lightExposure += 0.20;
-
-		}
-
-		PBR.Viewport.saveLightExposure(
-
-			lightExposure,
-			PBR.Viewport.update
-
-		);
-
+			PBR.Viewport.toggleEnvSkyVisibility();
+		
 	});
-
-};
-
-/**
- * Viewport app.
- *
- * @type {object}
- */
-PBR.Viewport.app = null;
-
-/**
- * Creates Viewport app thanks to ClayGL library.
- * @see http://docs.claygl.xyz/api/
- *
- * @returns {object}
- */
-PBR.Viewport.createApp = function() {
-
-	return clay.application.create('.container', {
-
-		// Set fullscreen.
-		width: window.innerWidth,
-		height: window.innerHeight,
-
-		devicePixelRatio: window.devicePixelRatio,
-
-		graphic: PBR.Viewport.cfg.basicGraphics,
-
-		// Use basic (auto) renderer instead of advanced renderer?
-		autoRender: !PBR.Viewport.cfg.useAdvancedRenderer,
-
-		// When initializing app:
-		init: function(app) {
-
-			var self = this;
-
-			if (PBR.Viewport.cfg.useAdvancedRenderer) {
-
-				// Instantiate an advanced renderer.
-				self._advancedRenderer = new ClayAdvancedRenderer(
-
-					app.renderer,
-					app.scene,
-					app.timeline,
-					PBR.Viewport.cfg.advancedGraphics
-
-				);
-
-			}
-
-			PBR.Viewport.loadCameraPosition(function(cameraPosition) {
-
-				// Create a perspective camera.
-				self._camera = app.createCamera(
-
-					cameraPosition,
-					[0, 0, 0] // Target.
-
-				);
-
-				PBR.Viewport.loadLightExposure(function(lightExposure) {
-
-					// Create a sunlight with a directional light...
-					self._sunlight = app.createDirectionalLight(
-
-						// Direction. FIXME
-						[
-							SketchUp.sunDir.x * -1,
-							SketchUp.sunDir.y,
-							-0.9 + SketchUp.sunDir.z * -1
-						],
-						[lightExposure, lightExposure, lightExposure], // Color.
-						lightExposure // Intensity.
-
-					);
-
-					self._sunlight.shadowResolution = 4096;
-
-					// Set an orbit control.
-					self._orbitControl = new clay.plugin.OrbitControl({
-
-						// Scene node to control.
-						target: self._camera,
-
-						// DOM element to bind with mouse events.
-						domElement: app.container,
-
-						timeline: app.timeline
-
-					});
-
-					// Set a gamepad control.
-					self._gamepadControl = new clay.plugin.GamepadControl({
-
-						// Scene node to control.
-						target: self._camera,
-
-						timeline: app.timeline,
-
-						// Gamepad event handlers.
-
-						onStandardGamepadReady: function(_gamepad) {
-							document.querySelector('.gamepad')
-								.classList.add('is-ready');
-						},
-
-						onGamepadDisconnected: function(_gamepad) {
-							document.querySelector('.gamepad')
-								.classList.remove('is-ready');
-						}
-
-					});
-
-					if (PBR.Viewport.cfg.useAdvancedRenderer) {
-
-						// Sync controls with advanced rendering.
-
-						self._orbitControl.on('update', function() {
-							self._advancedRenderer.render();
-						}, self);
-
-						self._gamepadControl.on('update', function() {
-							self._advancedRenderer.render();
-						}, self);
-
-					}
-
-					// Create an ambient light from HDRi.
-					return app.createAmbientCubemapLight(
-
-						// Panorama environment image.
-						'assets/environment-map.hdr',
-						lightExposure,	// Intensity of specular light.
-						lightExposure,	// Intensity of diffuse light.
-						lightExposure 	// Exposure of HDR (pano) image. 
-
-					).then(function(ambientLight) {
-
-						// Wrap scene in a Skybox.
-						var _skybox = new clay.plugin.Skybox({
-							scene: app.scene,
-							environmentMap: ambientLight.environmentMap
-						});
-
-						// Load SketchUp model.
-						app.loadModel('assets/sketchup-model.gltf', {
-
-							waitTextureLoaded: true
-
-						}).then(function(_model) {
-
-							// Remove loading animation.
-							document.body.removeChild(
-								document.querySelector('.loader')
-							);
-
-							if (PBR.Viewport.cfg.useAdvancedRenderer) {
-
-								// Render with advanced graphics.
-								self._advancedRenderer.render();
-
-							}
-
-						});
-
-					});
-
-				});
-
-			});
-
-		}
-
-	});
-
-};
-
-/**
- * Initializes. XXX This is the start point.
- */
-PBR.Viewport.initialize = function() {
-
-	PBR.Viewport.translate();
-
-	localforage.config({
-		driver 		: localforage.INDEXEDDB,
-		name 		: 'PBR Viewport',
-		version 	: 1.0,
-		storeName 	: 'pbr_viewport'
-	});
-
-	PBR.Viewport.app = PBR.Viewport.createApp();
-
-	// Each time user clicks on light exposure control:
-	document.querySelector('.light-exposure-control')
-		.addEventListener('click', PBR.Viewport.shiftLightExposure);
-
-	// Each time user resizes browser window:
-	window.addEventListener('resize', function(_event) {
-
-		PBR.Viewport.app.resize(window.innerWidth, window.innerHeight);
-
-	});
-
-	// Every 2 seconds:
-	window.setInterval(function() {
-
-		PBR.Viewport.saveCameraPosition(
-			PBR.Viewport.app.scene.getMainCamera().position.array
-		);
-
-	}, 2000);
-
-};
-
-/**
- * Updates to apply last changes.
- */
-PBR.Viewport.update = function() {
-
-	// TODO: Find a soft way.
-	window.location.reload();
 
 };
 
 // When document is ready:
-document.addEventListener('DOMContentLoaded', PBR.Viewport.initialize);
+document.addEventListener('DOMContentLoaded', function() {
+
+	PBR.Viewport.addEventListeners();
+
+	// TODO Find a more reliable way.
+	setTimeout(function(){
+
+		PBR.Viewport.translateStrings();
+		PBR.Viewport.makeEnvSkyFullySpherical();
+
+	}, 1000);
+
+});

@@ -62,8 +62,6 @@ module PBR
 
       @menu.add_item('⬕ ' + TRANSLATE['Edit Materials...']) { edit_materials }
 
-      @menu.add_item('🌐 ' + TRANSLATE['Change Env. Map...']) { change_env_map }
-
     end
 
     # Runs "Edit Materials..." menu command.
@@ -77,6 +75,8 @@ module PBR
     end
 
     # Runs "Change Env. Map..." menu command.
+    #
+    # @deprecated
     #
     # @return [void]
     private def change_env_map

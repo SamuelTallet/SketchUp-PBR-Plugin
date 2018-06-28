@@ -22,7 +22,6 @@ raise 'The PBR plugin requires at least Ruby 2.2.0 or SketchUp 2017.'\
 
 require 'sketchup'
 require 'pbr/app_observer'
-require 'pbr/sun_observer'
 require 'pbr/menu'
 require 'pbr/material_library'
 require 'pbr/viewport'
@@ -31,11 +30,6 @@ require 'pbr/viewport'
 module PBR
 
   Sketchup.add_observer(AppObserver.new)
-
-  Sketchup.active_model.shadow_info.add_observer(SunObserver.new)
-
-  # Event timestamp. See: SunObserver
-  SESSION[:allowed_sun_event_time] = 0
 
   # Material Editor is not open yet.
   SESSION[:mat_editor_open?] = false
@@ -50,7 +44,7 @@ module PBR
 
   MaterialLibrary.install
 
-  Viewport.open if Viewport.translate && Viewport.update_sun_direction
+  Viewport.open if Viewport.translate
 
   # Load complete.
 

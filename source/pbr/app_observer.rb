@@ -21,7 +21,6 @@ raise 'The PBR plugin requires at least Ruby 2.2.0 or SketchUp 2017.'\
   unless RUBY_VERSION.to_f >= 2.2 # SketchUp 2017 includes Ruby 2.2.4.
 
 require 'sketchup'
-require 'pbr/sun_observer'
 require 'pbr/viewport'
 
 # PBR plugin namespace.
@@ -33,22 +32,16 @@ module PBR
     # rubocop: disable MethodName
 
     # When SketchUp user creates a new, empty model.
-    def onNewModel(model)
+    def onNewModel(_model)
 
-      model.shadow_info.add_observer(SunObserver.new)
-
-      Viewport.reopen if Viewport.update_model\
-        && Viewport.update_sun_direction
+      Viewport.reopen if Viewport.update_model
 
     end
 
     # When SketchUp user opens an existing model:
-    def onOpenModel(model)
+    def onOpenModel(_model)
 
-      model.shadow_info.add_observer(SunObserver.new)
-
-      Viewport.reopen if Viewport.update_model\
-        && Viewport.update_sun_direction
+      Viewport.reopen if Viewport.update_model
 
     end
 

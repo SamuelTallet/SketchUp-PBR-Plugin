@@ -61,31 +61,14 @@ module PBR
 
       localization = {
         document_title: TRANSLATE['SketchUp PBR Viewport'],
-        change_exposure: TRANSLATE['Change light exposure'],
         help_link_href: GitHub.translated_help_url('PBR_VIEWPORT'),
-        help_link_text: TRANSLATE['Help']
+        toggle_clouds: TRANSLATE['Show or hide clouds'],
+        help_link_text: TRANSLATE['Help'],
+        save_as_image: TRANSLATE['Save as image'],
+        enter_vr_mode: TRANSLATE['Enter VR mode']
       }
 
-      File.write(locale_path, 'SketchUp.locale = ' + localization.to_json + ';')
-
-    end
-
-    # Updates Viewport sunlight direction.
-    def self.update_sun_direction
-
-      sun_vec = Sketchup.active_model.shadow_info['SunDirection']
-
-      sun_dir = {
-
-        x: sun_vec.x,
-        y: sun_vec.y,
-        z: sun_vec.z
-
-      }
-
-      sun_dir_path = File.join(ASSETS_DIR, 'sketchup-sun-direction.json')
-
-      File.write(sun_dir_path, 'SketchUp.sunDir = ' + sun_dir.to_json + ';')
+      File.write(locale_path, 'sketchUpLocale = ' + localization.to_json + ';')
 
     end
 
@@ -104,8 +87,8 @@ module PBR
 
         # See: https://peter.sh/experiments/chromium-command-line-switches/
         '--allow-file-access-from-files',
-        '--no-default-browser-check',
-        '--disable-infobars'
+        '--disable-infobars',
+        '--incognito'
 
       )
 
