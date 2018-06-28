@@ -38,8 +38,7 @@ Flux de travail
 La fenêtre de visualisation RBP s'ouvre **automatiquement** lorsque :
 
 - Vous ouvrez ou créez un modèle SketchUp,
-- Vous appliquez les changements dans l'interface de modification des matériaux RBP,
-- Vous changez la carte d'environnement à partir du menu RBP.
+- Vous appliquez les changements dans l'interface de modification des matériaux RBP.
 
 Mais vous voudrez peut-être mettre à jour **manuellement** la fenêtre de visualisation RBP. Pour ce faire, je vous recommande d'[assigner un raccourci clavier](https://help.sketchup.com/article/3000232) à l'entrée de menu : "Extensions" > "Rendu basé sur la physique" > "Rouvrir la fenêtre de visualisation".
 
@@ -51,7 +50,7 @@ Un [document d'aide](https://github.com/SamuelTS/SketchUp-PBR-Plugin/blob/master
 Remerciements
 -------------
 
-Le projet du plugin RBP n'aurait pas abouti sans : [SketchUp](https://www.sketchup.com), [glTF](https://www.khronos.org/gltf/), [glTF Exporter](https://extensions.sketchup.com/fr/content/gltf-exporter), [Chromium](https://www.chromium.org/), [ClayGL](http://claygl.xyz) et [localForage](https://localforage.github.io/localForage/).
+Le projet du plugin RBP n'aurait pas abouti sans : [SketchUp](https://www.sketchup.com), [glTF](https://www.khronos.org/gltf/), [glTF Exporter](https://extensions.sketchup.com/fr/content/gltf-exporter), [Chromium](https://www.chromium.org/) et [A-Frame](https://aframe.io/).
 
 Droits d'auteur
 ---------------
