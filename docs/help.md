@@ -30,6 +30,6 @@ I don't see last changes done in SketchUp. | Refresh Web browser page. If proble
 
 ### How to control scene camera?
 
-Control scene camera with a mouse.
+Control scene camera with a mouse:
 
 Pan with **middle click**. Orbit with **left drag**. Zoom with **wheel**.
