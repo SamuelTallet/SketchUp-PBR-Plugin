@@ -105,5 +105,7 @@
 //
 
 "SketchUp PBR Viewport"="Fenêtre de visu. RBP de SketchUp";
-"Change light exposure"="Modifier l'exposition à la lumière";
+"Show or hide clouds"="Afficher ou masquer les nuages";
 "Help"="Aide";
+"Save as image"="Enregistrer en tant qu'image";
+"Enter VR mode"="Passer en mode VR";
