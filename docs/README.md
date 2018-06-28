@@ -40,8 +40,7 @@ Workflow
 PBR Viewport updates **automatically** when:
 
 - You open or create a SketchUp model,
-- You apply changes in PBR Material Editor,
-- You change environment map from PBR menu.
+- You apply changes in PBR Material Editor.
 
 But you may want update **manually** PBR Viewport. To do so, I recommend you to [map a keyboard shortcut](https://help.sketchup.com/article/3000232) to menu entry: "Extensions" > "Physically-Based Rendering" > "Reopen Viewport".
 
@@ -53,7 +52,7 @@ A [help document](https://github.com/SamuelTS/SketchUp-PBR-Plugin/blob/master/do
 Thanks
 ------
 
-PBR plugin project would not have succeeded without: [SketchUp](https://www.sketchup.com), [glTF](https://www.khronos.org/gltf/), [glTF Exporter](https://extensions.sketchup.com/content/gltf-exporter), [Chromium](https://www.chromium.org/), [ClayGL](http://claygl.xyz) and [localForage](https://localforage.github.io/localForage/).
+PBR plugin project would not have succeeded without: [SketchUp](https://www.sketchup.com), [glTF](https://www.khronos.org/gltf/), [glTF Exporter](https://extensions.sketchup.com/content/gltf-exporter), [Chromium](https://www.chromium.org/) and [A-FRAME](https://aframe.io/).
 
 Copyright
 ---------
