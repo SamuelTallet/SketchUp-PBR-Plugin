@@ -29,4 +29,6 @@ La texture est incorrecte. | Retournez la face (arrière) où la texture est app
 
 ### Comment contrôler la caméra de la scène ?
 
-Contrôlez la caméra de la scène avec une souris : Orbitez en traînant le **bouton de gauche**. Déplacez-vous en panoramique en traînant le **bouton de droite**. Zoomez avec la **molette**. Zoomez plus rapidement en maintenant le **bouton du milieu**.
+Contrôlez la caméra de la scène avec une souris :
+
+Orbitez en traînant le **bouton de gauche**. Déplacez-vous en panoramique en traînant le **bouton de droite**. Zoomez avec la **molette**. Zoomez plus rapidement en maintenant le **bouton du milieu**.
