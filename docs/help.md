@@ -30,12 +30,6 @@ I don't see last changes done in SketchUp. | Refresh Web browser page. If proble
 
 ### How to control scene camera?
 
-Control scene camera with a mouse or a standard gamepad.
+Control scene camera with a mouse.
 
-🖱 Pan with **middle click**. Orbit with **left drag**. Zoom with **wheel**.
-
-🎮 Move with **left stick/pad**. Look around with **right stick**.
-
-### How to save render as image?
-
-🖱 **Right click** then **left click** on "Save as image..." menu entry.
+Pan with **middle click**. Orbit with **left drag**. Zoom with **wheel**.
