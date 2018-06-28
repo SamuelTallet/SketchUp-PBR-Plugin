@@ -29,4 +29,6 @@ Texture is incorrect. | Reverse (back) face where texture is applied. Paint text
 
 ### How to control scene camera?
 
-Control scene camera with a mouse: Pan with **middle click**. Orbit with **left drag**. Zoom with **wheel**.
+Control scene camera with a mouse:
+
+Orbit with **left drag**. Pan with **right drag**. Zoom with **wheel**. Zoom faster by **holding middle** button.
