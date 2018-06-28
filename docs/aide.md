@@ -26,7 +26,6 @@ L'arrière-plan de la texture est blanc au lieu d'être transparent. | Ouvrez l'
 La texture est complètement opaque alors que j'ai réglé l'opacité sur *n* %. | Avec votre logiciel de retouche photo préféré, réglez l'opacité **directement** sur l'image de la texture. Utilisez le PNG comme format d'échange pour préserver l'opacité. Réimportez l'image de la texture dans SketchUp.
 La texture semble bizarre avec des lignes perpendiculaires autour. | Avec votre logiciel de retouche photo préféré, redimensionnez l'image de la texture à une [puissance de deux](https://oeis.org/A000079/list) en *hauteur* et en *largeur* (par ex. *1024x2048*, *2048x2048*, *4096x4096*). Réimportez l'image de la texture dans SketchUp.
 La texture est incorrecte. | Retournez la face (arrière) où la texture est appliquée. Peignez la texture sur la face (avant).
-Je ne vois pas les derniers changements effectués dans SketchUp. | Actualisez la page du navigateur Web. Si le problème persiste, effacez le cache du navigateur Web.
 
 ### Comment contrôler la caméra de la scène ?
 
