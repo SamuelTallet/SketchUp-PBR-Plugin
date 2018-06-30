@@ -19,8 +19,6 @@ A virtual reef rendered `with` SketchUp PBR extension.
 Screenshots
 -----------
 
-PBR Material Editor.
---- |
 ![PBR Material Editor](https://github.com/SamuelTS/SketchUp-PBR-Plugin/raw/master/docs/screenshots/pbr-material-editor-in-english.png)
 
 Installation
