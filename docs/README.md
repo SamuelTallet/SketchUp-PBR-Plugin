@@ -16,9 +16,12 @@ A virtual reef rendered `with` SketchUp PBR extension.
 --- |
 ![Reef](https://github.com/SamuelTS/SketchUp-PBR-Plugin/raw/master/docs/demos/a-virtual-reef-rendered-with-sketchup-pbr-extension.jpg)
 
-A futuristic shuttle rendered `with` SketchUp PBR extension. Photo credit: ESO/P. Horálek. Model credit: 3DHaupt.
+Screenshots
+-----------
+
+PBR Material Editor.
 --- |
-![Futuristic shuttle](https://github.com/SamuelTS/SketchUp-PBR-Plugin/raw/master/docs/demos/a-futuristic-shuttle-rendered-with-sketchup-pbr-extension.jpg)
+![PBR Material Editor](https://github.com/SamuelTS/SketchUp-PBR-Plugin/raw/master/docs/screenshots/pbr-material-editor-in-english.png)
 
 Installation
 ------------
