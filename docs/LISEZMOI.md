@@ -14,9 +14,10 @@ Un récif virtuel rendu `avec` l'extension SketchUp RBP.
 --- |
 ![Récif](https://github.com/SamuelTS/SketchUp-PBR-Plugin/raw/master/docs/demos/a-virtual-reef-rendered-with-sketchup-pbr-extension.jpg)
 
-Une navette futuriste rendue `avec` l'extension SketchUp RBP. Crédit photo : ESO/P. Horálek. Crédit modèle : 3DHaupt.
---- |
-![Navette futuriste](https://github.com/SamuelTS/SketchUp-PBR-Plugin/raw/master/docs/demos/a-futuristic-shuttle-rendered-with-sketchup-pbr-extension.jpg)
+Captures d'écran
+----------------
+
+![Interface de modif. des matériaux RBP](https://github.com/SamuelTS/SketchUp-PBR-Plugin/raw/master/docs/screenshots/pbr-material-editor-in-french.png)
 
 Installation
 ------------
