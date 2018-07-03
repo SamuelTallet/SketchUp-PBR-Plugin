@@ -22,10 +22,10 @@
 // Locale note: In French version of SketchUp, menu items are not titleized.
 
 "Edit Materials..."="Modifier les matériaux...";
-"Change Env. Map..."="Changer la carte d'environnement...";
-"Select New Environment Map"="Sélectionner la nouvelle carte d'environnement";
-"HDR Image"="Image HDR";
-"Refresh PBR Viewport to see the change."="Actualisez la fenêtre de visu. RBP pour voir le changement.";
+//"Change Env. Map..."="Changer la carte d'environnement...";
+//"Select New Environment Map"="Sélectionner la nouvelle carte d'environnement";
+//"HDR Image"="Image HDR";
+//"Refresh PBR Viewport to see the change."="Actualisez la fenêtre de visu. RBP pour voir le changement.";
 "Reopen Viewport"="Rouvrir la fenêtre de visualisation";
 "Export As 3D Object..."="Exporter en tant qu'objet 3D...";
 "Export As glTF"="Exporter en tant que fichier glTF";
@@ -53,11 +53,12 @@
 "Metallic"="Métallique";
 "A value of 0 means the material is a dielectric."="Une valeur de 0 signifie que le matériau est un diélectrique.";
 "A value of 1 means the material is a metal."="Une valeur de 1 signifie que le matériau est un métal.";
-"Values between 0 and 1 may represent dirty metal surfaces."="Les valeurs entre 0 et 1 peuvent représenter des surfaces métalliques sales.";
+"When a metallic texture is specified, this value becomes a multiplier for each pixel of that metallic texture."="Lorsqu'une texture métallique est spécifiée, cette valeur devient un multiplicateur pour chaque pixel de cette texture métallique.";
 
 "Roughness"="Rugosité";
 "A value of 0 means the material is completely smooth."="Une valeur de 0 signifie que le matériau est complètement lisse.";
 "A value of 1 means the material is completely rough."="Une valeur de 1 signifie que le matériau est complètement rugueux.";
+"When a roughness texture is specified, this value becomes a multiplier..."="Lorsqu'une texture de rugosité est spécifiée, cette valeur devient un multiplicateur...";
 
 "Metallic map"="Carte métallique";
 "The metallic map is more precise than single value of Metallic."="La carte métallique est plus précise que la valeur unique Métallique.";

@@ -50,11 +50,11 @@
 
 			<div class="label"><%= TRANSLATE['Metallic'] %></div>
 
-			<input class="slider material-basic-control" type="range" min="0.0" max="1.0" step="0.1" data-key="metallicFactor" data-pattern="^((0(\.[0-9]+)?)|1(\.0+)?)$">
+			<input class="slider material-basic-control material-factor-control" type="range" min="0.0" max="1.0" step="0.1" data-key="metallicFactor" data-pattern="^((0(\.[0-9]+)?)|1(\.0+)?)$">
 
-			<input class="num-field material-basic-control" type="number" min="0.0" max="1.0" step="0.01" data-key="metallicFactor" data-pattern="^((0(\.[0-9]+)?)|1(\.0+)?)$">
+			<input class="num-field material-basic-control material-factor-control" type="number" min="0.0" max="1.0" step="0.01" data-key="metallicFactor" data-pattern="^((0(\.[0-9]+)?)|1(\.0+)?)$">
 
-			<div class="tooltip info-icon" data-tipfy="<%= TRANSLATE['A value of 0 means the material is a dielectric.'] %> <%= TRANSLATE['A value of 1 means the material is a metal.'] %> <%= TRANSLATE['Values between 0 and 1 may represent dirty metal surfaces.'] %>" data-tipfy-side="left"></div>
+			<div class="tooltip info-icon" data-tipfy="<%= TRANSLATE['A value of 0 means the material is a dielectric.'] %> <%= TRANSLATE['A value of 1 means the material is a metal.'] %> <%= TRANSLATE['When a metallic texture is specified, this value becomes a multiplier for each pixel of that metallic texture.'] %>" data-tipfy-side="left"></div>
 
 		</div>
 
@@ -62,11 +62,11 @@
 
 			<div class="label"><%= TRANSLATE['Roughness'] %></div>
 
-			<input class="slider material-basic-control" type="range" min="0.0" max="1.0" step="0.1" data-key="roughnessFactor" data-pattern="^((0(\.[0-9]+)?)|1(\.0+)?)$">
+			<input class="slider material-basic-control material-factor-control" type="range" min="0.0" max="1.0" step="0.1" data-key="roughnessFactor" data-pattern="^((0(\.[0-9]+)?)|1(\.0+)?)$">
 
-			<input class="num-field material-basic-control" type="number" min="0.0" max="1.0" step="0.01" data-key="roughnessFactor" data-pattern="^((0(\.[0-9]+)?)|1(\.0+)?)$">
+			<input class="num-field material-basic-control material-factor-control" type="number" min="0.0" max="1.0" step="0.01" data-key="roughnessFactor" data-pattern="^((0(\.[0-9]+)?)|1(\.0+)?)$">
 
-			<div class="tooltip info-icon" data-tipfy="<%= TRANSLATE['A value of 0 means the material is completely smooth.'] %> <%= TRANSLATE['A value of 1 means the material is completely rough.'] %>" data-tipfy-side="left"></div>
+			<div class="tooltip info-icon" data-tipfy="<%= TRANSLATE['A value of 0 means the material is completely smooth.'] %> <%= TRANSLATE['A value of 1 means the material is completely rough.'] %> <%= TRANSLATE['When a roughness texture is specified, this value becomes a multiplier...'] %>" data-tipfy-side="left"></div>
 
 		</div>
 
@@ -77,7 +77,7 @@
 			<!-- Default `title` attribute value is muted to avoid confusion. -->
 			<input class="uploader material-image-uploader" type="file" title=" " data-key="metalRoughTextureURI" data-pattern="^data\:image\/(jpeg|png);.+$" data-pattern-mismatch="<%= TRANSLATE['The image format of this map must be JPEG or PNG.'] %>" data-channel="blue">
 
-			<input class="checkbox enlarge material-image-status" type="checkbox" disabled title="<%= TRANSLATE['A texture image is defined?'] %>" data-key="metalRoughTextureURI" >
+			<input class="checkbox enlarge material-image-status" type="checkbox" disabled title="<%= TRANSLATE['A texture image is defined?'] %>" data-key="metalRoughTextureURI" data-factor-control-key="metallicFactor">
 
 			<div class="button material-image-remove-btn trash-icon" data-key="metalRoughTextureURI" title="<%= TRANSLATE['Discard texture image'] %>"></div>
 
@@ -92,7 +92,7 @@
 			<!-- Default `title` attribute value is muted to avoid confusion. -->
 			<input class="uploader material-image-uploader" type="file" title=" " data-key="metalRoughTextureURI" data-pattern="^data\:image\/(jpeg|png);.+$" data-pattern-mismatch="<%= TRANSLATE['The image format of this map must be JPEG or PNG.'] %>" data-channel="green">
 
-			<input class="checkbox enlarge material-image-status" type="checkbox" disabled title="<%= TRANSLATE['A texture image is defined?'] %>" data-key="metalRoughTextureURI" >
+			<input class="checkbox enlarge material-image-status" type="checkbox" disabled title="<%= TRANSLATE['A texture image is defined?'] %>" data-key="metalRoughTextureURI" data-factor-control-key="roughnessFactor">
 
 			<div class="button material-image-remove-btn trash-icon" data-key="metalRoughTextureURI" title="<%= TRANSLATE['Discard texture image'] %>"></div>
 
@@ -107,7 +107,7 @@
 			<!-- Default `title` attribute value is muted to avoid confusion. -->
 			<input class="uploader material-image-uploader" type="file" title=" " data-key="normalTextureURI" data-pattern="^data\:image\/(jpeg|png);.+$" data-pattern-mismatch="<%= TRANSLATE['The image format of this map must be JPEG or PNG.'] %>">
 
-			<input class="checkbox enlarge material-image-status" type="checkbox" disabled title="<%= TRANSLATE['A texture image is defined?'] %>" data-key="normalTextureURI" >
+			<input class="checkbox enlarge material-image-status" type="checkbox" disabled title="<%= TRANSLATE['A texture image is defined?'] %>" data-key="normalTextureURI">
 
 			<div class="button material-image-remove-btn trash-icon" data-key="normalTextureURI" title="<%= TRANSLATE['Discard texture image'] %>"></div>
 

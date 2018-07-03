@@ -88,6 +88,19 @@ PBR.checkMaterialImagesStatus = _event => {
 		// Check box if texture image is defined.
 		materialImageStatus.checked = ( typeof materialImage === 'string' );
 
+		if ( materialImageStatus.checked === true && materialImageStatus.dataset.factorControlKey ) {
+
+			PBR.queryAll(
+				'.material-factor-control[data-key="' + materialImageStatus.dataset.factorControlKey + '"]'
+			).forEach(materialFactorControl => {
+
+				// Force max. value of corresponding factor if texture image is defined.
+				materialFactorControl.value = materialFactorControl.getAttribute('max');
+
+			});
+
+		}
+
 	});
 
 };
