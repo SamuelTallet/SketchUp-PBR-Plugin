@@ -39,6 +39,14 @@
 "Donate to Plugin Author"="Faire un don à l'auteur de l'extension";
 
 //
+// File: toolbar.rb
+//
+
+"Define if a material is rough, etc."="Définissez si un matériau est rugueux, etc.";
+"Render scene in real-time."="Rendez la scène en temps réel.";
+"Save 3D model as .gltf."="Enregistrez le modèle 3D en tant que .gltf.";
+
+//
 // File: material_editor.rb
 //
 

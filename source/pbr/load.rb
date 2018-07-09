@@ -23,6 +23,7 @@ raise 'The PBR plugin requires at least Ruby 2.2.0 or SketchUp 2017.'\
 require 'sketchup'
 require 'pbr/app_observer'
 require 'pbr/menu'
+require 'pbr/toolbar'
 require 'pbr/material_library'
 require 'pbr/viewport'
 
@@ -41,6 +42,8 @@ module PBR
   Menu.new(
     UI.menu('Plugins') # parent_menu
   )
+
+  Toolbar.new.prepare.show
 
   MaterialLibrary.install
 

@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" version="1">
+  <g stroke="#000">
+    <path d="M29.176 43.33H98.88v55.45H29.176V43.33z" stroke-linejoin="round" fill-rule="evenodd" stroke-linecap="round" stroke-width="5.241" fill="#01afaf"/>
+    <path d="M32 72.48c27.68 3.04 41.16 12.11 48 24H32v-24z" fill-rule="evenodd" stroke-width="3" fill="#06c706"/>
+    <path d="M99.09 73.9c-27.68 3.05-41.16 12.12-48 24h48v-24z" fill-rule="evenodd" stroke-width="3" fill="#06c706"/>
+    <path d="M30.126 43.33H99.83v55.45H30.126V43.33z" stroke-linejoin="round" stroke-linecap="round" stroke-width="5.241" fill="none"/>
+    <path d="M29.153 43.04L8.188 29.06v76.87l20.965-6.99v-55.9z" stroke-linejoin="round" fill-rule="evenodd" stroke-linecap="round" stroke-width="5.241" fill="#80ffff"/>
+    <path d="M8.188 64l20.965 6.99" fill-rule="evenodd" stroke-width="5.241" fill="#0ff"/>
+    <g fill="#80ffff" fill-rule="evenodd" stroke-width="6">
+      <path d="M99.04 43.038l20.964-13.977v76.872L99.04 98.945V43.038z" stroke-linejoin="round" stroke-linecap="round" stroke-width="5.2412399999999995"/>
+      <path d="M120.004 64.003L99.04 70.99" stroke-width="5.2412399999999995"/>
+    </g>
+  </g>
+</svg>

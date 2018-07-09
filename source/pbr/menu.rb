@@ -60,14 +60,18 @@ module PBR
     # @return [void]
     private def add_primary_feat_items
 
-      @menu.add_item('⬕ ' + TRANSLATE['Edit Materials...']) { edit_materials }
+      @menu.add_item('⬕ ' + TRANSLATE['Edit Materials...']) do
+
+        Menu.edit_materials
+        
+      end
 
     end
 
     # Runs "Edit Materials..." menu command.
     #
     # @return [void]
-    private def edit_materials
+    def self.edit_materials
 
       # Show Material Editor if all good conditions are met.
       MaterialEditor.new.show if MaterialEditor.safe_to_open?
@@ -105,17 +109,17 @@ module PBR
 
       @menu.add_item(TRANSLATE['Reopen Viewport']) do
 
-        propose_nil_material_fix
+        Menu.propose_nil_material_fix
 
-        reopen_viewport
+        Menu.reopen_viewport
 
       end
 
       @menu.add_item(TRANSLATE['Export As 3D Object...']) do
 
-        propose_nil_material_fix
+        Menu.propose_nil_material_fix
 
-        export_as_gltf
+        Menu.export_as_gltf
 
       end
 
@@ -126,7 +130,7 @@ module PBR
     # Note: This only updates glTF model asset.
     #
     # @return [void]
-    private def reopen_viewport
+    def self.reopen_viewport
 
       propose_help(TRANSLATE['glTF export failed. Do you want help?'])\
         unless Viewport.update_model
@@ -138,7 +142,7 @@ module PBR
     # Runs "Export As 3D Object..." menu command.
     #
     # @return [void]
-    private def export_as_gltf
+    def self.export_as_gltf
 
       user_path = UI.savepanel(TRANSLATE['Export As glTF'], nil, GlTF.filename)
 
@@ -163,7 +167,7 @@ module PBR
     # Proposes "nil material" fix to SketchUp user.
     #
     # @return [void]
-    private def propose_nil_material_fix
+    def self.propose_nil_material_fix
 
       user_answer = UI.messagebox(
         TRANSLATE['Propagate materials to whole model? (Recommended)'],
@@ -185,7 +189,7 @@ module PBR
     # @param [String] message Help proposal message.
     #
     # @return [void]
-    private def propose_help(message)
+    def self.propose_help(message)
 
       user_answer = UI.messagebox(message, MB_YESNO)
 
