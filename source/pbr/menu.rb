@@ -43,22 +43,20 @@ module PBR
 
       @menu = parent_menu.add_submenu(NAME)
 
-      add_primary_feat_items
+      add_edit_materials_item
 
-      @menu.add_separator
+      add_reopen_viewport_item
 
-      add_secondary_feat_items
+      add_export_as_gltf_item
 
-      @menu.add_separator
-
-      add_author_items
+      add_donate_to_author_item
 
     end
 
-    # Adds menu items related to primary features.
+    # Adds "Edit Materials..." menu item.
     #
     # @return [void]
-    private def add_primary_feat_items
+    private def add_edit_materials_item
 
       @menu.add_item('⬕ ' + TRANSLATE['Edit Materials...']) do
 
@@ -78,46 +76,25 @@ module PBR
 
     end
 
-    # Runs "Change Env. Map..." menu command.
-    #
-    # @deprecated
+    # Adds "Reopen Viewport" menu item.
     #
     # @return [void]
-    private def change_env_map
-
-      user_path = UI.openpanel(
-        TRANSLATE['Select New Environment Map'],
-        nil, TRANSLATE['HDR Image'] + '|*.hdr||'
-      )
-
-      # Escape if user cancelled env. map change.
-      return if user_path.nil?
-      
-      FileUtils.copy(
-        user_path,
-        File.join(Viewport::ASSETS_DIR, 'environment-map.hdr')
-      )
-
-      Viewport.reopen
-
-    end
-
-    # Adds menu items related to secondary features.
-    #
-    # @return [void]
-    private def add_secondary_feat_items
+    private def add_reopen_viewport_item
 
       @menu.add_item(TRANSLATE['Reopen Viewport']) do
-
-        Menu.propose_nil_material_fix
 
         Menu.reopen_viewport
 
       end
 
-      @menu.add_item(TRANSLATE['Export As 3D Object...']) do
+    end
 
-        Menu.propose_nil_material_fix
+    # Adds "Export As 3D Object..." menu item.
+    #
+    # @return [void]
+    private def add_export_as_gltf_item
+
+      @menu.add_item(TRANSLATE['Export As 3D Object...']) do
 
         Menu.export_as_gltf
 
@@ -132,10 +109,20 @@ module PBR
     # @return [void]
     def self.reopen_viewport
 
-      propose_help(TRANSLATE['glTF export failed. Do you want help?'])\
-        unless Viewport.update_model
+      if PBR.required_plugin_installed?
 
-      Viewport.reopen
+        propose_nil_material_fix
+
+        propose_help(TRANSLATE['glTF export failed. Do you want help?'])\
+          unless Viewport.update_model
+
+        Viewport.reopen
+
+      else
+
+        PBR.open_required_plugin_page
+
+      end
 
     end
 
@@ -143,6 +130,8 @@ module PBR
     #
     # @return [void]
     def self.export_as_gltf
+
+      propose_nil_material_fix
 
       user_path = UI.savepanel(TRANSLATE['Export As glTF'], nil, GlTF.filename)
 
@@ -203,10 +192,10 @@ module PBR
 
     end
 
-    # Adds menu items related to author.
+    # Adds "Donate to Plugin Author" menu item.
     #
     # @return [void]
-    private def add_author_items
+    private def add_donate_to_author_item
 
       @menu.add_item('💌 ' + TRANSLATE['Donate to Plugin Author']) do
 

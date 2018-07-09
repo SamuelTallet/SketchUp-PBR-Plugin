@@ -26,7 +26,7 @@ require 'extensions'
 # PBR plugin namespace.
 module PBR
 
-  VERSION = '1.4.2'.freeze
+  VERSION = '1.4.3'.freeze
 
   # Load translation if it's available for current locale.
   TRANSLATE = LanguageHandler.new('pbr.strings')
@@ -59,5 +59,27 @@ module PBR
     extension,
     true # load_at_start
   )
+
+  # Check if required plugin is installed.
+  #
+  # @return [Boolean]
+  def self.required_plugin_installed?
+
+    Centaur.const_get(:GltfExporter)
+      true
+
+    rescue NameError => _error
+      false
+
+  end
+
+  # Open homepage of required plugin.
+  def self.open_required_plugin_page
+
+    UI.messagebox(TRANSLATE['Please install required plugin: glTF Export.'])
+
+    UI.openURL('https://extensions.sketchup.com/content/gltf-exporter')
+
+  end
 
 end

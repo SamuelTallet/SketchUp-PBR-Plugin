@@ -78,8 +78,6 @@ module PBR
 
       command = UI::Command.new('rv') do
 
-        Menu.propose_nil_material_fix
-
         Menu.reopen_viewport
 
       end
@@ -100,9 +98,7 @@ module PBR
     private def add_export_as_gltf_command
 
       command = UI::Command.new('eag') do
-
-        Menu.propose_nil_material_fix
-
+        
         Menu.export_as_gltf
 
       end
