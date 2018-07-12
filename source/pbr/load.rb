@@ -24,7 +24,6 @@ require 'sketchup'
 require 'pbr/app_observer'
 require 'pbr/menu'
 require 'pbr/toolbar'
-require 'pbr/material_library'
 require 'pbr/viewport'
 
 # PBR plugin namespace.
@@ -44,8 +43,6 @@ module PBR
   )
 
   Toolbar.new.prepare.show
-
-  MaterialLibrary.install
 
   Viewport.open if Viewport.translate
 
