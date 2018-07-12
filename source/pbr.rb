@@ -63,7 +63,7 @@ module PBR
   # Check if required plugin is installed.
   #
   # @return [Boolean]
-  def self.required_plugin_installed?
+  def self.required_plugin_exist?
 
     Centaur.const_get(:GltfExporter)
       true

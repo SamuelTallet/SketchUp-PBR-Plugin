@@ -83,6 +83,8 @@ module PBR
 
       @menu.add_item(TRANSLATE['Reopen Viewport']) do
 
+        return PBR.open_required_plugin_page unless PBR.required_plugin_exist?
+
         Menu.reopen_viewport
 
       end
@@ -95,6 +97,8 @@ module PBR
     private def add_export_as_gltf_item
 
       @menu.add_item(TRANSLATE['Export As 3D Object...']) do
+
+        return PBR.open_required_plugin_page unless PBR.required_plugin_exist?
 
         Menu.export_as_gltf
 
@@ -109,20 +113,12 @@ module PBR
     # @return [void]
     def self.reopen_viewport
 
-      if PBR.required_plugin_installed?
+      propose_nil_material_fix
 
-        propose_nil_material_fix
+      propose_help(TRANSLATE['glTF export failed. Do you want help?'])\
+        unless Viewport.update_model
 
-        propose_help(TRANSLATE['glTF export failed. Do you want help?'])\
-          unless Viewport.update_model
-
-        Viewport.reopen
-
-      else
-
-        PBR.open_required_plugin_page
-
-      end
+      Viewport.reopen
 
     end
 

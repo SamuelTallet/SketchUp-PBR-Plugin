@@ -78,6 +78,8 @@ module PBR
 
       command = UI::Command.new('rv') do
 
+        return PBR.open_required_plugin_page unless PBR.required_plugin_exist?
+
         Menu.reopen_viewport
 
       end
@@ -98,6 +100,8 @@ module PBR
     private def add_export_as_gltf_command
 
       command = UI::Command.new('eag') do
+
+        return PBR.open_required_plugin_page unless PBR.required_plugin_exist?
         
         Menu.export_as_gltf
 
