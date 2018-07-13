@@ -26,22 +26,17 @@ Installation
 2. Télécharger le plugin requis : [glTF Export](https://extensions.sketchup.com/fr/content/gltf-exporter).
 3. Télécharger le dernier plugin RBP au format .RBZ depuis la page [Releases](https://github.com/SamuelTS/SketchUp-PBR-Plugin/releases/).
 4. Installer les deux plugins en suivant ce [guide](https://help.sketchup.com/article/3000263).
-5. Redémarrer SketchUp.
 
-Maintenant, vous devriez avoir un menu "Rendu basé sur la physique" dans le menu "Extensions" de SketchUp. 👍
-À partir de ce nouveau menu, vous pouvez : "Modifier les matériaux", "Rouvrir la fenêtre de visualisation" et "Exporter en tant qu'objet 3D".
+Maintenant, vous devriez avoir dans SketchUp un menu "Rendu basé sur la physique" et une barre d'outils "PBR". 👍
 
-De plus, vous devriez avoir une nouvelle collection de matières "PBR" dans la palette "Matières". Enjoy! 😊
+Optionnel. Installer la bibliothèque de matériaux PBR :
 
-Flux de travail
----------------
+5. Télécharger *sketchup_pbr_material_lib.zip* depuis la page [Releases](https://github.com/SamuelTS/SketchUp-PBR-Plugin/releases/).
+6. Si vous utilisez macOS, extraire le contenu du *.zip* vers ce dossier : *~/Library/Application Support/SketchUp `2017`/SketchUp/Materials*
+ Si vous utilisez Windows, extraire le contenu du *.zip* vers ce dossier : *%AppData%\SketchUp\SketchUp `2017`\SketchUp\Materials*
+7. Redémarrer SketchUp.
 
-La fenêtre de visualisation RBP s'ouvre **automatiquement** lorsque :
-
-- Vous ouvrez ou créez un modèle SketchUp,
-- Vous appliquez les changements dans l'interface de modification des matériaux RBP.
-
-Mais vous voudrez peut-être mettre à jour **manuellement** la fenêtre de visualisation RBP. Pour ce faire, je vous recommande d'[assigner un raccourci clavier](https://help.sketchup.com/article/3000232) à l'entrée de menu : "Extensions" > "Rendu basé sur la physique" > "Rouvrir la fenêtre de visualisation".
+Profitez de plus de 90 matériaux PBR prêts à l'emploi dans SketchUp ! 😊
 
 Documentation
 -------------
