@@ -28,12 +28,15 @@ Installation
 2. Download required plugin: [glTF Export](https://extensions.sketchup.com/content/gltf-exporter).
 3. Download latest PBR plugin in .RBZ format from [Releases](https://github.com/SamuelTS/SketchUp-PBR-Plugin/releases/).
 4. Install both plugins following this [guide](https://help.sketchup.com/article/3000263).
-5. Restart SketchUp.
 
-Now, you should have a "Physically-Based Rendering" menu in SketchUp "Extensions" menu. 👍
-From this new menu, you can: "Edit Materials", "Reopen Viewport"  and "Export As 3D Object".
+Now, you should have in SketchUp a "Physically-Based Rendering" menu and a "PBR" toolbar 👍.
 
-Additionally, you should have a new "PBR" materials collection in "Materials" tray. Enjoy! 😊
+Optional. Install PBR Material Library :
+
+1. Download *sketchup_pbr_material_lib.zip* from [Releases](https://github.com/SamuelTS/SketchUp-PBR-Plugin/releases/).
+2. If you use Windows, extract *.zip* contents to this folder: *%AppData%\SketchUp\SketchUp `2017`\SketchUp\Materials*
+or if you use macOS,  extract *.zip* contents to this folder: *~/Library/Application Support/SketchUp `2017`/SketchUp/Materials*
+3. Enjoy 90+ ready-to-use PBR materials in SketchUp. 😊
 
 Workflow
 --------
