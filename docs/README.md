@@ -38,17 +38,7 @@ Optional. Install PBR Material Library:
 or if you use macOS,  extract *.zip* contents to this folder: *~/Library/Application Support/SketchUp `2017`/SketchUp/Materials*
 7. Restart SketchUp.
 
-Enjoy 90+ ready-to-use PBR materials in SketchUp! 😊
-
-Workflow
---------
-
-PBR Viewport updates **automatically** when:
-
-- You open or create a SketchUp model,
-- You apply changes in PBR Material Editor.
-
-But you may want update **manually** PBR Viewport. To do so, I recommend you to [map a keyboard shortcut](https://help.sketchup.com/article/3000232) to menu entry: "Extensions" > "Physically-Based Rendering" > "Reopen Viewport".
+Enjoy more than 90 ready-to-use PBR materials in SketchUp! 😊
 
 Documentation
 -------------
