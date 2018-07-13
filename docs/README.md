@@ -29,14 +29,15 @@ Installation
 3. Download latest PBR plugin in .RBZ format from [Releases](https://github.com/SamuelTS/SketchUp-PBR-Plugin/releases/).
 4. Install both plugins following this [guide](https://help.sketchup.com/article/3000263).
 
-Now, you should have in SketchUp a "Physically-Based Rendering" menu and a "PBR" toolbar 👍.
+Now, you should have in SketchUp a "Physically-Based Rendering" menu and a "PBR" toolbar. 👍
 
-Optional. Install PBR Material Library :
+Optional. Install PBR Material Library:
 
 1. Download *sketchup_pbr_material_lib.zip* from [Releases](https://github.com/SamuelTS/SketchUp-PBR-Plugin/releases/).
 2. If you use Windows, extract *.zip* contents to this folder: *%AppData%\SketchUp\SketchUp `2017`\SketchUp\Materials*
 or if you use macOS,  extract *.zip* contents to this folder: *~/Library/Application Support/SketchUp `2017`/SketchUp/Materials*
-3. Enjoy 90+ ready-to-use PBR materials in SketchUp. 😊
+
+Enjoy 90+ ready-to-use PBR materials in SketchUp! 😊
 
 Workflow
 --------
