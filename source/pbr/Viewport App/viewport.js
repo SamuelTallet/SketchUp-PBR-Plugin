@@ -68,99 +68,6 @@ PBR.Viewport.toggleEnvSkyVisibility = function() {
 };
 
 /**
- * Returns ambient lightness value according to sunlight position...
- *
- * @param {number} sunlightPositionY - Sunlight position Y.
- *
- * @returns {number} Ambient lightness.
- */
-PBR.Viewport.guessAmbientLightnessBySunPosY = function(sunlightPositionY) {
-
-	// XXX Arbitrary values.
-
-	var ambientLightness = 0;
-
-		switch (parseFloat(sunlightPositionY).toFixed(1)) {
-
-			case '1.0':
-				ambientLightness = 60;
-				break;
-
-			case '0.9':
-				ambientLightness = 55;
-				break;
-
-			case '0.8':
-				ambientLightness = 50;
-				break;
-
-			case '0.7':
-				ambientLightness = 45;
-				break;
-
-			case '0.6':
-				ambientLightness = 40;
-				break;
-
-			case '0.5':
-				ambientLightness = 35;
-				break;
-
-			case '0.4':
-				ambientLightness = 30;
-				break;
-
-			case '0.3':
-				ambientLightness = 25;
-				break;
-
-			case '0.2':
-				ambientLightness = 20;
-				break;
-
-			case '0.1':
-				ambientLightness = 15;
-				break;
-
-			case '0.0':
-				ambientLightness = 10;
-				break;
-
-			case '-0.1':
-				ambientLightness = 5;
-				break;
-
-		}
-
-
-	return ambientLightness;
-
-};
-
-/**
- * Defines ambient lightness.
- *
- * @param {number} lightness
- */
-PBR.Viewport.setAmbientLightness = function(lightness) {
-
-	var ambientLight = document.getElementById('ambientLight');
-
-	// XXX Arbitrary values.
-
-	var hue = 195;
-	var saturation = 5;
-
-	var hslColor = 'hsl(' 
-		+ hue + ','
-		+ saturation + '%,' 
-	 	+ lightness + '%)';
-
-	ambientLight.setAttribute('light', 'color: ' + hslColor);
-
-};
-
-/**
  * Defines environment light position.
  *
  * @param {number} x
@@ -255,10 +162,7 @@ PBR.Viewport.syncLights = function() {
 		sunlightPosition.z
 	);
 
-	var ambientLightness = PBR.Viewport
-		.guessAmbientLightnessBySunPosY(sunlightPosition.y);
-
-	PBR.Viewport.setAmbientLightness(ambientLightness);
+	PBR.Viewport.renderer.toneMappingExposure = sunlightPosition.y;
 
 	// If sun is above horizon:
 	if ( sunlightPosition.y > 0 ) {

@@ -12,7 +12,8 @@
 
 "Physically-Based Rendering"="Rendu basé sur la physique";
 "Add reflects and reliefs to your SketchUp models."="Ajoutez des reflets et des reliefs à vos modèles SketchUp.";
-"Get a realistic render in real-time."="Obtenez un rendu réaliste en temps réel.";
+"Get a render in seconds."="Obtenez un rendu en quelques secondes.";
+"Control camera and atmosphere in real-time."="Contrôlez la caméra et l'atmosphère en temps réel.";
 "Export result to image or 3D object."="Exportez le résultat en image ou en objet 3D.";
 "Please install required plugin: glTF Export."="Veuillez installer le plugin requis : glTF Export.";
 

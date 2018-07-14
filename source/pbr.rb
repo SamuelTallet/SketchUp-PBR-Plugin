@@ -26,7 +26,7 @@ require 'extensions'
 # PBR plugin namespace.
 module PBR
 
-  VERSION = '1.4.3'.freeze
+  VERSION = '1.4.4'.freeze
 
   # Load translation if it's available for current locale.
   TRANSLATE = LanguageHandler.new('pbr.strings')
@@ -49,7 +49,8 @@ module PBR
 
   features = [
     TRANSLATE['Add reflects and reliefs to your SketchUp models.'],
-    TRANSLATE['Get a realistic render in real-time.'],
+    TRANSLATE['Get a render in seconds.'],
+    TRANSLATE['Control camera and atmosphere in real-time.'],
     TRANSLATE['Export result to image or 3D object.']
   ]
 
