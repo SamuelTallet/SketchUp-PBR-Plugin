@@ -36,7 +36,7 @@ Optionnel. Installer la bibliothèque de matériaux PBR :
  Si vous utilisez Windows, extraire le contenu du *.zip* vers ce dossier : *%AppData%\SketchUp\SketchUp `2017`\SketchUp\Materials*
 7. Redémarrer SketchUp.
 
-Profitez de plus de 90 matériaux PBR prêts à l'emploi dans SketchUp ! 😊
+Profitez de cent matériaux PBR prêts à l'emploi dans SketchUp ! 😊
 
 Documentation
 -------------
