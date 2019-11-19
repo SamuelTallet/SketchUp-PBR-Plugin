@@ -26,7 +26,7 @@ Installation
 
 1. Be sure to have SketchUp 2017 or newer version installed.
 2. Download required plugin: [glTF Export](https://extensions.sketchup.com/content/gltf-exporter).
-3. Download latest PBR plugin in .RBZ format from the [SketchUcation PluginStore](https://sketchucation.com/pluginstore?pln=pbr).
+3. Download latest PBR plugin from the [SketchUcation PluginStore](https://sketchucation.com/pluginstore?pln=pbr).
 4. Install both plugins following this [guide](https://help.sketchup.com/article/3000263).
 
 Now, you should have in SketchUp a "Physically-Based Rendering" menu and a "PBR" toolbar. 👍
