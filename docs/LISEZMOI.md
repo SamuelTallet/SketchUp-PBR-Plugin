@@ -24,7 +24,7 @@ Installation
 
 1. S'assurer d'avoir SketchUp 2017 ou une version plus récente installée.
 2. Télécharger le plugin requis : [glTF Export](https://extensions.sketchup.com/fr/content/gltf-exporter).
-3. Télécharger le dernier plugin RBP au format .RBZ depuis la page [Releases](https://github.com/SamuelTS/SketchUp-PBR-Plugin/releases/) ou le [SketchUcation PluginStore](https://sketchucation.com/pluginstore?pln=pbr).
+3. Télécharger le dernier plugin RBP au format .RBZ depuis le [SketchUcation PluginStore](https://sketchucation.com/pluginstore?pln=pbr).
 4. Installer les deux plugins en suivant ce [guide](https://help.sketchup.com/article/3000263).
 
 Maintenant, vous devriez avoir dans SketchUp un menu "Rendu basé sur la physique" et une barre d'outils "PBR". 👍
