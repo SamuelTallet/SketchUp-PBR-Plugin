@@ -22,7 +22,6 @@ Dans la fenêtre de visualisation RBP
 
 Problème | Solution de contournement
 :--- | :---
-L'arrière-plan de la texture est blanc au lieu d'être transparent. | Ouvrez l'interface de modification des matériaux RBP ("Extensions" > "Rendu basé sur la physique" > "Modifier les matériaux..."). Sélectionnez le matériau. Réglez "Mode alpha" sur "Combiné avec l'arrière-plan".
 La texture est complètement opaque alors que j'ai réglé l'opacité sur *n* %. | Avec votre logiciel de retouche photo préféré, réglez l'opacité **directement** sur l'image de la texture. Utilisez le PNG comme format d'échange pour préserver l'opacité. Réimportez l'image de la texture dans SketchUp.
 La texture est incorrecte. | Retournez la face (arrière) où la texture est appliquée. Peignez la texture sur la face (avant).
 
@@ -30,4 +29,10 @@ La texture est incorrecte. | Retournez la face (arrière) où la texture est app
 
 Contrôlez la caméra de la scène avec une souris :
 
-Orbitez en traînant le **bouton de gauche**. Déplacez-vous en panoramique en traînant le **bouton de droite**. Zoomez avec la **molette**. Zoomez plus rapidement en maintenant le **bouton du milieu**.
+Orbitez en traînant le **bouton de gauche**. Déplacez-vous en panoramique en traînant le **bouton du milieu**. Zoomez avec la **molette**.
+
+Il est également possible de contrôler la caméra avec une manette de jeu standard.
+
+### Comment exporter le rendu vers une image ?
+
+Faites un clic droit n'importe où puis cliquez sur "Enregistrer l'image sous...".
