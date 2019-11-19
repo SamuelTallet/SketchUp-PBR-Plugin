@@ -84,8 +84,8 @@
 "The scalar multiplier applied to each vector of the normal map."="Le multiplicateur scalaire appliqué à chaque vecteur de la carte de normales.";
 "Adjust strength of relief with this value."="Ajustez la force du relief avec cette valeur.";
 
-"Height map"="Carte d'élévation";
-"The height map gives a great illusion of relief to the material."="La carte d'élévation donne une grande illusion de relief au matériau.";
+"Height map"="Champ de hauteur";
+"The height map gives a great illusion of relief to the material."="Le champ de hauteur donne une grande illusion de relief au matériau.";
 "To use in parallel with a normal map."="A utiliser en parallèle avec une carte de normales.";
 
 "The image format of this map must be JPEG or PNG."="Le format d'image de cette carte doit être JPEG ou PNG.";
