@@ -38,7 +38,7 @@ Optional. Install PBR Material Library:
 If you use Windows, extract *.zip* contents to this folder: *%AppData%\SketchUp\SketchUp `2017`\SketchUp\Materials*
 7. Restart SketchUp.
 
-Enjoy more than 90 ready-to-use PBR materials in SketchUp! 😊
+Enjoy one hundred ready-to-use PBR materials in SketchUp! 😊
 
 Documentation
 -------------
