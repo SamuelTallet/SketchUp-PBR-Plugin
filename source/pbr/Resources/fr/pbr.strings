@@ -13,7 +13,7 @@
 "Physically-Based Rendering"="Rendu basé sur la physique";
 "Add reflects and reliefs to your SketchUp models."="Ajoutez des reflets et des reliefs à vos modèles SketchUp.";
 "Get a render in seconds."="Obtenez un rendu en quelques secondes.";
-"Control camera and atmosphere in real-time."="Contrôlez la caméra et l'atmosphère en temps réel.";
+"Control camera in real-time."="Contrôlez la caméra en temps réel.";
 "Export result to image or 3D object."="Exportez le résultat en image ou en objet 3D.";
 "Please install required plugin: glTF Export."="Veuillez installer le plugin requis : glTF Export.";
 
@@ -24,10 +24,9 @@
 // Locale note: In French version of SketchUp, menu items are not titleized.
 
 "Edit Materials..."="Modifier les matériaux...";
-//"Change Env. Map..."="Changer la carte d'environnement...";
-//"Select New Environment Map"="Sélectionner la nouvelle carte d'environnement";
-//"HDR Image"="Image HDR";
-//"Refresh PBR Viewport to see the change."="Actualisez la fenêtre de visu. RBP pour voir le changement.";
+"Change HDR background..."="Changer l'image de fond HDR...";
+"Select New Background"="Sélectionner la nouvelle image de fond";
+"HDR Image"="Image HDR";
 "Reopen Viewport"="Rouvrir la fenêtre de visualisation";
 "Export As 3D Object..."="Exporter en tant qu'objet 3D...";
 "Export As glTF"="Exporter en tant que fichier glTF";
@@ -44,7 +43,7 @@
 // File: toolbar.rb
 //
 
-"Define if a material is rough, etc."="Définissez si un matériau est rugueux, etc.";
+"Define if a material is rough, is a metal, etc."="Définissez si un matériau est rugueux, est un métal, etc.";
 "Render scene in real-time."="Rendez la scène en temps réel.";
 "Save 3D model as .gltf."="Enregistrez le modèle 3D en tant que .gltf.";
 
@@ -85,6 +84,10 @@
 "The scalar multiplier applied to each vector of the normal map."="Le multiplicateur scalaire appliqué à chaque vecteur de la carte de normales.";
 "Adjust strength of relief with this value."="Ajustez la force du relief avec cette valeur.";
 
+"Height map"="Carte d'élévation";
+"The height map gives a great illusion of relief to the material."="La carte d'élévation donne une grande illusion de relief au matériau.";
+"To use in parallel with a normal map."="A utiliser en parallèle avec une carte de normales.";
+
 "The image format of this map must be JPEG or PNG."="Le format d'image de cette carte doit être JPEG ou PNG.";
 "A texture image is defined?"="Une image de texture est définie ?";
 "Discard texture image"="Jeter l'image de texture";
@@ -116,7 +119,4 @@
 //
 
 "SketchUp PBR Viewport"="Fenêtre de visu. RBP de SketchUp";
-"Show or hide clouds"="Afficher ou masquer les nuages";
 "Help"="Aide";
-"Save as image"="Enregistrer en tant qu'image";
-"Enter VR mode"="Passer en mode VR";

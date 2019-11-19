@@ -3,7 +3,7 @@
  *
  * @package PBR extension for SketchUp
  *
- * @copyright © 2018 Samuel Tallet-Sabathé
+ * @copyright © 2019 Samuel Tallet
  *
  * @licence GNU General Public License 3.0
  */
@@ -288,7 +288,7 @@ document.addEventListener('DOMContentLoaded', _event => {
 	if ( typeof sketchup === 'object' ) {
 
 		PBR.pullMaterialsThenListen();
-		new Tipfy('.tooltip');
+		tippy('.tooltip');
 
 	} else {
 

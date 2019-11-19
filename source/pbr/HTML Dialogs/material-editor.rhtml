@@ -4,16 +4,16 @@
 <head>
 
     <meta charset="UTF-8">
-    <meta name="x-copyright" content="© 2018 Samuel Tallet-Sabathé">
+    <meta name="x-copyright" content="© 2019 Samuel Tallet">
     <meta name="x-license" content="GNU General Public License 3.0">
 
 	<title><%= TRANSLATE['PBR Material Editor'] %></title>
 
-	<%= scripts['lib/tipfy/tipfy.min.js'] %>
+	<%= scripts['lib/popper.min.js'] %>
+	<%= scripts['lib/tippy-bundle.iife.min.js'] %>
 	<%= scripts['lib/image-channel-packer.js'] %>
 	<%= scripts['material-editor.js'] %>
 
-	<%= styles['lib/tipfy/tipfy.min.css'] %>
 	<%= styles['material-editor.css'] %>
 
 </head>
@@ -54,7 +54,7 @@
 
 			<input class="num-field material-basic-control material-factor-control" type="number" min="0.0" max="1.0" step="0.01" data-key="metallicFactor" data-pattern="^((0(\.[0-9]+)?)|1(\.0+)?)$">
 
-			<div class="tooltip info-icon" data-tipfy="<%= TRANSLATE['A value of 0 means the material is a dielectric.'] %> <%= TRANSLATE['A value of 1 means the material is a metal.'] %> <%= TRANSLATE['When a metallic texture is specified, this value becomes a multiplier for each pixel of that metallic texture.'] %>" data-tipfy-side="left"></div>
+			<div class="tooltip info-icon" data-tippy-content="<%= TRANSLATE['A value of 0 means the material is a dielectric.'] %> <%= TRANSLATE['A value of 1 means the material is a metal.'] %> <%= TRANSLATE['When a metallic texture is specified, this value becomes a multiplier for each pixel of that metallic texture.'] %>"></div>
 
 		</div>
 
@@ -66,7 +66,7 @@
 
 			<input class="num-field material-basic-control material-factor-control" type="number" min="0.0" max="1.0" step="0.01" data-key="roughnessFactor" data-pattern="^((0(\.[0-9]+)?)|1(\.0+)?)$">
 
-			<div class="tooltip info-icon" data-tipfy="<%= TRANSLATE['A value of 0 means the material is completely smooth.'] %> <%= TRANSLATE['A value of 1 means the material is completely rough.'] %> <%= TRANSLATE['When a roughness texture is specified, this value becomes a multiplier...'] %>" data-tipfy-side="left"></div>
+			<div class="tooltip info-icon" data-tippy-content="<%= TRANSLATE['A value of 0 means the material is completely smooth.'] %> <%= TRANSLATE['A value of 1 means the material is completely rough.'] %> <%= TRANSLATE['When a roughness texture is specified, this value becomes a multiplier...'] %>"></div>
 
 		</div>
 
@@ -81,7 +81,7 @@
 
 			<div class="button material-image-remove-btn trash-icon" data-key="metalRoughTextureURI" title="<%= TRANSLATE['Discard texture image'] %>"></div>
 
-			<div class="tooltip info-icon" data-tipfy="<%= TRANSLATE['The metallic map is more precise than single value of Metallic.'] %> <%= TRANSLATE['Metallic and roughness maps are automatically merged.'] %>" data-tipfy-side="left"></div>
+			<div class="tooltip info-icon" data-tippy-content="<%= TRANSLATE['The metallic map is more precise than single value of Metallic.'] %> <%= TRANSLATE['Metallic and roughness maps are automatically merged.'] %>"></div>
 
 		</div>
 
@@ -96,7 +96,7 @@
 
 			<div class="button material-image-remove-btn trash-icon" data-key="metalRoughTextureURI" title="<%= TRANSLATE['Discard texture image'] %>"></div>
 
-			<div class="tooltip info-icon" data-tipfy="<%= TRANSLATE['The roughness map is more precise than single value of Roughness.'] %> <%= TRANSLATE['Metallic and roughness maps are automatically merged.'] %>" data-tipfy-side="left"></div>
+			<div class="tooltip info-icon" data-tippy-content="<%= TRANSLATE['The roughness map is more precise than single value of Roughness.'] %> <%= TRANSLATE['Metallic and roughness maps are automatically merged.'] %>"></div>
 
 		</div>
 
@@ -111,7 +111,7 @@
 
 			<div class="button material-image-remove-btn trash-icon" data-key="normalTextureURI" title="<%= TRANSLATE['Discard texture image'] %>"></div>
 
-			<div class="tooltip info-icon" data-tipfy="<%= TRANSLATE['The normal map gives an illusion of relief to the material.'] %> <%= TRANSLATE['Relief information is stored in image using RGB components in linear space.'] %>" data-tipfy-side="left"></div>
+			<div class="tooltip info-icon" data-tippy-content="<%= TRANSLATE['The normal map gives an illusion of relief to the material.'] %> <%= TRANSLATE['Relief information is stored in image using RGB components in linear space.'] %>"></div>
 
 		</div>
 
@@ -123,7 +123,22 @@
 
 			<input class="num-field material-basic-control" type="number" min="0.1" max="3.0" step="0.01" data-key="normalTextureScale" data-pattern="^((0\.[1-9][0-9]*)|([1-2](\.[0-9]+)?)|3(\.0+)?)$">
 
-			<div class="tooltip info-icon" data-tipfy="<%= TRANSLATE['The scalar multiplier applied to each vector of the normal map.'] %> <%= TRANSLATE['Adjust strength of relief with this value.'] %>" data-tipfy-side="left"></div>
+			<div class="tooltip info-icon" data-tippy-content="<%= TRANSLATE['The scalar multiplier applied to each vector of the normal map.'] %> <%= TRANSLATE['Adjust strength of relief with this value.'] %>"></div>
+
+		</div>
+
+		<div class="form-row">
+
+			<div class="label"><%= TRANSLATE['Height map'] %></div>
+
+			<!-- Default `title` attribute value is muted to avoid confusion. -->
+			<input class="uploader material-image-uploader" type="file" title=" " data-key="parallaxOcclusionTextureURI" data-pattern="^data\:image\/(jpeg|png);.+$" data-pattern-mismatch="<%= TRANSLATE['The image format of this map must be JPEG or PNG.'] %>">
+
+			<input class="checkbox enlarge material-image-status" type="checkbox" disabled title="<%= TRANSLATE['A texture image is defined?'] %>" data-key="parallaxOcclusionTextureURI">
+
+			<div class="button material-image-remove-btn trash-icon" data-key="parallaxOcclusionTextureURI" title="<%= TRANSLATE['Discard texture image'] %>"></div>
+
+			<div class="tooltip info-icon" data-tippy-content="<%= TRANSLATE['The height map gives a great illusion of relief to the material.'] %> <%= TRANSLATE['To use in parallel with a normal map.'] %>"></div>
 
 		</div>
 
@@ -137,7 +152,7 @@
 				<option value="BLEND"><%= TRANSLATE['Combined with background'] %></option>
 			</select>
 
-			<div class="tooltip info-icon" data-tipfy="<%= TRANSLATE['The alpha rendering mode of the material.'] %>" data-tipfy-side="left"></div>
+			<div class="tooltip info-icon" data-tippy-content="<%= TRANSLATE['The alpha rendering mode of the material.'] %>"></div>
 
 		</div>
 

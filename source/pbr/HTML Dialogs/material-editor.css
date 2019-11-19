@@ -3,7 +3,7 @@
  *
  * Package: PBR extension for SketchUp
  *
- * Copyright: © 2018 Samuel Tallet-Sabathé
+ * Copyright: © 2019 Samuel Tallet
  *
  * Licence: GNU General Public License 3.0
  */
@@ -97,9 +97,11 @@
 
 }
 
-.tipfy__main {
+.tippy-tooltip {
 
-	line-height: 1.5;
+	font-family: sans-serif;
+
+	text-shadow: 0px 1px 0 black;
 
 }
 

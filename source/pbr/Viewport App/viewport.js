@@ -3,12 +3,10 @@
  *
  * @package PBR extension for SketchUp
  *
- * @copyright © 2018 Samuel Tallet-Sabathé
+ * @copyright © 2019 Samuel Tallet
  *
  * @licence GNU General Public License 3.0
  */
-
-/* jshint browser: true, esversion: 5 */
 
 /**
  * PBR plugin namespace.
@@ -16,12 +14,12 @@
 PBR = {};
 
 /**
- * Renders SketchUp active model in a 3D view.
+ * Render SketchUp active model in a 3D view.
  */
 PBR.Viewport = {};
 
 /**
- * Translates Viewport app strings.
+ * Translate Viewport app strings.
  *
  * @see assets/sketchup-locale.json
  */
@@ -29,204 +27,176 @@ PBR.Viewport.translateStrings = function() {
 
 	document.title = sketchUpLocale.document_title;
 
-	document.getElementById('toggleCloudsButton')
-		.setAttribute('title', sketchUpLocale.toggle_clouds);
-
 	var helpLink = document.getElementById('helpLink');
 
 	helpLink.href = sketchUpLocale.help_link_href;
 	helpLink.textContent = sketchUpLocale.help_link_text;
 
-	document.getElementById('saveAsImageButton')
-		.setAttribute('title', sketchUpLocale.save_as_image);
-
-	document.querySelector('.a-enter-vr-button')
-		.setAttribute('title', sketchUpLocale.enter_vr_mode);
-
 };
 
 /**
- * Makes environment sky fully spherical.
+ * Viewport configuration.
  */
-PBR.Viewport.makeEnvSkyFullySpherical = function() {
-
-	document.querySelector('#environment a-sky').setAttribute('theta-length', 360);
-
-};
+PBR.Viewport.cfg = {};
 
 /**
- * Toggles environment sky visibility.
+ * Graphic configuration for basic rendering.
  *
- * XXX This function may reveal scene background (clouds in our case).
+ * @type {object}
  */
-PBR.Viewport.toggleEnvSkyVisibility = function() {
+PBR.Viewport.cfg.basicGraphics = {
 
-	var envSky = document.querySelector('#environment a-sky');
+	shadow: true,
+	tonemapping: true,
+	linear: true
+	
+};
 
-	envSky.setAttribute('visible', !envSky.getAttribute('visible'));
+/**
+ * Graphic configuration for advanced rendering.
+ *
+ * @see https://github.com/pissang/claygl-advanced-renderer/blob/master/src/defaultGraphicConfig.js
+ *
+ * @type {object}
+ */
+PBR.Viewport.cfg.advancedGraphics = {
+	
+	temporalSuperSampling: {
+		enable: false
+	},
+
+	postEffect: {
+
+		bloom: {
+			enable: false
+		},
+
+		FXAA: {
+			enable: true
+		}
+
+	}
 
 };
 
 /**
- * Defines environment light position.
+ * Create a 3D application that will manage the app initialization and loop.
  *
- * @param {number} x
- * @param {number} y
- * @param {number} z
+ * @see http://claygl.xyz/
  */
-PBR.Viewport.setEnvLightPosition = function(x, y, z) {
+PBR.Viewport.app = clay.application.create('#app', {
 
-	document.getElementById('environment')
-		.setAttribute(
-			'environment',
-			'lightPosition: ' + x + ' ' + y + ' ' + z
+	// Enable advanced rendering, disable basic one.
+	autoRender: false,
+
+	init: function (app) {
+
+		var self = this;
+
+		// Instantiate an adv. renderer.
+		this._advancedRenderer = new ClayAdvancedRenderer(
+			app.renderer, app.scene, app.timeline, PBR.Viewport.cfg.advancedGraphics
 		);
 
-};
+		// Create a perspective camera.
+		this._camera = app.createCamera([0, 0, 0], [0, 0, 0]);
 
-/**
- * Returns sunlight position.
- *
- * @returns {Array.<number>}
- */
-PBR.Viewport.getSunlightPosition = function() {
+		// Plug & use an orbit control.
+		this._orbitControl = new clay.plugin.OrbitControl({
+			target: this._camera,
+			domElement: app.container
+		});
 
-	return document.getElementById('sunlight').getAttribute('position');
+		// Plug & use a gamepad control.
+		this._gamepadControl = new clay.plugin.GamepadControl({
+			target: this._camera
+      	});
 
-};
+      	// Sync controls with renderer.
+		this._orbitControl.on('update', function() {
+			self._advancedRenderer.render();
+		}, self);
 
-/**
- * Defines sunlight position.
- *
- * @param {number} x
- * @param {number} y
- * @param {number} z
- */
-PBR.Viewport.setSunlightPosition = function(x, y, z) {
+		this._gamepadControl.on('update', function() {
+			self._advancedRenderer.render();
+		}, self);
 
-	document.getElementById('sunlight')
-		.setAttribute('position', x + ' ' + y + ' ' + z);
+		// Create a directional light.
+        this._mainLight = app.createDirectionalLight([-1, -1, -1], '#fff', 0.8);
+        this._mainLight.shadowResolution = 4096;
 
-};
+        // Create an cubemap ambient light and an spherical harmonic ambient light for specular and diffuse
+        // lighting in PBR rendering.
+		app.createAmbientCubemapLight('assets/equirectangular.hdr', 1, 0.5, 1)
+			.then(function (ambientLight){
 
-/**
- * Defines sunlight position Y.
- *
- * @param {number} y
- */
-PBR.Viewport.setSunlightPositionY = function(y) {
+				// Set HDR background.
+				var skybox = new clay.plugin.Skybox({
+					scene: app.scene,
+					environmentMap: ambientLight.environmentMap
+				});
 
-	var sunlight = document.getElementById('sunlight');
+			});
 
-	var sunlightPosition = PBR.Viewport.getSunlightPosition();
+		// Load a glTF format model.
+		return app.loadModel('assets/sketchup-model.gltf', {
+			textureConvertToPOT: true
+		}).then(function (model) {
 
-	sunlight.setAttribute(
-		'position',
-		sunlightPosition.x + ' ' +
-		y + ' ' +
-		sunlightPosition.z
-	);
+			for (var materialIndex = 0; materialIndex < model.materials.length; materialIndex++) {
 
-};
+				var clayMaterial = model.materials[materialIndex];
+				var glTFMaterial = model.json.materials[materialIndex];
 
-/**
- * Switches lights on or off.
- *
- * @param {string} switchPosition
- */
-PBR.Viewport.switchLights = function(switchPosition) {
+                // Enable alpha test.
+                clayMaterial.define('fragment', 'ALPHA_TEST');
+                clayMaterial.set('alphaCutoff', 0.8);
 
-	lightIsVisible = ( switchPosition === 'on' ) ? true : false;
+                // Set parallax maps.
+				if ( glTFMaterial.extras && glTFMaterial.extras.parallaxOcclusionTextureURI ) {
 
-	var lights = document.querySelectorAll('a-entity[light]');
+					app.loadTexture(glTFMaterial.extras.parallaxOcclusionTextureURI, {
+						convertToPOT: true,
+						anisotropic: 16,
+						flipY: false
+					}).then(function (parallaxOcclusionTexture) {
+	    				clayMaterial.set('parallaxOcclusionMap', parallaxOcclusionTexture);
+	    				clayMaterial.set('parallaxOcclusionScale', 0.05);
+	    				clayMaterial.set('parallaxMinLayers', 50);
+	    				clayMaterial.set('parallaxMaxLayers', 50);
+					});
 
-	for (var lightIndex = 0; lightIndex < lights.length; lightIndex++) {
+				}
 
-		lights[lightIndex].setAttribute('visible', lightIsVisible);
+			}
 
-	}
 
-};
 
-/**
- * Synchronizes lights.
- */
-PBR.Viewport.syncLights = function() {
+		});
 
-	var sunlightPosition = PBR.Viewport.getSunlightPosition();
+	},
 
-	// XXX Because A-Frame environment component draws a sun.
-	PBR.Viewport.setEnvLightPosition(
-		sunlightPosition.x,
-		sunlightPosition.y,
-		sunlightPosition.z
-	);
+	loop: function (app) {
 
-	PBR.Viewport.renderer.toneMappingExposure = sunlightPosition.y;
-
-	// If sun is above horizon:
-	if ( sunlightPosition.y > 0 ) {
-
-		PBR.Viewport.switchLights('on');
-
-	} else {
-
-		PBR.Viewport.switchLights('off');
+		this._orbitControl.update(app.frameTime);
+		this._gamepadControl.update(app.frameTime);
+		this._advancedRenderer.render();
 
 	}
 
-};
+});
 
-/**
- * Takes a screenshot.
- */
-PBR.Viewport.takeScreenshot = function() {
-
-	document.querySelector('a-scene')
-		.sceneEl.components.screenshot.capture('perspective');
-
-};
-
-/**
- * Adds event listeners.
- */
-PBR.Viewport.addEventListeners = function() {
-
-	document.getElementById('sunElevationSlider')
-		.addEventListener('change', function(event) {
-
-			PBR.Viewport.setSunlightPositionY(event.target.value);
-			PBR.Viewport.syncLights();
-		
-	});
-
-	document.getElementById('saveAsImageButton')
-		.addEventListener('click', function(_event) {
-
-			PBR.Viewport.takeScreenshot();
-		
-	});
-
-	document.getElementById('toggleCloudsButton')
-		.addEventListener('click', function(_event) {
-
-			PBR.Viewport.toggleEnvSkyVisibility();
-		
-	});
-
-};
 
 // When document is ready:
 document.addEventListener('DOMContentLoaded', function() {
 
-	PBR.Viewport.addEventListeners();
-
-	// TODO Find a more reliable way.
-	setTimeout(function(){
-
-		PBR.Viewport.translateStrings();
-		PBR.Viewport.makeEnvSkyFullySpherical();
-
-	}, 1000);
+	PBR.Viewport.translateStrings();
 
 });
+
+// When window is resized:
+window.onresize = function() {
+
+	PBR.Viewport.app.resize();
+
+};

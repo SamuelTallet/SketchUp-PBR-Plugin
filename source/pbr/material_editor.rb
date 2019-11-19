@@ -1,5 +1,5 @@
 # Physically-Based Rendering extension for SketchUp 2017 or newer.
-# Copyright: © 2018 Samuel Tallet-Sabathé <samuel.tallet@gmail.com>
+# Copyright: © 2019 Samuel Tallet <samuel.tallet arobase gmail.com>
 # 
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -86,9 +86,9 @@ module PBR
         scrollable:      true,
         width:           455,
         # @todo Calc. height depending on material attributes count?
-        height:          370,
+        height:          425,
         min_width:       455,
-        min_height:      370
+        min_height:      425
       )
 
     end
@@ -103,11 +103,12 @@ module PBR
         # Note: Paths below are relative to `HTMLDialogs::DIR`.
         document: 'material-editor.rhtml',
         scripts: [
-          'lib/tipfy/tipfy.min.js',
+          'lib/popper.min.js',
+          'lib/tippy-bundle.iife.min.js',
           'lib/image-channel-packer.js',
           'material-editor.js'
         ],
-        styles: ['lib/tipfy/tipfy.min.css', 'material-editor.css']
+        styles: ['material-editor.css']
 
       ))
 
@@ -173,6 +174,8 @@ module PBR
 
           metalRoughTextureURI: texture_uri_status(mat, 'metalRoughTextureURI'),
           normalTextureURI: texture_uri_status(mat, 'normalTextureURI'),
+          parallaxOcclusionTextureURI:\
+           texture_uri_status(mat, 'parallaxOcclusionTextureURI'),
 
           normalTextureScale: mat.get_attribute(:pbr, :normalTextureScale, 1.0),
 

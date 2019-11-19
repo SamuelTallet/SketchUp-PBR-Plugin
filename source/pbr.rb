@@ -1,5 +1,5 @@
 # Physically-Based Rendering extension for SketchUp 2017 or newer.
-# Copyright: © 2018 Samuel Tallet-Sabathé <samuel.tallet@gmail.com>
+# Copyright: © 2019 Samuel Tallet <samuel.tallet arobase gmail.com>
 # 
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -26,7 +26,7 @@ require 'extensions'
 # PBR plugin namespace.
 module PBR
 
-  VERSION = '1.4.5'.freeze
+  VERSION = '1.5.0'.freeze
 
   # Load translation if it's available for current locale.
   TRANSLATE = LanguageHandler.new('pbr.strings')
@@ -44,13 +44,13 @@ module PBR
   extension = SketchupExtension.new(NAME, 'pbr/load.rb')
 
   extension.version     = VERSION
-  extension.creator     = 'Samuel Tallet-Sabathé'
-  extension.copyright   = "© 2018 #{extension.creator}"
+  extension.creator     = 'Samuel Tallet'
+  extension.copyright   = "© 2019 #{extension.creator}"
 
   features = [
     TRANSLATE['Add reflects and reliefs to your SketchUp models.'],
     TRANSLATE['Get a render in seconds.'],
-    TRANSLATE['Control camera and atmosphere in real-time.'],
+    TRANSLATE['Control camera in real-time.'],
     TRANSLATE['Export result to image or 3D object.']
   ]
 

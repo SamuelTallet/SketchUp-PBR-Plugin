@@ -3,46 +3,18 @@
  *
  * Package: PBR extension for SketchUp
  *
- * Copyright: © 2018 Samuel Tallet-Sabathé
+ * Copyright: © 2019 Samuel Tallet
  *
  * Licence: GNU General Public License 3.0
  */
- 
-#atmosphereControls {
 
-	z-index: 1;
-
-	position: absolute;
-	top: 10px;
-	left: 5px;
-
-	opacity: 0.6;
-
-	text-align: center;
-
+html, body {
+	margin: 0;
+	overflow: hidden;
 }
 
-#atmosphereControls .cloudEmoji {
-
-	color: #fff;
-	cursor: pointer;
-
-}
-
-#atmosphereControls .sunEmoji {
-
-	color: #fce100;
-	cursor: default;
-
-}
-
-#sunElevationSlider {
-
-	max-width: 30px;
-
-	-webkit-appearance: slider-vertical;
-	cursor: ns-resize;
-
+html, body, #app {
+	height: 100%;
 }
 
 #helpLink {
@@ -68,33 +40,8 @@
 
 }
 
-.a-canvas {
+canvas {
 
 	cursor: url('assets/cursors/360-view.modded.svg'), move;
-
-}
-
-#saveAsImageButton {
-
-	z-index: 1;
-
-	position: absolute;
-	left: 10px;
-	bottom: 20px;
-
-	cursor: pointer;
-
-}
-
-#saveAsImageButton .cameraEmoji {
-
-	font-size: 32px;
-
-}
-
-.a-enter-vr {
-
-	right: 15px;
-	width: 32px;
 
 }

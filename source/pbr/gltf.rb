@@ -1,5 +1,5 @@
 # Physically-Based Rendering extension for SketchUp 2017 or newer.
-# Copyright: © 2018 Samuel Tallet-Sabathé <samuel.tallet@gmail.com>
+# Copyright: © 2018 Samuel Tallet <samuel.tallet arobase gmail.com>
 # 
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -133,6 +133,11 @@ module PBR
           mat.get_attribute(:pbr, :normalTextureScale))
 
         update_alpha_mode(gltf_mat, mat.get_attribute(:pbr, :alphaMode))
+
+        add_po_tex(
+          gltf_mat,
+          mat.get_attribute(:pbr, :parallaxOcclusionTextureURI)
+        )
 
       end
 
@@ -303,6 +308,28 @@ module PBR
 
       # The alpha rendering mode of the material.
       gltf_mat['alphaMode'] = alpha_mode
+
+    end
+
+    # Adds a parallax occlusion texture to a glTF material
+    # only if URI is provided. XXX This isn't in the spec.
+    #
+    # @param [Hash] gltf_mat glTF material to texture on.
+    # @raise [ArgumentError]
+    #
+    # @param [String, nil] par_occ_tex_uri Parallax occlusion tex. URI or nil.
+    #
+    # @return [void]
+    private def add_po_tex(gltf_mat, par_occ_tex_uri)
+
+      raise ArgumentError, 'Invalid glTF material.' unless gltf_mat.is_a?(Hash)
+
+      return if par_occ_tex_uri.nil?
+
+      gltf_mat['extras'] = {} unless gltf_mat.key?('extras')
+
+      # The parallax occlusion texture.
+      gltf_mat['extras']['parallaxOcclusionTextureURI'] = par_occ_tex_uri
 
     end
 

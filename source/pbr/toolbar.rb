@@ -1,5 +1,5 @@
 # Physically-Based Rendering extension for SketchUp 2017 or newer.
-# Copyright: © 2018 Samuel Tallet-Sabathé <samuel.tallet@gmail.com>
+# Copyright: © 2019 Samuel Tallet <samuel.tallet arobase gmail.com>
 # 
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -65,7 +65,8 @@ module PBR
       command.large_icon = File.join(ICONS_PATH, 'em'.concat(icon_extension))
 
       command.tooltip = TRANSLATE['Edit Materials...']
-      command.status_bar_text = TRANSLATE['Define if a material is rough, etc.']
+      command.status_bar_text =\
+       TRANSLATE['Define if a material is rough, is a metal, etc.']
 
       @toolbar.add_item(command)
 

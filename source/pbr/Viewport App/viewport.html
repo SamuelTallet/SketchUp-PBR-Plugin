@@ -4,114 +4,30 @@
 	<head>
 
 		<meta charset="utf-8">
-		<meta name="x-copyright" content="© 2018 Samuel Tallet-Sabathé">
+		<meta name="x-copyright" content="© 2019 Samuel Tallet">
 		<meta name="x-license" content="GNU General Public License 3.0">
 
 		<title>...</title>
 		
-		<script src="lib/aframe/aframe-v0.8.2.min.js"></script>
-		<script src="lib/aframe-expose-renderer.js"></script>
-		<script src="lib/aframe-orbit-controls/aframe-orbit-controls.min.js"></script>
-		<script src="lib/aframe-gamepad-controls/aframe-gamepad-controls.min.js"></script>
-		<script src="lib/aframe-environment-component/aframe-environment-component.min.js"></script>
-		<script src="lib/aframe-extras/cube-env-map.js"></script>
-
+		<script src="lib/claygl.min.js"></script>
+		<script src="lib/claygl-advanced-renderer.min.js"></script>
 		<script src="assets/sketchup-locale.json"></script>
-		<script src="viewport.js"></script>
-
+		
 		<link rel="stylesheet" href="viewport.css"></link>
 
 	</head>
 
 	<body>
 
-		<div id="atmosphereControls" >
-
-			<div id="toggleCloudsButton"
-				class="cloudEmoji"
-				title="...">☁
-			</div>
-
-			<div class="sunEmoji">☀</div>
-			<input id="sunElevationSlider"
-				type="range"
-				min="-0.1"
-				max="1.5"
-				value="1.0"
-				step="0.1">
-			</input>
-
-		</div>
-
 		<a id="helpLink"
-			target="_blank"
-			href="...">
-			...
+		   target="_blank"
+		   href="...">
+		...
 		</a>
 
-		<a-scene
-			shadow="type: pcfsoft"
-			renderer="
-				antialias: true;
-				gammaOutput: true"
-			expose-renderer>
+		<div id="app"></div>
 
-			<a-assets>
-				<a-asset-item id="sketchUpModelSrc"
-					src="assets/sketchup-model.gltf">
-				</a-asset-item>
-			</a-assets>
-
-			<a-entity id="camera"
-				camera
-				look-controls-enabled="false"
-				orbit-controls="
-					target: 			0 0.6 -0.5;
-					zoomSpeed:			1.5;
-					initialPosition:	-1 0.5 1"
-				gamepad-controls>
-			</a-entity>
-
-			<a-entity id="ambientLight"
-				light="
-					type:		ambient;
-					intensity:	2.1;
-					color:		hsl(195, 5%, 40%)">
-			</a-entity>
-
-			<a-entity id="sunlight"
-				light="
-					castShadow:			true;
-					intensity:			2.0;
-					shadowMapHeight:	4096;
-					shadowMapWidth:		4096"
-				position="-0.6 0.6 1">
-			</a-entity>
-
-			<a-entity id="environment"
-				environment="
-					lightPosition:	-0.6 0.6 1;
-					fog:			0.2;
-					ground:			none;
-					groundYScale:	-1">
-			</a-entity>
-
-			<a-entity id="sketchUpModel"
-				gltf-model="#sketchUpModelSrc"
-				shadow="receive: true"
-				cube-env-map="
-					path: assets/skybox/;
-					enableBackground: true">
-			</a-entity>
-
-		</a-scene>
-
-		<div id="saveAsImageButton"
-			title="...">
-			<span class="cameraEmoji">
-			📷
-			</span>
-		</div>
+		<script src="viewport.js"></script>
 
 	</body>
 

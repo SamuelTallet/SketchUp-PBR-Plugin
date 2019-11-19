@@ -1,5 +1,5 @@
 # Physically-Based Rendering extension for SketchUp 2017 or newer.
-# Copyright: © 2018 Samuel Tallet-Sabathé <samuel.tallet@gmail.com>
+# Copyright: © 2019 Samuel Tallet <samuel.tallet arobase gmail.com>
 # 
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -43,6 +43,8 @@ module PBR
 
       @menu = parent_menu.add_submenu(NAME)
 
+      add_change_hdr_bg_item
+
       add_edit_materials_item
 
       add_reopen_viewport_item
@@ -50,6 +52,19 @@ module PBR
       add_export_as_gltf_item
 
       add_donate_to_author_item
+
+    end
+
+    # Adds "Change HDR background..." menu item.
+    #
+    # @return [void]
+    private def add_change_hdr_bg_item
+
+      @menu.add_item(TRANSLATE['Change HDR background...']) do
+
+        Menu.change_hdr_background
+        
+      end
 
     end
 
@@ -63,6 +78,24 @@ module PBR
         Menu.edit_materials
         
       end
+
+    end
+
+    # Runs "Change HDR background..." menu command.
+    #
+    # @return [void]
+    def self.change_hdr_background
+
+      user_path = UI.openpanel TRANSLATE['Select New Background'], nil,\
+        TRANSLATE['HDR Image'] + '|*.hdr||'
+
+      # Escape if user cancelled operation.
+      return if user_path.nil?
+
+      FileUtils.cp user_path,\
+       File.join(Viewport::ASSETS_DIR, 'equirectangular.hdr')
+
+      Viewport.reopen
 
     end
 
@@ -131,7 +164,7 @@ module PBR
 
       user_path = UI.savepanel(TRANSLATE['Export As glTF'], nil, GlTF.filename)
 
-      # Escape if user cancelled export operation.
+      # Escape if user cancelled operation.
       return if user_path.nil?
 
       gltf = GlTF.new

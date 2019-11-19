@@ -1,5 +1,5 @@
 # Physically-Based Rendering extension for SketchUp 2017 or newer.
-# Copyright: © 2018 Samuel Tallet-Sabathé <samuel.tallet@gmail.com>
+# Copyright: © 2019 Samuel Tallet <samuel.tallet arobase gmail.com>
 # 
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -62,10 +62,7 @@ module PBR
       localization = {
         document_title: TRANSLATE['SketchUp PBR Viewport'],
         help_link_href: GitHub.translated_help_url('PBR_VIEWPORT'),
-        toggle_clouds: TRANSLATE['Show or hide clouds'],
-        help_link_text: TRANSLATE['Help'],
-        save_as_image: TRANSLATE['Save as image'],
-        enter_vr_mode: TRANSLATE['Enter VR mode']
+        help_link_text: TRANSLATE['Help']
       }
 
       File.write(locale_path, 'sketchUpLocale = ' + localization.to_json + ';')
