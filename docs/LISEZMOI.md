@@ -46,9 +46,9 @@ Un [document d'aide](https://github.com/SamuelTS/SketchUp-PBR-Plugin/blob/master
 Remerciements
 -------------
 
-Le projet du plugin RBP n'aurait pas abouti sans : [SketchUp](https://www.sketchup.com), [glTF](https://www.khronos.org/gltf/), [glTF Exporter](https://extensions.sketchup.com/fr/content/gltf-exporter), [Chromium](https://www.chromium.org/) et [A-Frame](https://aframe.io/).
+Le projet du plugin RBP n'aurait pas abouti sans : [SketchUp](https://www.sketchup.com), [glTF](https://www.khronos.org/gltf/), [glTF Exporter](https://extensions.sketchup.com/fr/content/gltf-exporter), [Chromium](https://www.chromium.org/) et [ClayGL](http://claygl.xyz/).
 
 Droits d'auteur
 ---------------
 
-© 2018 Samuel Tallet-Sabathé
+© 2019 Samuel Tallet
