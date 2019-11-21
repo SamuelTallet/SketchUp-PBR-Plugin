@@ -3,7 +3,7 @@
 PBR extension for SketchUp
 ==========================
 
-💅 Add reflections and reliefs to your SketchUp models. 🏃‍♀️ Render in real-time. ✈️ Export to 2D or 3D.
+💅 Add reflections, reliefs and lights to your SketchUp models. 🏃‍♀️ Render in real-time. ✈️ Export to 2D or 3D.
 
 Demos
 -----
