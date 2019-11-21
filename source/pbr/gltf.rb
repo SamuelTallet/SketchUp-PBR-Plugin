@@ -23,6 +23,7 @@ raise 'The PBR plugin requires at least Ruby 2.2.0 or SketchUp 2017.'\
 require 'sketchup'
 require 'fileutils'
 require 'json'
+require 'pbr/lights'
 
 # PBR plugin namespace.
 module PBR
@@ -101,12 +102,19 @@ module PBR
       gltfile = File.join(Sketchup.temp_dir, 'SketchUpModel.gltf')
 
       File.delete(gltfile) if File.exist?(gltfile)
+
+      Sketchup.active_model.layers.add(Lights::LAYER_NAME)
+
+      # XXX We hide 'PBR Lights' layer to avoid glTF model "pollution".
+      Sketchup.active_model.layers[Lights::LAYER_NAME].visible = false
       
       Centaur::GltfExporter::GltfExport.new.export(
         false, # is_binary
         false, # is_microsoft
         gltfile # destination
       )
+
+      Sketchup.active_model.layers[Lights::LAYER_NAME].visible = true
 
       # Store asset as a Hash.
       @gltf = JSON.parse(File.read(gltfile))
@@ -140,6 +148,8 @@ module PBR
         )
 
       end
+
+      add_lights
 
       # Tools that generated this glTF model. Useful for debugging.
       @gltf['asset']['generator'] += ", SketchUp PBR plugin v#{VERSION}"
@@ -330,6 +340,21 @@ module PBR
 
       # The parallax occlusion texture.
       gltf_mat['extras']['parallaxOcclusionTextureURI'] = par_occ_tex_uri
+
+    end
+
+    # Adds extra lights. XXX This isn't in the spec.
+    #
+    # @return [void]
+    private def add_lights
+
+      lights = Lights.all
+
+      return if lights.empty?
+
+      @gltf['extras'] = {} unless @gltf.key?('extras')
+
+      @gltf['extras']['lights'] = lights
 
     end
 

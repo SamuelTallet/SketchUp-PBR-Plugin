@@ -195,6 +195,10 @@ module PBR
       # Escape if user refused that fix.
       return if user_answer == IDNO
 
+      require 'pbr/lights'
+
+      Lights.fix_without_color
+
       require 'pbr/nil_material_fix'
 
       # Apply "nil material" fix.

@@ -19,18 +19,26 @@ PBR = {};
 PBR.Viewport = {};
 
 /**
- * Translate Viewport app strings.
+ * Helper function to convert HTML colors.
  *
- * @see assets/sketchup-locale.json
+ * @see https://css-tricks.com/converting-color-spaces-in-javascript/
  */
-PBR.Viewport.translateStrings = function() {
+PBR.Viewport.rgbToHex = function(r, g, b) {
 
-	document.title = sketchUpLocale.document_title;
+	r = r.toString(16);
+	g = g.toString(16);
+	b = b.toString(16);
 
-	var helpLink = document.getElementById('helpLink');
+	if ( r.length == 1 )
+		r = "0" + r;
 
-	helpLink.href = sketchUpLocale.help_link_href;
-	helpLink.textContent = sketchUpLocale.help_link_text;
+	if ( g.length == 1 )
+		g = "0" + g;
+
+	if ( b.length == 1 )
+		b = "0" + b;
+
+	return "#" + r + g + b;
 
 };
 
@@ -80,6 +88,20 @@ PBR.Viewport.cfg.advancedGraphics = {
 };
 
 /**
+ * Viewport natural lights.
+ *
+ * @type {object}
+ */
+PBR.Viewport.naturalLights = {};
+
+/**
+ * Viewport artificial lights.
+ *
+ * @type {object}
+ */
+PBR.Viewport.artificialLights = [];
+
+/**
  * Create a 3D application that will manage the app initialization and loop.
  *
  * @see http://claygl.xyz/
@@ -99,7 +121,7 @@ PBR.Viewport.app = clay.application.create('#app', {
 		);
 
 		// Create a perspective camera.
-		this._camera = app.createCamera([0, 0, 0], [0, 0, 0]);
+		this._camera = app.createCamera([0, 2, -5], [0, 0, 0]);
 
 		// Plug & use an orbit control.
 		this._orbitControl = new clay.plugin.OrbitControl({
@@ -121,58 +143,85 @@ PBR.Viewport.app = clay.application.create('#app', {
 			self._advancedRenderer.render();
 		}, self);
 
-		// Create a directional light.
-        this._mainLight = app.createDirectionalLight([-1, -1, -1], '#fff', 0.8);
-        this._mainLight.shadowResolution = 4096;
-
         // Create an cubemap ambient light and an spherical harmonic ambient light for specular and diffuse
         // lighting in PBR rendering.
-		app.createAmbientCubemapLight('assets/equirectangular.hdr', 1, 0.5, 1)
+		return app.createAmbientCubemapLight('assets/equirectangular.hdr', 0.8, 0.8)
 			.then(function (ambientLight){
 
-				// Set HDR background.
+				PBR.Viewport.naturalLights.diffuse = ambientLight.diffuse;
+				PBR.Viewport.naturalLights.specular = ambientLight.specular;
+
+				// Create a directional light.
+		        PBR.Viewport.naturalLights.direct = app.createDirectionalLight([-1, -1, -1], '#fff', 0.8);
+		        PBR.Viewport.naturalLights.direct.shadowResolution = 4096;
+
+				// Set HDR background image.
 				var skybox = new clay.plugin.Skybox({
 					scene: app.scene,
 					environmentMap: ambientLight.environmentMap
 				});
 
+				// Load a glTF format model.
+				app.loadModel('assets/sketchup-model.gltf', {
+					textureConvertToPOT: true
+				}).then(function (model) {
+
+					if ( model.json.extras && model.json.extras.lights ) {
+
+						// Turn off natural lights.
+						PBR.Viewport.naturalLights.direct.intensity = 0;
+						PBR.Viewport.naturalLights.diffuse.intensity = 0;
+						PBR.Viewport.naturalLights.specular.intensity = 0;
+
+						for (var lightIndex in model.json.extras.lights) {
+
+							var light = model.json.extras.lights[lightIndex];
+			
+							// Add artificial light.
+							PBR.Viewport.artificialLights.push(app.createPointLight(
+
+								// XXX XYZ to XZ-Y
+								new clay.Vector3(light.position.x, light.position.z, -light.position.y),
+								100,
+								PBR.Viewport.rgbToHex(light.color.r, light.color.g, light.color.b),
+								1
+							));
+
+						}
+
+					}
+
+					for (var materialIndex = 0; materialIndex < model.materials.length; materialIndex++) {
+
+						var clayMaterial = model.materials[materialIndex];
+						var glTFMaterial = model.json.materials[materialIndex];
+
+		                // Enable alpha test.
+		                clayMaterial.define('fragment', 'ALPHA_TEST');
+		                clayMaterial.set('alphaCutoff', 0.8);
+
+		                // Set parallax maps.
+						if ( glTFMaterial.extras && glTFMaterial.extras.parallaxOcclusionTextureURI ) {
+
+							app.loadTexture(glTFMaterial.extras.parallaxOcclusionTextureURI, {
+								convertToPOT: true,
+								anisotropic: 16,
+								flipY: false
+							}).then(function (parallaxOcclusionTexture) {
+			    				clayMaterial.set('parallaxOcclusionMap', parallaxOcclusionTexture);
+			    				clayMaterial.set('parallaxOcclusionScale', 0.05);
+			    				clayMaterial.set('parallaxMinLayers', 50);
+			    				clayMaterial.set('parallaxMaxLayers', 50);
+							});
+
+						}
+
+					}
+
+
+				});
+
 			});
-
-		// Load a glTF format model.
-		return app.loadModel('assets/sketchup-model.gltf', {
-			textureConvertToPOT: true
-		}).then(function (model) {
-
-			for (var materialIndex = 0; materialIndex < model.materials.length; materialIndex++) {
-
-				var clayMaterial = model.materials[materialIndex];
-				var glTFMaterial = model.json.materials[materialIndex];
-
-                // Enable alpha test.
-                clayMaterial.define('fragment', 'ALPHA_TEST');
-                clayMaterial.set('alphaCutoff', 0.8);
-
-                // Set parallax maps.
-				if ( glTFMaterial.extras && glTFMaterial.extras.parallaxOcclusionTextureURI ) {
-
-					app.loadTexture(glTFMaterial.extras.parallaxOcclusionTextureURI, {
-						convertToPOT: true,
-						anisotropic: 16,
-						flipY: false
-					}).then(function (parallaxOcclusionTexture) {
-	    				clayMaterial.set('parallaxOcclusionMap', parallaxOcclusionTexture);
-	    				clayMaterial.set('parallaxOcclusionScale', 0.05);
-	    				clayMaterial.set('parallaxMinLayers', 50);
-	    				clayMaterial.set('parallaxMaxLayers', 50);
-					});
-
-				}
-
-			}
-
-
-
-		});
 
 	},
 
@@ -186,6 +235,21 @@ PBR.Viewport.app = clay.application.create('#app', {
 
 });
 
+/**
+ * Translate Viewport app strings.
+ *
+ * @see assets/sketchup-locale.json
+ */
+PBR.Viewport.translateStrings = function() {
+
+	document.title = sketchUpLocale.document_title;
+
+	var helpLink = document.getElementById('helpLink');
+
+	helpLink.href = sketchUpLocale.help_link_href;
+	helpLink.textContent = sketchUpLocale.help_link_text;
+
+};
 
 // When document is ready:
 document.addEventListener('DOMContentLoaded', function() {

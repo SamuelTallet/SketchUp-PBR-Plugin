@@ -3,7 +3,7 @@
 // PBR French Translation.
 //
 // Package: PBR extension for SketchUp
-// Translation author: Samuel Tallet-Sabathé
+// Translation author: Samuel Tallet
 ////////////////////////////////////////////
 
 //
@@ -11,7 +11,7 @@
 //
 
 "Physically-Based Rendering"="Rendu basé sur la physique";
-"Add reflects and reliefs to your SketchUp models."="Ajoutez des reflets et des reliefs à vos modèles SketchUp.";
+"Add reflects, reliefs and lights to your SketchUp models."="Ajoutez des reflets, reliefs et lumières à vos modèles SketchUp.";
 "Get a render in seconds."="Obtenez un rendu en quelques secondes.";
 "Control camera in real-time."="Contrôlez la caméra en temps réel.";
 "Export result to image or 3D object."="Exportez le résultat en image ou en objet 3D.";
