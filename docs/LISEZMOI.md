@@ -1,7 +1,7 @@
 Extension RBP pour SketchUp
 ===========================
 
-💅 Ajoutez des reflets et des reliefs à vos modèles SketchUp. 🏃‍♀️ Obtenez un rendu en temps réel. ✈️ Exportez en 2D/3D.
+💅 Ajoutez des reflets, reliefs et lumières à vos modèles SketchUp. 🏃‍♀️ Obtenez un rendu en temps réel. ✈️ Exportez en 2D/3D.
 
 Démonstrations
 --------------
