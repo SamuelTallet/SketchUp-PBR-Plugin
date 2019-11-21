@@ -11,6 +11,15 @@ Problème | Solutions de contournement
 :--- | :---
 L'export glTF a échoué. | ① Réessayez mais quand l'extension SketchUp RBP demande : "Propager les matériaux à l'ensemble du modèle ?", répondez : "Oui". ② Assurez-vous que **toutes** les images des textures sont au format JPEG ou PNG. Le cas échéant, convertissez-les avec un outil tel que [celui-ci](https://image.online-convert.com/fr/convertir-en-png) puis réimportez-les dans SketchUp.
 
+### Comment ajouter une lumière au modèle ?
+
+1. S'il n'existe pas déjà, créez un nouveau calque et nommez-le **exactement** `PBR Lights`.
+2. Ajoutez n'importe quel objet. Ce sera votre lumière. Groupez-le puis affectez-le au calque `PBR Lights`.<br/>
+Pour faciliter ce processus, je recommande [Shapes](https://extensions.sketchup.com/fr/content/shapes). Il crée des formes déjà groupées.
+3. Rouvrez la fenêtre de visualisation RBP et voilà !
+
+Vous pouvez peindre votre lumière/objet avec une couleur. Vous pouvez ajouter plusieurs lumières au modèle.
+
 ### Comment désinstaller l'extension RBP ?
 
 Ouvrez le Gestionnaire d'extensions. Désactivez l'extension RBP **avant** de la désinstaller.
