@@ -135,9 +135,9 @@ PBR.Viewport.app = clay.application.create('#app', {
 		// Plug & use a gamepad control.
 		this._gamepadControl = new clay.plugin.GamepadControl({
 			target: this._camera
-      	});
+		});
 
-      	// Sync controls with renderer.
+		// Sync controls with renderer.
 		this._orbitControl.on('update', function() {
 			self._advancedRenderer.render();
 		}, self);
@@ -146,8 +146,8 @@ PBR.Viewport.app = clay.application.create('#app', {
 			self._advancedRenderer.render();
 		}, self);
 
-        // Create an cubemap ambient light and an spherical harmonic ambient light for specular and diffuse
-        // lighting in PBR rendering.
+		// Create an cubemap ambient light and an spherical harmonic ambient light for specular and diffuse
+		// lighting in PBR rendering.
 		return app.createAmbientCubemapLight('assets/equirectangular.hdr', 0.8, 0.8)
 			.then(function (ambientLight){
 
@@ -155,8 +155,8 @@ PBR.Viewport.app = clay.application.create('#app', {
 				PBR.Viewport.naturalLights.specular = ambientLight.specular;
 
 				// Create a directional light.
-		        PBR.Viewport.naturalLights.direct = app.createDirectionalLight([-1, -1, -1], '#fff', 0.8);
-		        PBR.Viewport.naturalLights.direct.shadowResolution = 4096;
+				PBR.Viewport.naturalLights.direct = app.createDirectionalLight([-1, -1, -1], '#fff', 0.8);
+				PBR.Viewport.naturalLights.direct.shadowResolution = 4096;
 
 				// Set HDR background image.
 				new clay.plugin.Skybox({
@@ -204,7 +204,7 @@ PBR.Viewport.app = clay.application.create('#app', {
 						clayMaterial.define('fragment', 'ALPHA_TEST');
 						clayMaterial.set('alphaCutoff', 0.6);
 
-		                // Set parallax maps.
+						// Set parallax maps.
 						if ( glTFMaterial.extras && glTFMaterial.extras.parallaxOcclusionTextureURI ) {
 
 							app.loadTexture(glTFMaterial.extras.parallaxOcclusionTextureURI, {
@@ -212,10 +212,10 @@ PBR.Viewport.app = clay.application.create('#app', {
 								anisotropic: 16,
 								flipY: false
 							}).then(function (parallaxOcclusionTexture) {
-			    				clayMaterial.set('parallaxOcclusionMap', parallaxOcclusionTexture);
-			    				clayMaterial.set('parallaxOcclusionScale', 0.05);
-			    				clayMaterial.set('parallaxMinLayers', 50);
-			    				clayMaterial.set('parallaxMaxLayers', 50);
+								clayMaterial.set('parallaxOcclusionMap', parallaxOcclusionTexture);
+								clayMaterial.set('parallaxOcclusionScale', 0.05);
+								clayMaterial.set('parallaxMinLayers', 50);
+								clayMaterial.set('parallaxMaxLayers', 50);
 							});
 
 						}
