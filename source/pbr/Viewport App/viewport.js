@@ -128,8 +128,8 @@ PBR.Viewport.app = clay.application.create('#app', {
 			target: this._camera,
 			domElement: app.container,
 			panMouseButton: 'left',
-        	rotateMouseButton: 'middle',
-        	invertZoomDirection: true
+			rotateMouseButton: 'middle',
+			invertZoomDirection: true
 		});
 
 		// Plug & use a gamepad control.
@@ -202,7 +202,7 @@ PBR.Viewport.app = clay.application.create('#app', {
 
 						// Enable alpha test.
 						clayMaterial.define('fragment', 'ALPHA_TEST');
-                		clayMaterial.set('alphaCutoff', 0.6);
+						clayMaterial.set('alphaCutoff', 0.6);
 
 		                // Set parallax maps.
 						if ( glTFMaterial.extras && glTFMaterial.extras.parallaxOcclusionTextureURI ) {
