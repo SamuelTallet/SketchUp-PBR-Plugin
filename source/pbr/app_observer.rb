@@ -1,5 +1,5 @@
 # Physically-Based Rendering extension for SketchUp 2017 or newer.
-# Copyright: © 2019 Samuel Tallet <samuel.tallet arobase gmail.com>
+# Copyright: © 2018 Samuel Tallet-Sabathé <samuel.tallet@gmail.com>
 # 
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -21,7 +21,6 @@ raise 'The PBR plugin requires at least Ruby 2.2.0 or SketchUp 2017.'\
   unless RUBY_VERSION.to_f >= 2.2 # SketchUp 2017 includes Ruby 2.2.4.
 
 require 'sketchup'
-require 'pbr/lights'
 require 'pbr/viewport'
 
 # PBR plugin namespace.
@@ -35,16 +34,12 @@ module PBR
     # When SketchUp user creates a new, empty model.
     def onNewModel(_model)
 
-      Sketchup.active_model.layers.add(Lights::LAYER_NAME)
-
       Viewport.reopen if Viewport.update_model
 
     end
 
     # When SketchUp user opens an existing model:
     def onOpenModel(_model)
-
-      Sketchup.active_model.layers.add(Lights::LAYER_NAME)
 
       Viewport.reopen if Viewport.update_model
 

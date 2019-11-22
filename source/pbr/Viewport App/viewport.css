@@ -17,6 +17,31 @@ html, body, #app {
 	height: 100%;
 }
 
+#sunlightIntensity {
+
+	position: absolute;
+	top: 0;
+	left: 0;
+
+}
+
+#sunlightIntensity .emoji {
+
+	margin: 5px 0 0 10px;
+	
+}
+
+#sunlightIntensity .slider {
+
+	-webkit-appearance: slider-vertical;
+	position: relative;
+	top: 0;
+	left: -54px;
+
+	margin: 10px;
+
+}
+
 #helpLink {
 
 	z-index: 1;
@@ -40,7 +65,7 @@ html, body, #app {
 
 }
 
-canvas {
+#app canvas {
 
 	cursor: url('assets/cursors/360-view.modded.svg'), move;
 

@@ -126,7 +126,10 @@ PBR.Viewport.app = clay.application.create('#app', {
 		// Plug & use an orbit control.
 		this._orbitControl = new clay.plugin.OrbitControl({
 			target: this._camera,
-			domElement: app.container
+			domElement: app.container,
+			panMouseButton: 'left',
+        	rotateMouseButton: 'middle',
+        	invertZoomDirection: true
 		});
 
 		// Plug & use a gamepad control.
@@ -156,7 +159,7 @@ PBR.Viewport.app = clay.application.create('#app', {
 		        PBR.Viewport.naturalLights.direct.shadowResolution = 4096;
 
 				// Set HDR background image.
-				var skybox = new clay.plugin.Skybox({
+				new clay.plugin.Skybox({
 					scene: app.scene,
 					environmentMap: ambientLight.environmentMap
 				});
@@ -172,6 +175,7 @@ PBR.Viewport.app = clay.application.create('#app', {
 						PBR.Viewport.naturalLights.direct.intensity = 0;
 						PBR.Viewport.naturalLights.diffuse.intensity = 0;
 						PBR.Viewport.naturalLights.specular.intensity = 0;
+						document.querySelector('#sunlightIntensity .slider').value = 0;
 
 						for (var lightIndex in model.json.extras.lights) {
 
@@ -196,9 +200,9 @@ PBR.Viewport.app = clay.application.create('#app', {
 						var clayMaterial = model.materials[materialIndex];
 						var glTFMaterial = model.json.materials[materialIndex];
 
-		                // Enable alpha test.
-		                clayMaterial.define('fragment', 'ALPHA_TEST');
-		                clayMaterial.set('alphaCutoff', 0.8);
+						// Enable alpha test.
+						clayMaterial.define('fragment', 'ALPHA_TEST');
+                		clayMaterial.set('alphaCutoff', 0.6);
 
 		                // Set parallax maps.
 						if ( glTFMaterial.extras && glTFMaterial.extras.parallaxOcclusionTextureURI ) {
@@ -244,6 +248,9 @@ PBR.Viewport.translateStrings = function() {
 
 	document.title = sketchUpLocale.document_title;
 
+	var sunlightIntensity = document.getElementById('sunlightIntensity');
+	sunlightIntensity.title = sketchUpLocale.sunlight_intensity;
+
 	var helpLink = document.getElementById('helpLink');
 
 	helpLink.href = sketchUpLocale.help_link_href;
@@ -251,10 +258,27 @@ PBR.Viewport.translateStrings = function() {
 
 };
 
+/**
+ * Listen to sunlight intensity change in Viewport.
+ */
+PBR.Viewport.listenToSunlightChange = function() {
+
+	document.querySelector('#sunlightIntensity .slider').addEventListener('change', function(event) {
+		
+		PBR.Viewport.naturalLights.direct.intensity = event.target.value;
+		PBR.Viewport.naturalLights.diffuse.intensity = event.target.value;
+		PBR.Viewport.naturalLights.specular.intensity = event.target.value;
+
+	});
+
+};
+
 // When document is ready:
 document.addEventListener('DOMContentLoaded', function() {
 
 	PBR.Viewport.translateStrings();
+
+	PBR.Viewport.listenToSunlightChange();
 
 });
 

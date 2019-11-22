@@ -61,6 +61,7 @@ module PBR
 
       localization = {
         document_title: TRANSLATE['SketchUp PBR Viewport'],
+        sunlight_intensity: TRANSLATE['Sunlight intensity'],
         help_link_href: GitHub.translated_help_url('PBR_VIEWPORT'),
         help_link_text: TRANSLATE['Help']
       }

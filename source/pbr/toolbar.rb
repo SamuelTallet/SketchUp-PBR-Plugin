@@ -72,6 +72,23 @@ module PBR
 
     end
 
+    # Adds "Add an Artificial Light" command.
+    #
+    # @see Menu.add_artificial_light
+    private def add_artificial_light_command
+
+      command = UI::Command.new('aal') { Menu.add_artificial_light }
+
+      command.small_icon = File.join(ICONS_PATH, 'aal'.concat(icon_extension))
+      command.large_icon = File.join(ICONS_PATH, 'aal'.concat(icon_extension))
+
+      command.tooltip = TRANSLATE['Add an Artificial Light']
+      command.status_bar_text = TRANSLATE['Move it in space. Change its color.']
+
+      @toolbar.add_item(command)
+
+    end
+
     # Adds "Reopen Viewport" command.
     #
     # @see Menu.reopen_viewport
@@ -124,6 +141,8 @@ module PBR
     def prepare
 
       add_edit_materials_command
+
+      add_artificial_light_command
 
       add_reopen_viewport_command
 

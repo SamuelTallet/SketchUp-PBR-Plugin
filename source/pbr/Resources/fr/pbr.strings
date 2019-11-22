@@ -23,10 +23,11 @@
 
 // Locale note: In French version of SketchUp, menu items are not titleized.
 
-"Edit Materials..."="Modifier les matériaux...";
-"Change HDR background..."="Changer l'image de fond HDR...";
+"Change HDR Background..."="Changer l'image de fond HDR...";
 "Select New Background"="Sélectionner la nouvelle image de fond";
 "HDR Image"="Image HDR";
+"Edit Materials..."="Modifier les matériaux...";
+"Add an Artificial Light"="Ajouter une lumière artificielle";
 "Reopen Viewport"="Rouvrir la fenêtre de visualisation";
 "Export As 3D Object..."="Exporter en tant qu'objet 3D...";
 "Export As glTF"="Exporter en tant que fichier glTF";
@@ -44,6 +45,7 @@
 //
 
 "Define if a material is rough, is a metal, etc."="Définissez si un matériau est rugueux, est un métal, etc.";
+"Move it in space. Change its color."="Déplacez-la dans l'espace. Changez sa couleur.";
 "Render scene in real-time."="Rendez la scène en temps réel.";
 "Save 3D model as .gltf."="Enregistrez le modèle 3D en tant que .gltf.";
 
@@ -119,4 +121,5 @@
 //
 
 "SketchUp PBR Viewport"="Fenêtre de visu. RBP de SketchUp";
+"Sunlight intensity"="Intensité de la lumière du soleil";
 "Help"="Aide";

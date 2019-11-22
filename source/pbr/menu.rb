@@ -22,6 +22,8 @@ raise 'The PBR plugin requires at least Ruby 2.2.0 or SketchUp 2017.'\
 
 require 'sketchup'
 require 'pbr/material_editor'
+require 'pbr/lights'
+require 'pbr/shapes'
 require 'pbr/viewport'
 require 'fileutils'
 require 'pbr/gltf'
@@ -47,6 +49,8 @@ module PBR
 
       add_edit_materials_item
 
+      add_artificial_light_item
+
       add_reopen_viewport_item
 
       add_export_as_gltf_item
@@ -55,12 +59,12 @@ module PBR
 
     end
 
-    # Adds "Change HDR background..." menu item.
+    # Adds "Change HDR Background..." menu item.
     #
     # @return [void]
     private def add_change_hdr_bg_item
 
-      @menu.add_item(TRANSLATE['Change HDR background...']) do
+      @menu.add_item(TRANSLATE['Change HDR Background...']) do
 
         Menu.change_hdr_background
         
@@ -81,7 +85,20 @@ module PBR
 
     end
 
-    # Runs "Change HDR background..." menu command.
+    # Adds "Add an Artificial Light" menu item.
+    #
+    # @return [void]
+    private def add_artificial_light_item
+
+      @menu.add_item('💡 ' + TRANSLATE['Add an Artificial Light']) do
+
+        Menu.add_artificial_light
+        
+      end
+
+    end
+
+    # Runs "Change HDR Background..." menu command.
     #
     # @return [void]
     def self.change_hdr_background
@@ -106,6 +123,17 @@ module PBR
 
       # Show Material Editor if all good conditions are met.
       MaterialEditor.new.show if MaterialEditor.safe_to_open?
+
+    end
+
+    # Runs "Add an Artificial Light" menu command.
+    #
+    # @return [void]
+    def self.add_artificial_light
+
+      Sketchup.active_model.layers.add(Lights::LAYER_NAME)
+
+      PBR::Shapes.create_sphere('30cm', 10, 8, Lights::LAYER_NAME)
 
     end
 
@@ -194,8 +222,6 @@ module PBR
 
       # Escape if user refused that fix.
       return if user_answer == IDNO
-
-      require 'pbr/lights'
 
       Lights.fix_without_color
 
