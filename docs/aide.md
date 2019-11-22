@@ -13,12 +13,11 @@ L'export glTF a échoué. | ① Réessayez mais quand l'extension SketchUp RBP d
 
 ### Comment ajouter une lumière au modèle ?
 
-1. S'il n'existe pas déjà, créez un nouveau calque et nommez-le **exactement** `PBR Lights`.
-2. Ajoutez n'importe quel objet. Ce sera votre lumière. Groupez-le puis affectez-le au calque `PBR Lights`.<br/>
-Pour faciliter ce processus, je recommande [Shapes](https://extensions.sketchup.com/fr/content/shapes). Il crée des formes déjà groupées.
+1. Cliquez sur "Ajouter une lumière artificielle" dans la barre d'outils PBR ou le menu RBP.
+2. La sphère créée est votre lumière. Déplacez-la. Peignez-la avec une couleur.
 3. Rouvrez la fenêtre de visualisation RBP et voilà !
 
-Vous pouvez peindre votre lumière/objet avec une couleur. Vous pouvez ajouter plusieurs lumières au modèle.
+Vous pouvez ajouter plusieurs lumières au modèle.
 
 ### Comment désinstaller l'extension RBP ?
 
@@ -38,7 +37,7 @@ La texture est incorrecte. | Retournez la face (arrière) où la texture est app
 
 Contrôlez la caméra de la scène avec une souris :
 
-Orbitez en traînant le **bouton de gauche**. Déplacez-vous en panoramique en traînant le **bouton du milieu**. Zoomez avec la **molette**.
+Orbitez en traînant le **bouton du milieu**. Déplacez-vous en panoramique en traînant le **bouton de gauche**. Zoomez avec la **molette**.
 
 Il est également possible de contrôler la caméra avec une manette de jeu standard.
 

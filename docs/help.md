@@ -13,12 +13,11 @@ glTF export failed. | ① Retry but when PBR plugin asks: "Propagate materials t
 
 ### How to add a light to model?
 
-1. If it's not already exists, create a new layer and name it **exactly** `PBR Lights`.
-2. Add any object. It will be your light. Group it then assign it to layer `PBR Lights`.<br/>
-To ease this process, I recommand [Shapes](https://extensions.sketchup.com/content/shapes). It creates already grouped shapes. 
+1. Click on "Add an Artificial Light" in PBR Toolbar or PBR Menu.
+2. Sphere created is your light. Move it. Paint it with a color.
 3. Reopen PBR Viewport and voilà!
 
-You can paint your light/object with a color. You can add many lights to model.
+You can add many lights to model.
 
 ### How to uninstall PBR plugin?
 
@@ -38,7 +37,7 @@ Texture is incorrect. | Reverse (back) face where texture is applied. Paint text
 
 Control scene camera with a mouse:
 
-Orbit with **left drag**. Pan with **middle drag**. Zoom with **wheel**.
+Orbit with **middle drag**. Pan with **left drag**. Zoom with **wheel**.
 
 It's also possible to control camera with a standard gamepad.
 
