@@ -1,5 +1,5 @@
 # Physically-Based Rendering extension for SketchUp 2017 or newer.
-# Copyright: © 2018 Samuel Tallet-Sabathé <samuel.tallet@gmail.com>
+# Copyright: © 2019 Samuel Tallet <samuel.tallet arobase gmail.com>
 # 
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -21,34 +21,32 @@ raise 'The PBR plugin requires at least Ruby 2.2.0 or SketchUp 2017.'\
   unless RUBY_VERSION.to_f >= 2.2 # SketchUp 2017 includes Ruby 2.2.4.
 
 require 'sketchup'
-require 'pbr/app_observer'
-require 'pbr/model_observer'
-require 'pbr/menu'
-require 'pbr/toolbar'
 require 'pbr/viewport'
 
 # PBR plugin namespace.
 module PBR
 
-  Sketchup.add_observer(AppObserver.new)
+  # Observes SketchUp model events and reacts.
+  class ModelObserver < Sketchup::ModelObserver
 
-  Sketchup.active_model.add_observer(ModelObserver.new)
+    # rubocop: disable MethodName
 
-  # Material Editor is not open yet.
-  SESSION[:mat_editor_open?] = false
+    # Before a SketchUp model is saved to disk.
+    def onPreSaveModel(_model)
 
-  # Storage for Chromium process ID.
-  SESSION[:viewport_pid] = 0
+      Viewport.close
+      
+    end
 
-  # Plug PBR menu into SketchUp UI.
-  Menu.new(
-    UI.menu('Plugins') # parent_menu
-  )
+    # After a SketchUp model has been saved to disk.
+    def onPostSaveModel(_model)
+      
+      Viewport.open
 
-  Toolbar.new.prepare.show
+    end
 
-  Viewport.open if Viewport.translate
+    # rubocop: enable MethodName
 
-  # Load complete.
+  end
 
 end
