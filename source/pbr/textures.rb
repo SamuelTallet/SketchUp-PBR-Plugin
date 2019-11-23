@@ -43,7 +43,7 @@ module PBR
           or mat.materialType == Sketchup::Material::MATERIAL_COLORIZED_TEXTURED
 
           if mat.texture.filename.empty?\
-          	or mat.texture.filename !~ /\.(png|jpg|jpeg)$/
+          	or mat.texture.filename !~ /\.(jpg|png)$/
 
             texture_path = File.join(
               Sketchup.temp_dir, 'sketchup-tex-' + mat.object_id.to_s + '.png'
