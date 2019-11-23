@@ -9,7 +9,7 @@ In SketchUp
 
 Issue | Workarounds
 :--- | :---
-glTF export failed. | ① Retry but when PBR plugin asks: "Propagate materials to whole model?", answer: "Yes". ② Be sure **all** texture images are in JPEG or PNG format. Else, convert them with a tool like [this](https://image.online-convert.com/convert-to-png) then reimport them in SketchUp.
+glTF export failed. | Be sure **all** texture images are in JPEG or PNG format. Else, convert them with a tool like [this](https://image.online-convert.com/convert-to-png) then reimport them in SketchUp.
 
 ### How to add a light to model?
 
