@@ -164,7 +164,7 @@ localforage.getItem('cameraPosition').then(function(cameraPosition) {
 				panMouseButton: 'left',
 				rotateMouseButton: 'middle',
 				invertZoomDirection: true,
-				zoomSensitivity: 0.5
+				zoomSensitivity: 0.3
 
 			});
 

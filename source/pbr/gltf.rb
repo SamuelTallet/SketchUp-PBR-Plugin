@@ -23,6 +23,7 @@ raise 'The PBR plugin requires at least Ruby 2.2.0 or SketchUp 2017.'\
 require 'sketchup'
 require 'fileutils'
 require 'json'
+require 'pbr/textures'
 require 'pbr/lights'
 require 'pbr/nil_material_fix'
 
@@ -105,6 +106,7 @@ module PBR
       File.delete(gltfile) if File.exist?(gltfile)
 
       # Apply various fixes.
+      Textures.fix_without_filename_or_not_supported
       Lights.fix_without_color
       NilMaterialFix.new(TRANSLATE['Propagate Materials to Whole Model'])
 
