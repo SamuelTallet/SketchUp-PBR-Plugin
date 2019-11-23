@@ -1,5 +1,5 @@
 # Physically-Based Rendering extension for SketchUp 2017 or newer.
-# Copyright: © 2018 Samuel Tallet <samuel.tallet arobase gmail.com>
+# Copyright: © 2019 Samuel Tallet <samuel.tallet arobase gmail.com>
 # 
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -24,6 +24,7 @@ require 'sketchup'
 require 'fileutils'
 require 'json'
 require 'pbr/lights'
+require 'pbr/nil_material_fix'
 
 # PBR plugin namespace.
 module PBR
@@ -102,6 +103,10 @@ module PBR
       gltfile = File.join(Sketchup.temp_dir, 'SketchUpModel.gltf')
 
       File.delete(gltfile) if File.exist?(gltfile)
+
+      # Apply various fixes.
+      Lights.fix_without_color
+      NilMaterialFix.new(TRANSLATE['Propagate Materials to Whole Model'])
 
       Sketchup.active_model.layers.add(Lights::LAYER_NAME)
 

@@ -26,7 +26,7 @@ require 'extensions'
 # PBR plugin namespace.
 module PBR
 
-  VERSION = '1.5.2'.freeze
+  VERSION = '1.5.3'.freeze
 
   # Load translation if it's available for current locale.
   TRANSLATE = LanguageHandler.new('pbr.strings')

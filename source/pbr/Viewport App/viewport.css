@@ -8,13 +8,23 @@
  * Licence: GNU General Public License 3.0
  */
 
+html {
+
+	background: url('assets/animated-loader.gif') no-repeat center center fixed black;
+
+}
+
 html, body {
+
 	margin: 0;
 	overflow: hidden;
+
 }
 
 html, body, #app {
+
 	height: 100%;
+
 }
 
 #sunlightIntensity {
@@ -28,6 +38,7 @@ html, body, #app {
 #sunlightIntensity .emoji {
 
 	margin: 5px 0 0 10px;
+	cursor: default;
 	
 }
 
@@ -65,8 +76,24 @@ html, body, #app {
 
 }
 
+#resetCameraPosition {
+
+	position: absolute;
+	left: 0;
+	bottom: 0;
+
+}
+
+#resetCameraPosition .emoji {
+
+	margin: 10px;
+	cursor: default;
+
+}
+
 #app canvas {
 
 	cursor: url('assets/cursors/360-view.modded.svg'), move;
+	display: none;
 
 }

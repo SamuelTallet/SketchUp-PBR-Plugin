@@ -33,7 +33,6 @@
 "Export As glTF"="Exporter en tant que fichier glTF";
 "Model well exported here:"="Modèle bien exporté ici :";
 
-"Propagate materials to whole model? (Recommended)"="Propager les matériaux à l'ensemble du modèle ? (Recommandé)";
 "Propagate Materials to Whole Model"="Propager les matériaux à l'ensemble du modèle";
 
 "glTF export failed. Do you want help?"="L'export glTF a échoué. Voulez-vous de l'aide ?";
@@ -123,3 +122,4 @@
 "SketchUp PBR Viewport"="Fenêtre de visu. RBP de SketchUp";
 "Sunlight intensity"="Intensité de la lumière du soleil";
 "Help"="Aide";
+"Reset camera position"="Réinitialiser la position de la caméra";

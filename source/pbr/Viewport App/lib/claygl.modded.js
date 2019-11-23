@@ -34125,6 +34125,7 @@ var OrbitControl = Base.extend(function () {
          * @type {clay.Node}
          */
         target: null,
+        
         /**
          * @type {clay.Vector3}
          */
@@ -34133,14 +34134,14 @@ var OrbitControl = Base.extend(function () {
         /**
          * Minimum distance to the center
          * @type {number}
-         * @default 0.5
+         * @default 0.1
          */
         minDistance: 0.1,
 
         /**
          * Maximum distance to the center
          * @type {number}
-         * @default 2
+         * @default 1000
          */
         maxDistance: 1000,
 

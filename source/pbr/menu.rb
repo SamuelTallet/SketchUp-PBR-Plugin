@@ -174,8 +174,6 @@ module PBR
     # @return [void]
     def self.reopen_viewport
 
-      propose_nil_material_fix
-
       propose_help(TRANSLATE['glTF export failed. Do you want help?'])\
         unless Viewport.update_model
 
@@ -187,8 +185,6 @@ module PBR
     #
     # @return [void]
     def self.export_as_gltf
-
-      propose_nil_material_fix
 
       user_path = UI.savepanel(TRANSLATE['Export As glTF'], nil, GlTF.filename)
 
@@ -207,28 +203,6 @@ module PBR
         propose_help(TRANSLATE['glTF export failed. Do you want help?'])
 
       end
-
-    end
-
-    # Proposes "nil material" fix to SketchUp user.
-    #
-    # @return [void]
-    def self.propose_nil_material_fix
-
-      user_answer = UI.messagebox(
-        TRANSLATE['Propagate materials to whole model? (Recommended)'],
-        MB_YESNO
-      )
-
-      # Escape if user refused that fix.
-      return if user_answer == IDNO
-
-      Lights.fix_without_color
-
-      require 'pbr/nil_material_fix'
-
-      # Apply "nil material" fix.
-      NilMaterialFix.new(TRANSLATE['Propagate Materials to Whole Model'])
 
     end
 

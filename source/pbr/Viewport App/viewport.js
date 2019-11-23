@@ -19,36 +19,28 @@ PBR = {};
 PBR.Viewport = {};
 
 /**
- * Helper function to convert HTML colors.
+ * Initialize Viewport storage solution.
  *
- * @see https://css-tricks.com/converting-color-spaces-in-javascript/
+ * @see https://github.com/localForage/localForage
  */
-PBR.Viewport.rgbToHex = function(r, g, b) {
+localforage.config({ name: 'PBR Viewport' });
 
-	r = r.toString(16);
-	g = g.toString(16);
-	b = b.toString(16);
-
-	if ( r.length == 1 )
-		r = "0" + r;
-
-	if ( g.length == 1 )
-		g = "0" + g;
-
-	if ( b.length == 1 )
-		b = "0" + b;
-
-	return "#" + r + g + b;
-
-};
+/**
+ * Viewport 3D application.
+ *
+ * @type {object}
+ */
+PBR.Viewport.app = {};
 
 /**
  * Viewport configuration.
+ *
+ * @type {object}
  */
 PBR.Viewport.cfg = {};
 
 /**
- * Graphic configuration for basic rendering.
+ * Viewport graphic configuration for basic rendering.
  *
  * @type {object}
  */
@@ -61,7 +53,7 @@ PBR.Viewport.cfg.basicGraphics = {
 };
 
 /**
- * Graphic configuration for advanced rendering.
+ * Viewport graphic configuration for advanced rendering.
  *
  * @see https://github.com/pissang/claygl-advanced-renderer/blob/master/src/defaultGraphicConfig.js
  *
@@ -88,6 +80,13 @@ PBR.Viewport.cfg.advancedGraphics = {
 };
 
 /**
+ * Viewport camera.
+ *
+ * @type {object}
+ */
+PBR.Viewport.camera = {};
+
+/**
  * Viewport natural lights.
  *
  * @type {object}
@@ -102,140 +101,183 @@ PBR.Viewport.naturalLights = {};
 PBR.Viewport.artificialLights = [];
 
 /**
- * Create a 3D application that will manage the app initialization and loop.
+ * Helper function to convert HTML colors.
  *
- * @see http://claygl.xyz/
+ * @see https://css-tricks.com/converting-color-spaces-in-javascript/
  */
-PBR.Viewport.app = clay.application.create('#app', {
+PBR.Viewport.rgbToHex = function(r, g, b) {
 
-	// Enable advanced rendering, disable basic one.
-	autoRender: false,
+	r = r.toString(16);
+	g = g.toString(16);
+	b = b.toString(16);
 
-	init: function (app) {
+	if ( r.length == 1 )
+		r = "0" + r;
 
-		var self = this;
+	if ( g.length == 1 )
+		g = "0" + g;
 
-		// Instantiate an adv. renderer.
-		this._advancedRenderer = new ClayAdvancedRenderer(
-			app.renderer, app.scene, app.timeline, PBR.Viewport.cfg.advancedGraphics
-		);
+	if ( b.length == 1 )
+		b = "0" + b;
 
-		// Create a perspective camera.
-		this._camera = app.createCamera([0, 2, -5], [0, 0, 0]);
+	return "#" + r + g + b;
 
-		// Plug & use an orbit control.
-		this._orbitControl = new clay.plugin.OrbitControl({
-			target: this._camera,
-			domElement: app.container,
-			panMouseButton: 'left',
-			rotateMouseButton: 'middle',
-			invertZoomDirection: true
-		});
+};
 
-		// Plug & use a gamepad control.
-		this._gamepadControl = new clay.plugin.GamepadControl({
-			target: this._camera
-		});
+// Get saved Viewport camera position.
+localforage.getItem('cameraPosition').then(function(cameraPosition) {
 
-		// Sync controls with renderer.
-		this._orbitControl.on('update', function() {
-			self._advancedRenderer.render();
-		}, self);
+	// Fallback: the front of model.
+	if ( cameraPosition === null ) {
 
-		this._gamepadControl.on('update', function() {
-			self._advancedRenderer.render();
-		}, self);
+		cameraPosition = [0, 2, -5];
 
-		// Create an cubemap ambient light and an spherical harmonic ambient light for specular and diffuse
-		// lighting in PBR rendering.
-		return app.createAmbientCubemapLight('assets/equirectangular.hdr', 0.8, 0.8)
-			.then(function (ambientLight){
+	}
 
-				PBR.Viewport.naturalLights.diffuse = ambientLight.diffuse;
-				PBR.Viewport.naturalLights.specular = ambientLight.specular;
+	/**
+	 * Create a 3D application that will manage the app initialization and loop.
+	 *
+	 * @see http://claygl.xyz/
+	 */
+	PBR.Viewport.app = clay.application.create('#app', {
 
-				// Create a directional light.
-				PBR.Viewport.naturalLights.direct = app.createDirectionalLight([-1, -1, -1], '#fff', 0.8);
-				PBR.Viewport.naturalLights.direct.shadowResolution = 4096;
+		// Enable advanced rendering, disable basic one.
+		autoRender: false,
 
-				// Set HDR background image.
-				new clay.plugin.Skybox({
-					scene: app.scene,
-					environmentMap: ambientLight.environmentMap
-				});
+		init: function(app) {
 
-				// Load a glTF format model.
-				app.loadModel('assets/sketchup-model.gltf', {
-					textureConvertToPOT: true
-				}).then(function (model) {
+			var self = this;
 
-					if ( model.json.extras && model.json.extras.lights ) {
+			// Instantiate an adv. renderer.
+			this._advancedRenderer = new ClayAdvancedRenderer(
+				app.renderer, app.scene, app.timeline, PBR.Viewport.cfg.advancedGraphics
+			);
 
-						// Turn off natural lights.
-						PBR.Viewport.naturalLights.direct.intensity = 0;
-						PBR.Viewport.naturalLights.diffuse.intensity = 0;
-						PBR.Viewport.naturalLights.specular.intensity = 0;
-						document.querySelector('#sunlightIntensity .slider').value = 0;
+			// Create a perspective camera.
+			PBR.Viewport.camera = app.createCamera(cameraPosition, [0, 0, 0]);
 
-						for (var lightIndex in model.json.extras.lights) {
+			// Plug & use an orbit control.
+			this._orbitControl = new clay.plugin.OrbitControl({
 
-							var light = model.json.extras.lights[lightIndex];
-			
-							// Add artificial light.
-							PBR.Viewport.artificialLights.push(app.createPointLight(
+				target: PBR.Viewport.camera,
+				domElement: app.container,
+				panMouseButton: 'left',
+				rotateMouseButton: 'middle',
+				invertZoomDirection: true,
+				zoomSensitivity: 0.5
 
-								// XXX XYZ to XZ-Y
-								new clay.Vector3(light.position.x, light.position.z, -light.position.y),
-								100,
-								PBR.Viewport.rgbToHex(light.color.r, light.color.g, light.color.b),
-								1
-							));
+			});
+
+			// Plug & use a gamepad control.
+			this._gamepadControl = new clay.plugin.GamepadControl({
+				target: PBR.Viewport.camera
+			});
+
+			// Sync controls with renderer.
+			this._orbitControl.on('update', function() {
+				self._advancedRenderer.render();
+			}, self);
+
+			this._gamepadControl.on('update', function() {
+				self._advancedRenderer.render();
+			}, self);
+
+			// Create an cubemap ambient light and an spherical harmonic ambient
+			// light for specular and diffuse lighting in PBR rendering.
+			return app.createAmbientCubemapLight('assets/equirectangular.hdr', 0.8, 0.8)
+				.then(function (ambientLight){
+
+					PBR.Viewport.naturalLights.diffuse = ambientLight.diffuse;
+					PBR.Viewport.naturalLights.specular = ambientLight.specular;
+
+					// Create a directional light.
+					PBR.Viewport.naturalLights.direct = app.createDirectionalLight([-1, -1, -1], '#fff', 0.8);
+					PBR.Viewport.naturalLights.direct.shadowResolution = 4096;
+
+					// Set HDR background image.
+					new clay.plugin.Skybox({
+						scene: app.scene,
+						environmentMap: ambientLight.environmentMap
+					});
+
+					// Load a glTF format model.
+					app.loadModel('assets/sketchup-model.gltf', {
+						textureConvertToPOT: true
+					}).then(function (model) {
+
+						if ( model.json.extras && model.json.extras.lights ) {
+
+							// Turn off natural lights.
+							PBR.Viewport.naturalLights.direct.intensity = 0;
+							PBR.Viewport.naturalLights.diffuse.intensity = 0;
+							PBR.Viewport.naturalLights.specular.intensity = 0;
+							document.querySelector('#sunlightIntensity .slider').value = 0;
+
+							for (var lightIndex in model.json.extras.lights) {
+
+								var light = model.json.extras.lights[lightIndex];
+				
+								// Add artificial light.
+								PBR.Viewport.artificialLights.push(app.createPointLight(
+
+									// XXX XYZ to XZ-Y
+									new clay.Vector3(light.position.x, light.position.z, -light.position.y),
+									100,
+									PBR.Viewport.rgbToHex(light.color.r, light.color.g, light.color.b),
+									1
+									
+								));
+
+							}
 
 						}
 
-					}
+						for (var materialIndex = 0; materialIndex < model.materials.length; materialIndex++) {
 
-					for (var materialIndex = 0; materialIndex < model.materials.length; materialIndex++) {
+							var clayMaterial = model.materials[materialIndex];
+							var glTFMaterial = model.json.materials[materialIndex];
 
-						var clayMaterial = model.materials[materialIndex];
-						var glTFMaterial = model.json.materials[materialIndex];
+							// Enable alpha test.
+							clayMaterial.define('fragment', 'ALPHA_TEST');
+							clayMaterial.set('alphaCutoff', 0.6);
 
-						// Enable alpha test.
-						clayMaterial.define('fragment', 'ALPHA_TEST');
-						clayMaterial.set('alphaCutoff', 0.6);
+							// Set parallax maps.
+							if ( glTFMaterial.extras && glTFMaterial.extras.parallaxOcclusionTextureURI ) {
 
-						// Set parallax maps.
-						if ( glTFMaterial.extras && glTFMaterial.extras.parallaxOcclusionTextureURI ) {
+								app.loadTexture(glTFMaterial.extras.parallaxOcclusionTextureURI, {
+									convertToPOT: true,
+									anisotropic: 16,
+									flipY: false
+								}).then(function (parallaxOcclusionTexture) {
+									clayMaterial.set('parallaxOcclusionMap', parallaxOcclusionTexture);
+									clayMaterial.set('parallaxOcclusionScale', 0.05);
+									clayMaterial.set('parallaxMinLayers', 50);
+									clayMaterial.set('parallaxMaxLayers', 50);
+								});
 
-							app.loadTexture(glTFMaterial.extras.parallaxOcclusionTextureURI, {
-								convertToPOT: true,
-								anisotropic: 16,
-								flipY: false
-							}).then(function (parallaxOcclusionTexture) {
-								clayMaterial.set('parallaxOcclusionMap', parallaxOcclusionTexture);
-								clayMaterial.set('parallaxOcclusionScale', 0.05);
-								clayMaterial.set('parallaxMinLayers', 50);
-								clayMaterial.set('parallaxMaxLayers', 50);
-							});
+							}
 
 						}
 
-					}
-
+						// Finally displays app canvas so loader animation disappears.
+						document.querySelector('#app canvas').style.display = 'block';
 
 				});
 
 			});
 
-	},
+		},
 
-	loop: function (app) {
+		loop: function(app) {
 
-		this._orbitControl.update(app.frameTime);
-		this._gamepadControl.update(app.frameTime);
-		this._advancedRenderer.render();
+			this._orbitControl.update(app.frameTime);
+			this._gamepadControl.update(app.frameTime);
 
-	}
+			this._advancedRenderer.render();
+
+		}
+
+	});
 
 });
 
@@ -256,6 +298,9 @@ PBR.Viewport.translateStrings = function() {
 	helpLink.href = sketchUpLocale.help_link_href;
 	helpLink.textContent = sketchUpLocale.help_link_text;
 
+	var resetCameraPosition = document.getElementById('resetCameraPosition');
+	resetCameraPosition.title = sketchUpLocale.reset_cam_position;
+
 };
 
 /**
@@ -273,12 +318,69 @@ PBR.Viewport.listenToSunlightChange = function() {
 
 };
 
+/**
+ * Viewport "Save Camera Position" interval.
+ *
+ * @type {number}
+ */
+PBR.Viewport.scpInterval = 0;
+
+/**
+ * Save Viewport camera position.
+ */
+PBR.Viewport.saveCameraPosition = function() {
+
+	localforage.setItem('cameraPosition', PBR.Viewport.camera.position.array);
+
+};
+
+/**
+ * Set Viewport "Save Camera Position" interval.
+ */
+PBR.Viewport.setScpInterval = function() {
+
+	PBR.Viewport.scpInterval = window.setInterval(
+		PBR.Viewport.saveCameraPosition,
+		500
+	);
+
+};
+
+/**
+ * Reset Viewport camera position.
+ */
+PBR.Viewport.resetCameraPosition = function() {
+
+	window.clearInterval(PBR.Viewport.scpInterval);
+
+	localforage.removeItem('cameraPosition').then(function(_value) {
+
+		document.location.reload();
+
+	});
+
+};
+
+/**
+ * Listen to camera position reset in Viewport.
+ */
+PBR.Viewport.listenToCameraReset = function() {
+
+	document.querySelector('#resetCameraPosition .emoji')
+		.addEventListener('click', PBR.Viewport.resetCameraPosition);
+
+};
+
 // When document is ready:
 document.addEventListener('DOMContentLoaded', function() {
 
 	PBR.Viewport.translateStrings();
 
 	PBR.Viewport.listenToSunlightChange();
+
+	PBR.Viewport.setScpInterval();
+
+	PBR.Viewport.listenToCameraReset();
 
 });
 

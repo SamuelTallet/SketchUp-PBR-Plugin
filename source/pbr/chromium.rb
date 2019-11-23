@@ -1,5 +1,5 @@
 # Physically-Based Rendering extension for SketchUp 2017 or newer.
-# Copyright: © 2018 Samuel Tallet-Sabathé <samuel.tallet@gmail.com>
+# Copyright: © 2019 Samuel Tallet <samuel.tallet arobase gmail.com>
 # 
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -22,6 +22,7 @@ raise 'The PBR plugin requires at least Ruby 2.2.0 or SketchUp 2017.'\
 
 require 'sketchup'
 require 'fileutils'
+require 'json'
 
 # PBR plugin namespace.
 module PBR
@@ -47,12 +48,43 @@ module PBR
 
     # Makes Chromium executable.
     #
-    # Note: Useful on macOS.
-    #
+    # Note: Only useful on Mac.
     def self.make_exec
 
       FileUtils.chmod('+x', executable) if Sketchup.platform == :platform_osx
       
+    end
+
+    # Returns absolute path to Chromium Preferences file.
+    #
+    # @return [String]
+    def self.preferences
+
+      if Sketchup.platform == :platform_osx
+        File.join('~', 'Library', 'Application Support', 'Chromium', 'Default', 'Preferences')
+      else
+        File.join(ENV['LOCALAPPDATA'], 'Chromium', 'User Data', 'Default', 'Preferences')
+      end
+
+    end
+
+    # Simulate a normal exit to prevent display of this error message:
+    # Chrome was not shut down properly.
+    # 
+    # @return [void]
+    def self.simulate_normal_exit
+
+      return unless File.exist?(preferences)
+
+      prefs_json = JSON.parse(File.read(preferences))
+
+      prefs_json['profile']['exit_type'] = 'Normal'
+      prefs_json['profile']['exited_cleanly'] = true
+
+      File.write(preferences, JSON.fast_generate(prefs_json))
+
+      nil
+
     end
 
   end

@@ -55,6 +55,8 @@ module PBR
     end
 
     # Translates Viewport strings.
+    #
+    # @return [void]
     def self.translate
 
       locale_path = File.join(ASSETS_DIR, 'sketchup-locale.json')
@@ -63,10 +65,13 @@ module PBR
         document_title: TRANSLATE['SketchUp PBR Viewport'],
         sunlight_intensity: TRANSLATE['Sunlight intensity'],
         help_link_href: GitHub.translated_help_url('PBR_VIEWPORT'),
-        help_link_text: TRANSLATE['Help']
+        help_link_text: TRANSLATE['Help'],
+        reset_cam_position: TRANSLATE['Reset camera position']
       }
 
       File.write(locale_path, 'sketchUpLocale = ' + localization.to_json + ';')
+
+      nil
 
     end
 
@@ -85,8 +90,7 @@ module PBR
 
         # See: https://peter.sh/experiments/chromium-command-line-switches/
         '--allow-file-access-from-files',
-        '--disable-infobars',
-        '--incognito'
+        '--disable-infobars'
 
       )
 
@@ -101,6 +105,7 @@ module PBR
     def self.close
 
       Process.kill('KILL', SESSION[:viewport_pid])
+      Chromium.simulate_normal_exit
       true
       
       rescue StandardError => _error
