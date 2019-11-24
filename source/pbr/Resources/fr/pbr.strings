@@ -18,6 +18,12 @@
 "Please install required plugin: glTF Export."="Veuillez installer le plugin requis : glTF Export.";
 
 //
+// File: updates.rb
+//
+
+"A newer version of the PBR plugin is available:"="Une version plus récente du plugin PBR est disponible :";
+
+//
 // File: menu.rb
 //
 

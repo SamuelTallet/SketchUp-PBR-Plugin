@@ -20,37 +20,51 @@
 raise 'The PBR plugin requires at least Ruby 2.2.0 or SketchUp 2017.'\
   unless RUBY_VERSION.to_f >= 2.2 # SketchUp 2017 includes Ruby 2.2.4.
 
-require 'pbr/updates'
+require 'open-uri'
 require 'sketchup'
-require 'pbr/app_observer'
-require 'pbr/model_observer'
-require 'pbr/menu'
-require 'pbr/toolbar'
-require 'pbr/viewport'
 
 # PBR plugin namespace.
 module PBR
 
-  Updates.check
+  # Plugin updates.
+  module Updates
 
-  Sketchup.add_observer(AppObserver.new)
-  Sketchup.active_model.add_observer(ModelObserver.new)
+    # URL of plugin homepage at SketchUcation site.
+    SKETCHUCATION_URL = 'https://sketchucation.com/plugin/2101-pbr'.freeze
 
-  # Material Editor is not open yet.
-  SESSION[:mat_editor_open?] = false
+    # Check for plugin updates.
+    #
+    # @return [void]
+    def self.check
 
-  # Storage for Chromium process ID.
-  SESSION[:viewport_pid] = 0
+      begin
 
-  # Plug PBR menu into SketchUp UI.
-  Menu.new(
-    UI.menu('Plugins') # parent_menu
-  )
+        sketchucation_html = open(SKETCHUCATION_URL, { read_timeout: 5 }).read
 
-  Toolbar.new.prepare.show
+        last_version_array = sketchucation_html.match(/v(\d+\.\d+.\d+)/).to_a
 
-  Viewport.open if Viewport.translate
+        last_version_int = last_version_array[1].gsub('.', '').to_i
 
-  # Load complete.
+        if VERSION.gsub('.', '').to_i < last_version_int
+
+          UI.messagebox(
+            TRANSLATE['A newer version of the PBR plugin is available:']\
+              + ' ' + last_version_array[1]
+          )
+
+          puts last_version_array[1]
+
+          UI.openURL(SKETCHUCATION_URL)
+
+        end
+
+      rescue StandardError => error
+        puts 'Impossible to check if a newer PBR plugin version exists'\
+          + ' because: ' + error.to_s
+      end
+
+    end
+
+  end
 
 end
