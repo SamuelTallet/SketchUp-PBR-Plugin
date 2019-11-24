@@ -36,6 +36,9 @@ module PBR
     # @return [void]
     def self.fix_one_without_filename_or_not_supported(mat)
 
+      # XXX Works only on SketchUp >= 2018.
+      return if Sketchup.version.to_i < 18
+
       texture_path = File.join(
         Sketchup.temp_dir, 'sketchup-tex-' + mat.object_id.to_s + '.png'
       )
