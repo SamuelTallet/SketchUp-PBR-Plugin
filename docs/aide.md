@@ -13,7 +13,7 @@ L'export glTF a échoué. | Assurez-vous que **toutes** les images des textures 
 
 ### Comment ajouter une lumière au modèle ?
 
-1. Cliquez sur "Ajouter une lumière artificielle" dans la barre d'outils PBR ou le menu RBP.
+1. Cliquez sur "Ajouter une lumière artificielle" dans la barre d'outils ou le menu RBP.
 2. La sphère créée est votre lumière. Déplacez-la. Peignez-la avec une couleur.
 3. Rouvrez la fenêtre de visualisation RBP et voilà !
 
