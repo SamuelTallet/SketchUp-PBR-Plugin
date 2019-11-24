@@ -33,7 +33,7 @@ Now, you should have in SketchUp a "Physically-Based Rendering" menu and a "PBR"
 
 Optional. Install PBR Material Library:
 
-5. Download *sketchup_pbr_material_lib.zip* from [Releases](https://github.com/SamuelTS/SketchUp-PBR-Plugin/releases/).
+5. Download *sketchup_pbr_material_lib.zip* from this [link](https://github.com/SamuelTS/SketchUp-PBR-Plugin/releases/download/v1.4.5/sketchup_pbr_material_lib.zip).
 6. If you use macOS, extract *.zip* contents to this folder: *~/Library/Application Support/SketchUp `2017`/SketchUp/Materials*
 If you use Windows, extract *.zip* contents to this folder: *%AppData%\SketchUp\SketchUp `2017`\SketchUp\Materials*
 7. Restart SketchUp.
