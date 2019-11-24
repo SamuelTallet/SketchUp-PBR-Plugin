@@ -27,7 +27,7 @@ Installation
 3. Télécharger le dernier plugin RBP depuis le [SketchUcation PluginStore](https://sketchucation.com/pluginstore?pln=pbr).
 4. Installer les deux plugins en suivant ce [guide](https://help.sketchup.com/article/3000263).
 
-Maintenant, vous devriez avoir dans SketchUp un menu "Rendu basé sur la physique" et une barre d'outils "PBR". 👍
+Maintenant, vous devriez avoir dans SketchUp un menu "Rendu basé sur la physique" et une barre d'outils "RBP". 👍
 
 Optionnel. Installer la bibliothèque de matériaux PBR :
 
