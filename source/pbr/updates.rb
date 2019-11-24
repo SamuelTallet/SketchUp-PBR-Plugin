@@ -27,15 +27,36 @@ require 'sketchup'
 module PBR
 
   # PBR plugin updates.
-  module Updates
+  class Updates
 
     # URL of PBR plugin homepage at SketchUcation website.
     SKETCHUCATION_URL = 'https://sketchucation.com/plugin/2101-pbr'.freeze
 
+    # Checks for plugin updates.
+    #
+    # @return [void]
+    def check
+
+      begin
+
+        @last_version_str = ''
+
+        last_version
+        alert_user_if
+
+      rescue StandardError => exception
+
+        puts 'Impossible to check if a newer PBR plugin version exists'\
+          + ' because: ' + exception.to_s
+          
+      end
+
+    end
+
     # Returns PBR plugin last version number.
     #
-    # @return [String] Last version number.
-    def self.last_version
+    # @return [void]
+    private def last_version
 
       sketchucation_html = URI.open(
         SKETCHUCATION_URL, :read_timeout => 5
@@ -43,22 +64,22 @@ module PBR
 
       last_version_arr = sketchucation_html.match(/v(\d+\.\d+.\d+)/).to_a
 
-      last_version_arr[1]
+      @last_version_str = last_version_arr[1]
+
+      nil
 
     end
 
     # Alerts user if a new PBR plugin version is available.
-    # 
-    # @param [String] last_version_str Last version number.
     #
     # @return [void]
-    def self.alert_user(last_version_str)
+    private def alert_user_if
 
-      if VERSION.gsub('.', '').to_i < last_version_str.gsub('.', '').to_i
+      if VERSION.gsub('.', '').to_i < @last_version_str.gsub('.', '').to_i
 
         UI.messagebox(
           TRANSLATE['A newer version of the PBR plugin is available:']\
-            + ' ' + last_version_str
+            + ' ' + @last_version_str
         )
 
         UI.openURL(SKETCHUCATION_URL)
@@ -66,22 +87,6 @@ module PBR
       end
 
       nil
-
-    end
-
-    # Checks for plugin updates.
-    #
-    # @return [void]
-    def self.check
-
-      begin
-
-        alert_user(last_version)
-
-      rescue StandardError => exception
-        puts 'Impossible to check if a newer PBR plugin version exists'\
-          + ' because: ' + exception.to_s
-      end
 
     end
 

@@ -1,5 +1,5 @@
 # Physically-Based Rendering extension for SketchUp 2017 or newer.
-# Copyright: © 2018 Samuel Tallet-Sabathé <samuel.tallet@gmail.com>
+# Copyright: © 2019 Samuel Tallet <samuel.tallet arobase gmail.com>
 # 
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -29,16 +29,10 @@ module PBR
   class NilMaterialFix
 
       # Traverses active model tree to fix faces having "nil material" issue.
-      #
-      # @param [String] operation_name Operation name displayed in Edit menu.
-      # @raise [ArgumentError]
-      def initialize(operation_name)
-
-        raise ArgumentError, 'Operation name must be a String.'\
-         unless operation_name.is_a?(String)
-
+      def initialize
+        
         Sketchup.active_model.start_operation(
-          operation_name,
+          TRANSLATE['Propagate Materials to Whole Model'],
           true # disable_ui
         )
 

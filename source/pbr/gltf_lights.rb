@@ -20,38 +20,34 @@
 raise 'The PBR plugin requires at least Ruby 2.2.0 or SketchUp 2017.'\
   unless RUBY_VERSION.to_f >= 2.2 # SketchUp 2017 includes Ruby 2.2.4.
 
+require 'sketchup'
+require 'pbr/light'
+
 # PBR plugin namespace.
 module PBR
 
-  # Artificial lights added in SketchUp.
-  module Lights
+  # Extra lights added to glTF model.
+  class GlTFLights
 
-    # Layer that "contains" lights.
-    LAYER_NAME = 'PBR Lights'.freeze
+  	 # Initializes instance.
+    def initialize
 
-    # Get all lights.
+      find_lights
+
+      @lights = {}
+
+    end
+
+    # Returns all lights.
     #
     # @return [Hash] Lights.
-    def self.all
+    def lights
 
-      lights = {}
+      @lights_groups.each { |light_group|
 
-      groups = Sketchup.active_model.entities.grep(Sketchup::Group)
+        @lights[light_group.object_id] = {}
 
-      lights_groups = groups.find_all{|group|
-        group.layer.name == LAYER_NAME
-      }
-
-      lights_groups.each { |light_group|
-
-        lights[light_group.object_id] = {
-
-          'name' => light_group.name,
-          'type' => 'POINT_LIGHT'
-
-        }
-
-        lights[light_group.object_id]['position'] = {
+        @lights[light_group.object_id]['position'] = {
 
           # Converting inches to meters (* 0.0254).
           'x' => light_group.transformation.origin.x.to_f * 0.0254,
@@ -62,7 +58,7 @@ module PBR
 
         if light_group.material.respond_to?(:color)
 
-          lights[light_group.object_id]['color'] = {
+          @lights[light_group.object_id]['color'] = {
 
             'r' => light_group.material.color.red,
             'g' => light_group.material.color.green,
@@ -73,7 +69,7 @@ module PBR
         else
           
           # Fallback: light color will be white.
-          lights[light_group.object_id]['color'] = {
+          @lights[light_group.object_id]['color'] = {
 
             'r' => 255, 'g' => 255, 'b' => 255
 
@@ -83,33 +79,19 @@ module PBR
 
       }
 
-      lights
+      @lights
 
     end
 
-    # Fix lights without color.
+    # Find all lights.
     #
-    # @return [Void]
-    def self.fix_without_color
-
-      Sketchup.active_model.materials.add('Fallback').color = '#fff'\
-        if Sketchup.active_model.materials['Fallback'].nil?
+    # @return [nil]
+    private def find_lights
 
       groups = Sketchup.active_model.entities.grep(Sketchup::Group)
 
-      lights_groups = groups.find_all{|group|
-        group.layer.name == LAYER_NAME
-      }
-
-      lights_groups.each { |light_group|
-
-        if !light_group.material.respond_to?(:color)
-
-          # Fallback: light color will be white.
-          light_group.material = Sketchup.active_model.materials['Fallback']
-
-        end
-
+      @lights_groups = groups.find_all{ |group|
+        group.layer.name == Light::LAYER_NAME
       }
 
       nil

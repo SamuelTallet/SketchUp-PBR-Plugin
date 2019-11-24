@@ -48,6 +48,17 @@ module PBR
 
     end
 
+    # Show Material Editor if all good conditions are met.
+    #
+    # @return [nil]
+    def self.safe_show
+
+      self.new.show if safe_to_open?
+
+      nil
+
+    end
+
     # Builds Material Editor.
     def initialize
 
@@ -95,7 +106,7 @@ module PBR
 
     # Fills HTML dialog.
     #
-    # @return [void]
+    # @return [nil]
     private def fill_dialog
 
       @dialog.set_html(HTMLDialogs.merge(
@@ -112,11 +123,13 @@ module PBR
 
       ))
 
+      nil
+
     end
 
     # Configures HTML dialog (part #1).
     #
-    # @return [void]
+    # @return [nil]
     private def configure_dialog_part_1
 
       @dialog.add_action_callback('pullMaterials') do
@@ -133,11 +146,13 @@ module PBR
         
       end
 
+      nil
+
     end
 
     # Configures HTML dialog (part #2).
     #
-    # @return [void]
+    # @return [nil]
     private def configure_dialog_part_2
 
       @dialog.add_action_callback('closeDialog') do
@@ -153,11 +168,13 @@ module PBR
 
       @dialog.center
 
+      nil
+
     end
 
     # Collects SketchUp materials attributes to edit in PBR Material Editor.
     #
-    # @return [void]
+    # @return [nil]
     private def collect_materials_to_edit
 
       # For each SketchUp material in active model:
@@ -184,6 +201,8 @@ module PBR
         }
         
       end
+
+      nil
 
     end
 

@@ -20,8 +20,11 @@
 raise 'The PBR plugin requires at least Ruby 2.2.0 or SketchUp 2017.'\
   unless RUBY_VERSION.to_f >= 2.2 # SketchUp 2017 includes Ruby 2.2.4.
 
+require 'fileutils'
 require 'sketchup'
-require 'pbr/menu'
+require 'pbr/material_editor'
+require 'pbr/light'
+require 'pbr/gltf'
 
 # PBR plugin namespace.
 module PBR
@@ -37,7 +40,7 @@ module PBR
     # Initializes instance.
     def initialize
 
-      @toolbar = UI::Toolbar.new('PBR')
+      @toolbar = UI::Toolbar.new(TRANSLATE['PBR'])
 
     end
 
@@ -56,10 +59,10 @@ module PBR
 
     # Adds "Edit Materials..." command.
     #
-    # @see Menu.edit_materials
+    # @return [nil]
     private def add_edit_materials_command
 
-      command = UI::Command.new('em') { Menu.edit_materials }
+      command = UI::Command.new('em') { MaterialEditor.safe_show }
 
       command.small_icon = File.join(ICONS_PATH, 'em'.concat(icon_extension))
       command.large_icon = File.join(ICONS_PATH, 'em'.concat(icon_extension))
@@ -70,14 +73,16 @@ module PBR
 
       @toolbar.add_item(command)
 
+      nil
+
     end
 
     # Adds "Add an Artificial Light" command.
     #
-    # @see Menu.add_artificial_light
+    # @return [nil]
     private def add_artificial_light_command
 
-      command = UI::Command.new('aal') { Menu.add_artificial_light }
+      command = UI::Command.new('aal') { Light.new }
 
       command.small_icon = File.join(ICONS_PATH, 'aal'.concat(icon_extension))
       command.large_icon = File.join(ICONS_PATH, 'aal'.concat(icon_extension))
@@ -87,18 +92,20 @@ module PBR
 
       @toolbar.add_item(command)
 
+      nil
+
     end
 
     # Adds "Reopen Viewport" command.
     #
-    # @see Menu.reopen_viewport
+    # @return [nil]
     private def add_reopen_viewport_command
 
       command = UI::Command.new('rv') do
 
         return PBR.open_required_plugin_page unless PBR.required_plugin_exist?
 
-        Menu.reopen_viewport
+        Viewport.reopen_if_model_updated
 
       end
 
@@ -110,18 +117,20 @@ module PBR
 
       @toolbar.add_item(command)
 
+      nil
+
     end
 
     # Adds "Export As 3D Object..." command.
     #
-    # @see Menu.export_as_gltf
+    # @return [nil]
     private def add_export_as_gltf_command
 
       command = UI::Command.new('eag') do
 
         return PBR.open_required_plugin_page unless PBR.required_plugin_exist?
         
-        Menu.export_as_gltf
+        GlTF.export
 
       end
 
@@ -132,6 +141,8 @@ module PBR
       command.status_bar_text = TRANSLATE['Save 3D model as .gltf.']
 
       @toolbar.add_item(command)
+
+      nil
 
     end
 

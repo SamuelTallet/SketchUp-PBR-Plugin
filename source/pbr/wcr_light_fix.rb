@@ -20,37 +20,55 @@
 raise 'The PBR plugin requires at least Ruby 2.2.0 or SketchUp 2017.'\
   unless RUBY_VERSION.to_f >= 2.2 # SketchUp 2017 includes Ruby 2.2.4.
 
-require 'pbr/updates'
 require 'sketchup'
-require 'pbr/app_observer'
-require 'pbr/model_observer'
-require 'pbr/menu'
-require 'pbr/toolbar'
-require 'pbr/viewport'
+require 'pbr/light'
 
 # PBR plugin namespace.
 module PBR
 
-  Updates.new.check
+  # A light fix... for SketchUp.
+  class WcrLightFix
 
-  Sketchup.add_observer(AppObserver.new)
-  Sketchup.active_model.add_observer(ModelObserver.new)
+    # Applies fix.
+    def initialize
 
-  # Material Editor is not open yet.
-  SESSION[:mat_editor_open?] = false
+      # Prepares default material.
+      Sketchup.active_model.materials.add('Fallback').color = '#fff'\
+        if Sketchup.active_model.materials['Fallback'].nil?
 
-  # Storage for Chromium process ID.
-  SESSION[:viewport_pid] = 0
+      find_all
+      
+      fix_all
 
-  # Plug PBR menu into SketchUp UI.
-  Menu.new(
-    UI.menu('Plugins') # parent_menu
-  )
+    end
 
-  Toolbar.new.prepare.show
+    # Finds lights without color.
+    private def find_all
 
-  Viewport.open if Viewport.translate
+      groups = Sketchup.active_model.entities.grep(Sketchup::Group)
 
-  # Load complete.
+      @lights_groups = groups.find_all{|group|
+        group.layer.name == Light::LAYER_NAME
+      }
+
+    end
+
+    # Fixes lights without color.
+    private def fix_all
+  
+      @lights_groups.each { |light_group|
+
+        if !light_group.material.respond_to?(:color)
+
+          # Fallback: light color will be white.
+          light_group.material = Sketchup.active_model.materials['Fallback']
+
+        end
+
+      }
+
+    end
+
+  end
 
 end

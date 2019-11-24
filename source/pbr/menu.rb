@@ -21,11 +21,9 @@ raise 'The PBR plugin requires at least Ruby 2.2.0 or SketchUp 2017.'\
   unless RUBY_VERSION.to_f >= 2.2 # SketchUp 2017 includes Ruby 2.2.4.
 
 require 'sketchup'
-require 'pbr/material_editor'
-require 'pbr/lights'
-require 'pbr/shapes'
 require 'pbr/viewport'
-require 'fileutils'
+require 'pbr/material_editor'
+require 'pbr/light'
 require 'pbr/gltf'
 
 # PBR plugin namespace.
@@ -33,6 +31,25 @@ module PBR
 
   # Connects PBR plugin menu to SketchUp user interface.
   class Menu
+
+    # Proposes help to SketchUp user.
+    #
+    # @param [String] message Help proposal message.
+    #
+    # @return [void]
+    def self.propose_help(message)
+
+      user_answer = UI.messagebox(message, MB_YESNO)
+
+      # Escape if user refused that help.
+      return if user_answer == IDNO
+
+      require 'pbr/github'
+
+      # Open help of PBR plugin in default Web browser.
+      UI.openURL(GitHub.translated_help_url('SKETCHUP'))
+
+    end
 
     # Adds PBR plugin menu (items included) in a SketchUp menu.
     #
@@ -61,94 +78,59 @@ module PBR
 
     # Adds "Change HDR Background..." menu item.
     #
-    # @return [void]
+    # @return [nil]
     private def add_change_hdr_bg_item
 
       @menu.add_item(TRANSLATE['Change HDR Background...']) do
 
-        Menu.change_hdr_background
+        Viewport.change_hdr_bg
         
       end
+
+      nil
 
     end
 
     # Adds "Edit Materials..." menu item.
     #
-    # @return [void]
+    # @return [nil]
     private def add_edit_materials_item
 
       @menu.add_item('⬕ ' + TRANSLATE['Edit Materials...']) do
 
-        Menu.edit_materials
+        MaterialEditor.safe_show
         
       end
+
+      nil
 
     end
 
     # Adds "Add an Artificial Light" menu item.
     #
-    # @return [void]
+    # @return [nil]
     private def add_artificial_light_item
 
-      @menu.add_item('💡 ' + TRANSLATE['Add an Artificial Light']) do
+      @menu.add_item('💡 ' + TRANSLATE['Add an Artificial Light']) { Light.new }
 
-        Menu.add_artificial_light
-        
-      end
-
-    end
-
-    # Runs "Change HDR Background..." menu command.
-    #
-    # @return [void]
-    def self.change_hdr_background
-
-      user_path = UI.openpanel TRANSLATE['Select New Background'], nil,\
-        TRANSLATE['HDR Image'] + '|*.hdr||'
-
-      # Escape if user cancelled operation.
-      return if user_path.nil?
-
-      FileUtils.cp user_path,\
-       File.join(Viewport::ASSETS_DIR, 'equirectangular.hdr')
-
-      Viewport.reopen
-
-    end
-
-    # Runs "Edit Materials..." menu command.
-    #
-    # @return [void]
-    def self.edit_materials
-
-      # Show Material Editor if all good conditions are met.
-      MaterialEditor.new.show if MaterialEditor.safe_to_open?
-
-    end
-
-    # Runs "Add an Artificial Light" menu command.
-    #
-    # @return [void]
-    def self.add_artificial_light
-
-      Sketchup.active_model.layers.add(Lights::LAYER_NAME)
-
-      PBR::Shapes.create_sphere('30cm', 10, 8, Lights::LAYER_NAME)
-
+      nil
+      
     end
 
     # Adds "Reopen Viewport" menu item.
     #
-    # @return [void]
+    # @return [nil]
     private def add_reopen_viewport_item
 
       @menu.add_item(TRANSLATE['Reopen Viewport']) do
 
         return PBR.open_required_plugin_page unless PBR.required_plugin_exist?
 
-        Menu.reopen_viewport
+        Viewport.reopen_if_model_updated
 
       end
+
+      nil
 
     end
 
@@ -161,67 +143,9 @@ module PBR
 
         return PBR.open_required_plugin_page unless PBR.required_plugin_exist?
 
-        Menu.export_as_gltf
+        GlTF.export
 
       end
-
-    end
-
-    # Runs "Reopen Viewport" menu command.
-    #
-    # Note: This only updates glTF model asset.
-    #
-    # @return [void]
-    def self.reopen_viewport
-
-      propose_help(TRANSLATE['glTF export failed. Do you want help?'])\
-        unless Viewport.update_model
-
-      Viewport.reopen
-
-    end
-
-    # Runs "Export As 3D Object..." menu command.
-    #
-    # @return [void]
-    def self.export_as_gltf
-
-      user_path = UI.savepanel(TRANSLATE['Export As glTF'], nil, GlTF.filename)
-
-      # Escape if user cancelled operation.
-      return if user_path.nil?
-
-      gltf = GlTF.new
-
-      if gltf.valid?
-
-        File.write(user_path, gltf.json)
-        UI.messagebox(TRANSLATE['Model well exported here:'] + "\n#{user_path}")
-
-      else
-        
-        propose_help(TRANSLATE['glTF export failed. Do you want help?'])
-
-      end
-
-    end
-
-    # Proposes help to SketchUp user.
-    #
-    # @param [String] message Help proposal message.
-    #
-    # @return [void]
-    def self.propose_help(message)
-
-      user_answer = UI.messagebox(message, MB_YESNO)
-
-      # Escape if user refused that help.
-      return if user_answer == IDNO
-
-      require 'pbr/github'
-
-      # Open help of PBR plugin in default Web browser.
-      UI.openURL(GitHub.translated_help_url('SKETCHUP'))
 
     end
 

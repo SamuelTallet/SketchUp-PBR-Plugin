@@ -22,10 +22,13 @@ raise 'The PBR plugin requires at least Ruby 2.2.0 or SketchUp 2017.'\
 
 require 'sketchup'
 require 'fileutils'
+require 'pbr/menu'
 require 'json'
-require 'pbr/textures'
-require 'pbr/lights'
+require 'pbr/wfn_texture_fix'
+require 'pbr/wcr_light_fix'
+require 'pbr/light'
 require 'pbr/nil_material_fix'
+require 'pbr/gltf_lights'
 
 # PBR plugin namespace.
 module PBR
@@ -52,6 +55,33 @@ module PBR
 
     end
 
+    # Exports as 3D object.
+    #
+    # @return [nil]
+    def self.export
+
+      user_path = UI.savepanel(TRANSLATE['Export As glTF'], nil, filename)
+
+      # Escape if user cancelled operation.
+      return if user_path.nil?
+
+      gltf = self.new
+
+      if gltf.valid?
+
+        File.write(user_path, gltf.json)
+        UI.messagebox(TRANSLATE['Model well exported here:'] + "\n#{user_path}")
+
+      else
+        
+        Menu.propose_help(TRANSLATE['glTF export failed. Do you want help?'])
+
+      end
+
+      nil
+
+    end
+
     # Generates a glTF asset including PBR plugin attributes: Normal map, etc.
     def initialize
 
@@ -63,13 +93,21 @@ module PBR
 
       begin
 
+        Sketchup.status_text = TRANSLATE[
+          'PBR: Exporting geometry and textures... Please wait.'
+        ]
+
         generate
 
         complete
 
+        Sketchup.status_text = nil
+
       rescue StandardError => _exception
 
         @valid = false
+
+        Sketchup.status_text = nil
 
       end
 
@@ -97,12 +135,15 @@ module PBR
 
     # Applies various fixes.
     #
-    # @return [void]
+    # @return [nil]
     private def apply_various_fixes
 
-      Textures.fix_all_without_filename_or_not_supported
-      Lights.fix_without_color
-      NilMaterialFix.new(TRANSLATE['Propagate Materials to Whole Model'])
+      WfnTextureFix.new
+
+      WcrLightFix.new
+      Sketchup.active_model.layers.add(Light::LAYER_NAME)
+
+      NilMaterialFix.new
 
       nil
 
@@ -111,7 +152,7 @@ module PBR
     # Generates almost all of glTF asset thanks to exporter made by Centaur.
     # @see https://extensions.sketchup.com/content/gltf-exporter
     #
-    # @return [void] but store asset in `gltf` instance variable.
+    # @return [nil] but store asset in `gltf` instance variable.
     private def generate
 
       gltfile = File.join(Sketchup.temp_dir, 'SketchUpModel.gltf')
@@ -120,10 +161,8 @@ module PBR
 
       apply_various_fixes
 
-      Sketchup.active_model.layers.add(Lights::LAYER_NAME)
-
-      # XXX We hide 'PBR Lights' layer to avoid glTF model "pollution".
-      Sketchup.active_model.layers[Lights::LAYER_NAME].visible = false
+      # XXX We hide PBR Lights layer to avoid glTF model "pollution".
+      Sketchup.active_model.layers[Light::LAYER_NAME].visible = false
       
       Centaur::GltfExporter::GltfExport.new.export(
         false, # is_binary
@@ -131,16 +170,18 @@ module PBR
         gltfile # destination
       )
 
-      Sketchup.active_model.layers[Lights::LAYER_NAME].visible = true
+      Sketchup.active_model.layers[Light::LAYER_NAME].visible = true
 
       # Store asset as a Hash.
       @gltf = JSON.parse(File.read(gltfile))
+
+      nil
 
     end
 
     # Completes this glTF asset with PBR plugin attributes: Normal map, etc.
     #
-    # @return [void]
+    # @return [nil]
     private def complete
 
       # For each glTF material in asset:
@@ -170,6 +211,8 @@ module PBR
 
       # Tools that generated this glTF model. Useful for debugging.
       @gltf['asset']['generator'] += ", SketchUp PBR plugin v#{VERSION}"
+
+      nil
 
     end
 
@@ -326,7 +369,7 @@ module PBR
     #
     # @param [String, nil] alpha_mode Alpha rendering mode or nil.
     #
-    # @return [void]
+    # @return [nil]
     private def update_alpha_mode(gltf_mat, alpha_mode)
 
       raise ArgumentError, 'Invalid glTF material.' unless gltf_mat.is_a?(Hash)
@@ -335,6 +378,8 @@ module PBR
 
       # The alpha rendering mode of the material.
       gltf_mat['alphaMode'] = alpha_mode
+
+      nil
 
     end
 
@@ -346,7 +391,7 @@ module PBR
     #
     # @param [String, nil] par_occ_tex_uri Parallax occlusion tex. URI or nil.
     #
-    # @return [void]
+    # @return [nil]
     private def add_po_tex(gltf_mat, par_occ_tex_uri)
 
       raise ArgumentError, 'Invalid glTF material.' unless gltf_mat.is_a?(Hash)
@@ -358,20 +403,24 @@ module PBR
       # The parallax occlusion texture.
       gltf_mat['extras']['parallaxOcclusionTextureURI'] = par_occ_tex_uri
 
+      nil
+
     end
 
     # Adds extra lights. XXX This isn't in the spec.
     #
-    # @return [void]
+    # @return [nil]
     private def add_lights
 
-      lights = Lights.all
+      lights = GlTFLights.new.lights
 
       return if lights.empty?
 
       @gltf['extras'] = {} unless @gltf.key?('extras')
 
       @gltf['extras']['lights'] = lights
+
+      nil
 
     end
 

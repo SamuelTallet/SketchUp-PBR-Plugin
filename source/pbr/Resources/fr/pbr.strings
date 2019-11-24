@@ -49,6 +49,7 @@
 // File: toolbar.rb
 //
 
+"PBR"="RBP";
 "Define if a material is rough, is a metal, etc."="Définissez si un matériau est rugueux, est un métal, etc.";
 "Move it in space. Change its color."="Déplacez-la dans l'espace. Changez sa couleur.";
 "Render scene in real-time."="Rendez la scène en temps réel.";
@@ -113,6 +114,7 @@
 //
 
 "Untitled"="Sans titre";
+"PBR: Exporting geometry and textures... Please wait."="RBP : Export de la géométrie et des textures en cours... Veuillez patienter.";
 
 //
 // File: github.rb

@@ -4,7 +4,6 @@ AllCops:
   TargetRubyVersion: 2.3
   Exclude:
     - 'pbr/shapes.rb'
-    - 'pbr/lights.rb'
 
 Layout:
   Enabled: false
@@ -15,11 +14,11 @@ Style:
 Naming/RescuedExceptionsVariableName:
   PreferredName: exception
 
-Metrics/MethodLength:
-  Max: 15
-
 Metrics/AbcSize:
-  Max: 20
+  Enabled: false
 
+Metrics/MethodLength:
+  Max: 20
+  
 Metrics/ClassLength:
   Max: 150

@@ -20,37 +20,27 @@
 raise 'The PBR plugin requires at least Ruby 2.2.0 or SketchUp 2017.'\
   unless RUBY_VERSION.to_f >= 2.2 # SketchUp 2017 includes Ruby 2.2.4.
 
-require 'pbr/updates'
 require 'sketchup'
-require 'pbr/app_observer'
-require 'pbr/model_observer'
-require 'pbr/menu'
-require 'pbr/toolbar'
-require 'pbr/viewport'
+require 'pbr/shapes'
 
 # PBR plugin namespace.
 module PBR
 
-  Updates.new.check
+  # Artificial light(s) added in SketchUp.
+  class Light
 
-  Sketchup.add_observer(AppObserver.new)
-  Sketchup.active_model.add_observer(ModelObserver.new)
+    # Layer that "contains" light(s).
+    LAYER_NAME = 'PBR Lights'.freeze
 
-  # Material Editor is not open yet.
-  SESSION[:mat_editor_open?] = false
+    # Makes a light.
+    def initialize
 
-  # Storage for Chromium process ID.
-  SESSION[:viewport_pid] = 0
+      Sketchup.active_model.layers.add(LAYER_NAME)
 
-  # Plug PBR menu into SketchUp UI.
-  Menu.new(
-    UI.menu('Plugins') # parent_menu
-  )
+      @light = Shapes.create_sphere('30cm', 10, 8, LAYER_NAME)
 
-  Toolbar.new.prepare.show
+    end
 
-  Viewport.open if Viewport.translate
-
-  # Load complete.
+  end
 
 end

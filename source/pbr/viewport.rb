@@ -20,9 +20,11 @@
 raise 'The PBR plugin requires at least Ruby 2.2.0 or SketchUp 2017.'\
   unless RUBY_VERSION.to_f >= 2.2 # SketchUp 2017 includes Ruby 2.2.4.
 
+require 'sketchup'
 require 'pbr/gltf'
 require 'pbr/github'
 require 'pbr/chromium'
+require 'pbr/menu'
 
 # PBR plugin namespace.
 module PBR
@@ -35,6 +37,25 @@ module PBR
 
     # Absolute path to assets directory.
     ASSETS_DIR = File.join(ROOT, 'assets').freeze
+
+    # Changes HDR Background.
+    #
+    # @return [nil]
+    def self.change_hdr_bg
+
+      user_path = UI.openpanel TRANSLATE['Select New Background'], nil,\
+        TRANSLATE['HDR Image'] + '|*.hdr||'
+
+      # Escape if user cancelled operation.
+      return if user_path.nil?
+
+      FileUtils.cp(user_path, File.join(ASSETS_DIR, 'equirectangular.hdr'))
+
+      reopen
+
+      nil
+
+    end
 
     # Updates Viewport glTF model asset.
     #
@@ -56,7 +77,7 @@ module PBR
 
     # Translates Viewport strings.
     #
-    # @return [void]
+    # @return [nil]
     def self.translate
 
       locale_path = File.join(ASSETS_DIR, 'sketchup-locale.json')
@@ -121,6 +142,19 @@ module PBR
       close
       
       open
+
+    end
+
+    # Reopens Viewport if model updated.
+    #
+    # @return [nil]
+    def self.reopen_if_model_updated
+
+      return Menu.propose_help(
+        TRANSLATE['glTF export failed. Do you want help?']
+      ) unless update_model
+
+      reopen
 
     end
 
