@@ -31,8 +31,8 @@ Maintenant, vous devriez avoir dans SketchUp un menu "Rendu basé sur la physiqu
 
 Optionnel. Installer la bibliothèque de matériaux PBR :
 
-5. Télécharger *sketchup_pbr_material_lib.zip* depuis la page [Releases](https://github.com/SamuelTS/SketchUp-PBR-Plugin/releases/).
-6. Si vous utilisez macOS, extraire le contenu du *.zip* vers ce dossier : *~/Library/Application Support/SketchUp `2017`/SketchUp/Materials*
+5. Télécharger *sketchup_pbr_material_lib.zip* depuis ce [lien](https://github.com/SamuelTS/SketchUp-PBR-Plugin/releases/download/v1.4.5/sketchup_pbr_material_lib.zip).
+6. Si vous utilisez macOS, extraire le contenu du *.zip* vers ce dossier : *~/Library/Application Support/SketchUp `2017`/SketchUp/Materials*<br>
  Si vous utilisez Windows, extraire le contenu du *.zip* vers ce dossier : *%AppData%\SketchUp\SketchUp `2017`\SketchUp\Materials*
 7. Redémarrer SketchUp.
 
