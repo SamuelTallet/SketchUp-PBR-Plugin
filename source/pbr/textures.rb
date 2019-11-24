@@ -32,7 +32,7 @@ module PBR
     # Fixes textures without filename or not supported by glTF (.bmp, .tif...).
     #
     # @return [void]
-    def self.fix_without_filename_or_not_supported
+    def self.fix_all_without_filename_or_not_supported
 
       # XXX Works only on SketchUp >= 2018.
       return if Sketchup.version.to_i < 18
@@ -45,21 +45,7 @@ module PBR
           if mat.texture.filename.empty?\
           	or mat.texture.filename !~ /\.(jpg|png)$/
 
-            texture_path = File.join(
-              Sketchup.temp_dir, 'sketchup-tex-' + mat.object_id.to_s + '.png'
-            )
-
-            texture_width = mat.texture.width
-
-            texture_height = mat.texture.height
-
-            mat.texture.image_rep.save_file(texture_path)
-
-            mat.texture = texture_path
-
-            mat.texture.size = [texture_width, texture_height]
-
-            File.delete(texture_path)
+              fix_one_without_filename_or_not_supported(mat)
 
           end
 
@@ -68,6 +54,31 @@ module PBR
       }
 
       nil
+
+    end
+
+    # Fixes texture without filename or not supported by glTF (.bmp, .tif...).
+    #
+    # @param [Sketchup::Material] mat SketchUp material texture to fix.
+    #
+    # @return [void]
+    private def fix_one_without_filename_or_not_supported(mat)
+
+      texture_path = File.join(
+        Sketchup.temp_dir, 'sketchup-tex-' + mat.object_id.to_s + '.png'
+      )
+
+      texture_width = mat.texture.width
+
+      texture_height = mat.texture.height
+
+      mat.texture.image_rep.save_file(texture_path)
+
+      mat.texture = texture_path
+
+      mat.texture.size = [texture_width, texture_height]
+
+      File.delete(texture_path)
 
     end
 

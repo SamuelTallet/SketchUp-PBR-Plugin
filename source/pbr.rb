@@ -69,7 +69,7 @@ module PBR
     Centaur.const_get(:GltfExporter)
       true
 
-    rescue NameError => _error
+    rescue NameError => _exception
       false
 
   end

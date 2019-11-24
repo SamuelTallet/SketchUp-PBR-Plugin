@@ -136,10 +136,10 @@ module PBR
     # @param [String] radius Radius. Example: '1m'.
     # @param [Integer] n90 Segments per 90 degrees. Default: 10.
     # @param [Integer] smooth Smooth parameter. Default: 12.
-    # @param [Integer|String] layer_index_or_name Layer index or name. Default: 0.
+    # @param [Integer|String] layer_idx_or_name Layer index or name. Default: 0.
     #
     # @return [Sketchup::Group] Group that contains sphere.
-    def self.create_sphere(radius, n90 = 10, smooth = 12, layer_index_or_name = 0)
+    def self.create_sphere(radius, n90 = 10, smooth = 12, layer_idx_or_name = 0)
 
       group = Sketchup.active_model.entities.add_group
 
@@ -167,7 +167,7 @@ module PBR
       group.entities.add_faces_from_mesh(mesh, smooth)
 
       # Assign group to layer.
-      group.layer = Sketchup.active_model.layers[layer_index_or_name]
+      group.layer = Sketchup.active_model.layers[layer_idx_or_name]
 
       group
 

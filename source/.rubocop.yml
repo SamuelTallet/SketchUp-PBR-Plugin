@@ -1,10 +1,25 @@
 # See: https://github.com/bbatsov/rubocop If you want to know what is RuboCop.
 
 AllCops:
-  TargetRubyVersion: 2.2
+  TargetRubyVersion: 2.3
+  Exclude:
+    - 'pbr/shapes.rb'
+    - 'pbr/lights.rb'
 
 Layout:
   Enabled: false
 
-Style/AsciiComments:
+Style:
   Enabled: false
+
+Naming/RescuedExceptionsVariableName:
+  PreferredName: exception
+
+Metrics/MethodLength:
+  Max: 15
+
+Metrics/AbcSize:
+  Max: 20
+
+Metrics/ClassLength:
+  Max: 150

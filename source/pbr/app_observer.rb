@@ -1,5 +1,5 @@
 # Physically-Based Rendering extension for SketchUp 2017 or newer.
-# Copyright: © 2018 Samuel Tallet-Sabathé <samuel.tallet@gmail.com>
+# Copyright: © 2019 Samuel Tallet <samuel.tallet arobase gmail.com>
 # 
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -29,7 +29,7 @@ module PBR
   # Observes SketchUp events and reacts.
   class AppObserver < Sketchup::AppObserver
 
-    # rubocop: disable MethodName
+    # rubocop: disable Naming/MethodName
 
     # When SketchUp user creates a new, empty model.
     def onNewModel(_model)
@@ -60,7 +60,7 @@ module PBR
 
     end
 
-    # rubocop: enable MethodName
+    # rubocop: enable Naming/MethodName
 
   end
 

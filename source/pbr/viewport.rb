@@ -94,7 +94,7 @@ module PBR
 
       )
 
-      rescue StandardError => _error
+      rescue StandardError => _exception
         UI.messagebox("Unable to find: \"#{Chromium.executable}\". Get latest.")
 
     end
@@ -108,7 +108,7 @@ module PBR
       Chromium.simulate_normal_exit
       true
       
-      rescue StandardError => _error
+      rescue StandardError => _exception
         false
 
     end

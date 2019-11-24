@@ -26,41 +26,61 @@ require 'sketchup'
 # PBR plugin namespace.
 module PBR
 
-  # Plugin updates.
+  # PBR plugin updates.
   module Updates
 
-    # URL of plugin homepage at SketchUcation site.
+    # URL of PBR plugin homepage at SketchUcation website.
     SKETCHUCATION_URL = 'https://sketchucation.com/plugin/2101-pbr'.freeze
 
-    # Check for plugin updates.
+    # Returns PBR plugin last version number.
+    #
+    # @return [String] Last version number.
+    def self.last_version
+
+      sketchucation_html = URI.open(
+        SKETCHUCATION_URL, :read_timeout => 5
+      ).read
+
+      last_version_arr = sketchucation_html.match(/v(\d+\.\d+.\d+)/).to_a
+
+      last_version_arr[1]
+
+    end
+
+    # Alerts user if a new PBR plugin version is available.
+    # 
+    # @param [String] last_version_str Last version number.
+    #
+    # @return [void]
+    def self.alert_user(last_version_str)
+
+      if VERSION.gsub('.', '').to_i < last_version_str.gsub('.', '').to_i
+
+        UI.messagebox(
+          TRANSLATE['A newer version of the PBR plugin is available:']\
+            + ' ' + last_version_str
+        )
+
+        UI.openURL(SKETCHUCATION_URL)
+
+      end
+
+      nil
+
+    end
+
+    # Checks for plugin updates.
     #
     # @return [void]
     def self.check
 
       begin
 
-        sketchucation_html = open(SKETCHUCATION_URL, { read_timeout: 5 }).read
+        alert_user(last_version)
 
-        last_version_array = sketchucation_html.match(/v(\d+\.\d+.\d+)/).to_a
-
-        last_version_int = last_version_array[1].gsub('.', '').to_i
-
-        if VERSION.gsub('.', '').to_i < last_version_int
-
-          UI.messagebox(
-            TRANSLATE['A newer version of the PBR plugin is available:']\
-              + ' ' + last_version_array[1]
-          )
-
-          puts last_version_array[1]
-
-          UI.openURL(SKETCHUCATION_URL)
-
-        end
-
-      rescue StandardError => error
+      rescue StandardError => exception
         puts 'Impossible to check if a newer PBR plugin version exists'\
-          + ' because: ' + error.to_s
+          + ' because: ' + exception.to_s
       end
 
     end

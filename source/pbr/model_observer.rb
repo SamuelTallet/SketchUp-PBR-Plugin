@@ -29,7 +29,7 @@ module PBR
   # Observes SketchUp model events and reacts.
   class ModelObserver < Sketchup::ModelObserver
 
-    # rubocop: disable MethodName
+    # rubocop: disable Naming/MethodName
 
     # Before a SketchUp model is saved to disk.
     def onPreSaveModel(_model)
@@ -45,7 +45,7 @@ module PBR
 
     end
 
-    # rubocop: enable MethodName
+    # rubocop: enable Naming/MethodName
 
   end
 

@@ -67,7 +67,7 @@ module PBR
 
         complete
 
-      rescue StandardError => _error
+      rescue StandardError => _exception
 
         @valid = false
 
@@ -95,6 +95,19 @@ module PBR
 
     end
 
+    # Applies various fixes.
+    #
+    # @return [void]
+    private def apply_various_fixes
+
+      Textures.fix_all_without_filename_or_not_supported
+      Lights.fix_without_color
+      NilMaterialFix.new(TRANSLATE['Propagate Materials to Whole Model'])
+
+      nil
+
+    end
+
     # Generates almost all of glTF asset thanks to exporter made by Centaur.
     # @see https://extensions.sketchup.com/content/gltf-exporter
     #
@@ -105,10 +118,7 @@ module PBR
 
       File.delete(gltfile) if File.exist?(gltfile)
 
-      # Apply various fixes.
-      Textures.fix_without_filename_or_not_supported
-      Lights.fix_without_color
-      NilMaterialFix.new(TRANSLATE['Propagate Materials to Whole Model'])
+      apply_various_fixes
 
       Sketchup.active_model.layers.add(Lights::LAYER_NAME)
 

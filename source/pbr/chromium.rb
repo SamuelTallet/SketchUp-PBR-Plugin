@@ -61,9 +61,15 @@ module PBR
     def self.preferences
 
       if Sketchup.platform == :platform_osx
-        File.join('~', 'Library', 'Application Support', 'Chromium', 'Default', 'Preferences')
+        File.join(
+          '~', 'Library', 'Application Support', 'Chromium',
+          'Default', 'Preferences'
+        )
       else
-        File.join(ENV['LOCALAPPDATA'], 'Chromium', 'User Data', 'Default', 'Preferences')
+        File.join(
+          ENV['LOCALAPPDATA'], 'Chromium',
+          'User Data', 'Default', 'Preferences'
+        )
       end
 
     end
