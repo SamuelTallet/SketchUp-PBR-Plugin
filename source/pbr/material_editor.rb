@@ -98,9 +98,9 @@ module PBR
         scrollable:      true,
         width:           455,
         # @todo Calc. height depending on material attributes count?
-        height:          425,
+        height:          455,
         min_width:       455,
-        min_height:      425
+        min_height:      455
       )
 
     end
@@ -191,6 +191,8 @@ module PBR
 
           metalRoughTextureURI: texture_uri_status(mat, 'metalRoughTextureURI'),
           normalTextureURI: texture_uri_status(mat, 'normalTextureURI'),
+          ambientOcclusionTextureURI:\
+           texture_uri_status(mat, 'ambientOcclusionTextureURI'),
           parallaxOcclusionTextureURI:\
            texture_uri_status(mat, 'parallaxOcclusionTextureURI'),
 

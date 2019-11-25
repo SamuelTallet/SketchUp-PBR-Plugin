@@ -40,6 +40,8 @@ module PBR
 
       @light = Shapes.create_sphere('30cm', 10, 8, LAYER_NAME)
 
+      @light.name = 'PBR Light'
+
       SESSION[:lights_objects_ids].push(@light.object_id.to_i)
 
       @light.add_observer(EntityObserver.new)

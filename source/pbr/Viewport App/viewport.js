@@ -30,7 +30,7 @@ localforage.config({ name: 'PBR Viewport' });
  *
  * @type {object}
  */
-PBR.Viewport.app = {};
+PBR.Viewport.app = null;
 
 /**
  * Viewport configuration.
@@ -84,7 +84,7 @@ PBR.Viewport.cfg.advancedGraphics = {
  *
  * @type {object}
  */
-PBR.Viewport.camera = {};
+PBR.Viewport.camera = null;
 
 /**
  * Viewport natural lights.
@@ -330,6 +330,10 @@ PBR.Viewport.scpInterval = 0;
  */
 PBR.Viewport.saveCameraPosition = function() {
 
+	if ( PBR.Viewport.camera === null ) {
+		return;
+	}
+
 	localforage.setItem('cameraPosition', PBR.Viewport.camera.position.array);
 
 };
@@ -386,6 +390,10 @@ document.addEventListener('DOMContentLoaded', function() {
 
 // When window is resized:
 window.onresize = function() {
+
+	if ( PBR.Viewport.app === null ) {
+		return;
+	}
 
 	PBR.Viewport.app.resize();
 

@@ -67,22 +67,21 @@
 // File: material-editor.rhtml
 //
 
+"Occlusion map"="Carte d'occlusion";
+"In [ambient] occlusion map, higher values indicate areas that should receive full indirect lighting and lower values indicate no indirect lighting."="Dans la carte d'occlusion [ambiante], les valeurs les plus hautes indiquent les zones qui doivent recevoir un éclairage indirect complet et les valeurs les plus basses indiquent l'absence d'éclairage indirect.";
+
+"Height map"="Champ de hauteur";
+"The height map gives a great illusion of relief to the material."="Le champ de hauteur donne une grande illusion de relief au matériau.";
+"To use in parallel with a normal map."="A utiliser en parallèle avec une carte de normales.";
+
 "Metallic"="Métallique";
 "A value of 0 means the material is a dielectric."="Une valeur de 0 signifie que le matériau est un diélectrique.";
 "A value of 1 means the material is a metal."="Une valeur de 1 signifie que le matériau est un métal.";
 "When a metallic texture is specified, this value becomes a multiplier for each pixel of that metallic texture."="Lorsqu'une texture métallique est spécifiée, cette valeur devient un multiplicateur pour chaque pixel de cette texture métallique.";
 
-"Roughness"="Rugosité";
-"A value of 0 means the material is completely smooth."="Une valeur de 0 signifie que le matériau est complètement lisse.";
-"A value of 1 means the material is completely rough."="Une valeur de 1 signifie que le matériau est complètement rugueux.";
-"When a roughness texture is specified, this value becomes a multiplier..."="Lorsqu'une texture de rugosité est spécifiée, cette valeur devient un multiplicateur...";
-
 "Metallic map"="Carte métallique";
 "The metallic map is more precise than single value of Metallic."="La carte métallique est plus précise que la valeur unique Métallique.";
 "Metallic and roughness maps are automatically merged."="Les cartes métalliques et de rugosité sont automatiquement fusionnées.";
-
-"Roughness map"="Carte de rugosité";
-"The roughness map is more precise than single value of Roughness."="La carte de rugosité est plus précise que la valeur unique Rugosité.";
 
 "Normal map"="Carte de normales";
 "The normal map gives an illusion of relief to the material."="La carte de normales donne une illusion de relief au matériau.";
@@ -92,9 +91,13 @@
 "The scalar multiplier applied to each vector of the normal map."="Le multiplicateur scalaire appliqué à chaque vecteur de la carte de normales.";
 "Adjust strength of relief with this value."="Ajustez la force du relief avec cette valeur.";
 
-"Height map"="Champ de hauteur";
-"The height map gives a great illusion of relief to the material."="Le champ de hauteur donne une grande illusion de relief au matériau.";
-"To use in parallel with a normal map."="A utiliser en parallèle avec une carte de normales.";
+"Roughness"="Rugosité";
+"A value of 0 means the material is completely smooth."="Une valeur de 0 signifie que le matériau est complètement lisse.";
+"A value of 1 means the material is completely rough."="Une valeur de 1 signifie que le matériau est complètement rugueux.";
+"When a roughness texture is specified, this value becomes a multiplier..."="Lorsqu'une texture de rugosité est spécifiée, cette valeur devient un multiplicateur...";
+
+"Roughness map"="Carte de rugosité";
+"The roughness map is more precise than single value of Roughness."="La carte de rugosité est plus précise que la valeur unique Rugosité.";
 
 "The image format of this map must be JPEG or PNG."="Le format d'image de cette carte doit être JPEG ou PNG.";
 "A texture image is defined?"="Une image de texture est définie ?";

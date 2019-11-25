@@ -195,19 +195,24 @@ module PBR
 
         add_mr_tex(gltf_mat, mat.get_attribute(:pbr, :metalRoughTextureURI))
 
-        add_normal_tex(gltf_mat, mat.get_attribute(:pbr, :normalTextureURI),
-          mat.get_attribute(:pbr, :normalTextureScale))
+        add_normal_tex(gltf_mat,
+          mat.get_attribute(:pbr, :normalTextureURI),
+          mat.get_attribute(:pbr, :normalTextureScale)
+        )
+
+        add_ao_tex(gltf_mat,
+          mat.get_attribute(:pbr, :ambientOcclusionTextureURI)
+        )
 
         update_alpha_mode(gltf_mat, mat.get_attribute(:pbr, :alphaMode))
 
-        add_po_tex(
-          gltf_mat,
+        add_extra_po_tex(gltf_mat,
           mat.get_attribute(:pbr, :parallaxOcclusionTextureURI)
         )
 
       end
 
-      add_lights
+      add_extra_lights
 
       # Tools that generated this glTF model. Useful for debugging.
       @gltf['asset']['generator'] += ", SketchUp PBR plugin v#{VERSION}"
@@ -249,7 +254,7 @@ module PBR
     #
     # @param [String, nil] metal_rough_tex_uri Metal-Rough texture URI or nil.
     #
-    # @return [void]
+    # @return [nil]
     private def add_mr_tex(gltf_mat, metal_rough_tex_uri)
 
       raise ArgumentError, 'Invalid glTF material.' unless gltf_mat.is_a?(Hash)
@@ -271,6 +276,8 @@ module PBR
 
       }
 
+      nil
+
     end
 
     # Adds a normal texture to a glTF material
@@ -282,7 +289,7 @@ module PBR
     # @param [String, nil] normal_tex_uri Normal texture URI or nil.
     # @param [String, Float, nil] normal_tex_scale Normal texture scale or nil.
     #
-    # @return [void]
+    # @return [nil]
     private def add_normal_tex(gltf_mat, normal_tex_uri, normal_tex_scale)
 
       raise ArgumentError, 'Invalid glTF material.' unless gltf_mat.is_a?(Hash)
@@ -305,6 +312,43 @@ module PBR
       # normal vector of the normal texture.
       gltf_mat['normalTexture']['scale'] = normal_tex_scale.to_f\
        unless normal_tex_scale.nil? || normal_tex_scale.to_f == 1.0
+
+      nil
+
+    end
+
+    # Adds an [ambient] occlusion texture to a glTF material
+    # only if URI is provided.
+    #
+    # @param [Hash] gltf_mat glTF material to texture on.
+    # @raise [ArgumentError]
+    #
+    # @param [String, nil] ao_tex_uri Ambient occlusion texture URI or nil.
+    #
+    # @return [nil]
+    private def add_ao_tex(gltf_mat, ao_tex_uri)
+
+      raise ArgumentError, 'Invalid glTF material.' unless gltf_mat.is_a?(Hash)
+
+      return if ao_tex_uri.nil?
+
+      # The [ambient] occlusion map texture.
+      gltf_mat['occlusionTexture'] = {
+
+        # The index of the texture.
+        index: add_texture(ao_tex_uri),
+
+        # The set index of texture's TEXCOORD
+        # property used for coordinate mapping.
+        texCoord: base_color_tex_coord(gltf_mat),
+
+        # A scalar multiplier controlling
+        # the amount of occlusion applied.
+        strength: 0.7
+
+      }
+
+      nil
 
     end
 
@@ -392,7 +436,7 @@ module PBR
     # @param [String, nil] par_occ_tex_uri Parallax occlusion tex. URI or nil.
     #
     # @return [nil]
-    private def add_po_tex(gltf_mat, par_occ_tex_uri)
+    private def add_extra_po_tex(gltf_mat, par_occ_tex_uri)
 
       raise ArgumentError, 'Invalid glTF material.' unless gltf_mat.is_a?(Hash)
 
@@ -410,7 +454,7 @@ module PBR
     # Adds extra lights. XXX This isn't in the spec.
     #
     # @return [nil]
-    private def add_lights
+    private def add_extra_lights
 
       lights = GlTFLights.new.lights
 
