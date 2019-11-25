@@ -38,13 +38,6 @@ module PBR
       
     end
 
-    # After a SketchUp model has been saved to disk.
-    def onPostSaveModel(_model)
-      
-      Viewport.open
-
-    end
-
     # rubocop: enable Naming/MethodName
 
   end

@@ -20,40 +20,34 @@
 raise 'The PBR plugin requires at least Ruby 2.2.0 or SketchUp 2017.'\
   unless RUBY_VERSION.to_f >= 2.2 # SketchUp 2017 includes Ruby 2.2.4.
 
-require 'pbr/updates'
 require 'sketchup'
-require 'pbr/app_observer'
-require 'pbr/model_observer'
-require 'pbr/menu'
-require 'pbr/toolbar'
+require 'pbr/light'
 require 'pbr/viewport'
 
 # PBR plugin namespace.
 module PBR
 
-  Updates.new.check
+  # Observes SketchUp entity events and reacts.
+  class EntityObserver < Sketchup::EntityObserver
 
-  Sketchup.add_observer(AppObserver.new)
-  Sketchup.active_model.add_observer(ModelObserver.new)
+    # rubocop: disable Naming/MethodName
 
-  # Material Editor is not open yet.
-  SESSION[:mat_editor_open?] = false
+    # When a SketchUp entity was erased.
+    def onEraseEntity(entity)
 
-  # Storage for Chromium process ID.
-  SESSION[:viewport_pid] = 0
+      # If it was a PBR artificial light:
+      if SESSION[:lights_objects_ids].include?(entity.object_id.to_i)
 
-  # Memory of artificial lights IDs.
-  SESSION[:lights_objects_ids] = []
+        Viewport.update_model_and_reopen
 
-  # Plug PBR menu into SketchUp UI.
-  Menu.new(
-    UI.menu('Plugins') # parent_menu
-  )
+        SESSION[:lights_objects_ids].delete(entity.object_id.to_i)
 
-  Toolbar.new.prepare.show
+      end
 
-  Viewport.open if Viewport.translate
+    end
 
-  # Load complete.
+    # rubocop: enable Naming/MethodName
+
+  end
 
 end

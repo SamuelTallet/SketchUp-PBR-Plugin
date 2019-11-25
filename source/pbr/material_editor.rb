@@ -22,6 +22,7 @@ raise 'The PBR plugin requires at least Ruby 2.2.0 or SketchUp 2017.'\
 
 require 'sketchup'
 require 'pbr/html_dialogs'
+require 'pbr/viewport'
 
 # PBR plugin namespace.
 module PBR
@@ -159,8 +160,7 @@ module PBR
 
         @dialog.close
 
-        # Update and refresh PBR Viewport model.
-        Viewport.reopen if Viewport.update_model
+        Viewport.update_model_and_reopen
 
       end
 

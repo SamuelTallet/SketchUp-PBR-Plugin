@@ -145,10 +145,10 @@ module PBR
 
     end
 
-    # Reopens Viewport if model updated.
+    # Updates Viewport glTF model then reopens Viewport?
     #
     # @return [nil]
-    def self.reopen_if_model_updated
+    def self.update_model_and_reopen
 
       return Menu.propose_help(
         TRANSLATE['glTF export failed. Do you want help?']
