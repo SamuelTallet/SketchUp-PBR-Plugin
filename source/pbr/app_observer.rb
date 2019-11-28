@@ -22,6 +22,7 @@ raise 'The PBR plugin requires at least Ruby 2.2.0 or SketchUp 2017.'\
 
 require 'sketchup'
 require 'pbr/viewport'
+require 'pbr/model_observer'
 
 # PBR plugin namespace.
 module PBR
@@ -32,16 +33,24 @@ module PBR
     # rubocop: disable Naming/MethodName
 
     # When SketchUp user creates a new, empty model.
-    def onNewModel(_model)
+    def onNewModel(model)
 
-      Viewport.reopen if Viewport.update_model
+      Viewport.close
+
+      SESSION[:track_all_changes?] = false
+
+      model.add_observer(ModelObserver.new)
 
     end
 
     # When SketchUp user opens an existing model:
-    def onOpenModel(_model)
+    def onOpenModel(model)
 
-      Viewport.reopen if Viewport.update_model
+      Viewport.close
+
+      SESSION[:track_all_changes?] = false
+
+      model.add_observer(ModelObserver.new)
 
     end
 

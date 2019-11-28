@@ -93,6 +93,13 @@ module PBR
 
       begin
 
+        SESSION[:export_in_progress?] = true
+
+        Sketchup.active_model.start_operation(
+          TRANSLATE['Export geometry and textures to glTF format'],
+          true # disable_ui
+        )
+
         Sketchup.status_text = TRANSLATE[
           'PBR: Exporting geometry and textures... Please wait.'
         ]
@@ -101,11 +108,19 @@ module PBR
 
         complete
 
+        Sketchup.active_model.commit_operation
+
+        SESSION[:export_in_progress?] = false
+
         Sketchup.status_text = nil
 
       rescue StandardError => _exception
 
         @valid = false
+
+        Sketchup.active_model.abort_operation
+
+        SESSION[:export_in_progress?] = false
 
         Sketchup.status_text = nil
 

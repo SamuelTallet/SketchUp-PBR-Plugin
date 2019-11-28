@@ -30,18 +30,11 @@ module PBR
 
       # Traverses active model tree to fix faces having "nil material" issue.
       def initialize
-        
-        Sketchup.active_model.start_operation(
-          TRANSLATE['Propagate Materials to Whole Model'],
-          true # disable_ui
-        )
 
         create_fallback_material
 
         # Start model tree traversal...
         traverse(Sketchup.active_model)
-
-        Sketchup.active_model.commit_operation
 
       end
 

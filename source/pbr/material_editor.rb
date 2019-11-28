@@ -40,7 +40,7 @@ module PBR
         return false
       end
 
-      if SESSION[:mat_editor_open?]
+      if SESSION[:material_editor_open?]
         UI.messagebox(TRANSLATE['PBR Material Editor is already open.'])
         return false
       end
@@ -83,7 +83,7 @@ module PBR
       @dialog.show
 
       # Material Editor is open.
-      SESSION[:mat_editor_open?] = true
+      SESSION[:material_editor_open?] = true
 
     end
 
@@ -160,11 +160,11 @@ module PBR
 
         @dialog.close
 
-        Viewport.update_model_and_reopen
+        Viewport.update_model
 
       end
 
-      @dialog.set_on_closed { SESSION[:mat_editor_open?] = false }
+      @dialog.set_on_closed { SESSION[:material_editor_open?] = false }
 
       @dialog.center
 

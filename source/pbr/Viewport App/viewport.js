@@ -101,6 +101,13 @@ PBR.Viewport.naturalLights = {};
 PBR.Viewport.artificialLights = [];
 
 /**
+ * Viewport glTF model version.
+ *
+ * @type {number}
+ */
+PBR.Viewport.modelVersion = 0;
+
+/**
  * Helper function to convert HTML colors.
  *
  * @see https://css-tricks.com/converting-color-spaces-in-javascript/
@@ -375,8 +382,65 @@ PBR.Viewport.listenToCameraReset = function() {
 
 };
 
+/**
+ * Set model version from URL parameter?
+ */
+PBR.Viewport.setModelVersion = function() {
+
+	PBR.Viewport.modelVersion = parseInt(document.location.search.replace(/\D/g, ''));
+
+	if ( isNaN(PBR.Viewport.modelVersion) ) {
+
+		PBR.Viewport.modelVersion = parseInt(Date.now() / 1000);
+
+	}
+
+};
+
+/**
+ * Refresh Viewport if a newer version of model is available.
+ */
+PBR.Viewport.checkForModelUpdates = function() {
+
+	var request = new XMLHttpRequest();
+
+	var lastModelVersion = 0;
+
+	request.addEventListener('load', function(event) {
+
+		lastModelVersion = parseInt(event.target.response);
+
+		if ( PBR.Viewport.modelVersion < lastModelVersion ) {
+
+			// Refresh Viewport.
+			document.location.search = 'model_ver=' + lastModelVersion;
+
+		}
+
+	});
+
+	request.open('GET', 'assets/sketchup-model.ver');
+
+	request.send();
+
+};
+
+/**
+ * Set Viewport "Check Model Updates" interval.
+ */
+PBR.Viewport.setCmuInterval = function() {
+
+	window.setInterval(
+		PBR.Viewport.checkForModelUpdates,
+		1000
+	);
+
+};
+
 // When document is ready:
 document.addEventListener('DOMContentLoaded', function() {
+
+	PBR.Viewport.setModelVersion();
 
 	PBR.Viewport.translateStrings();
 
@@ -385,6 +449,8 @@ document.addEventListener('DOMContentLoaded', function() {
 	PBR.Viewport.setScpInterval();
 
 	PBR.Viewport.listenToCameraReset();
+
+	PBR.Viewport.setCmuInterval();
 
 });
 

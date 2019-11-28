@@ -38,6 +38,20 @@ module PBR
       
     end
 
+    # When a SketchUp transaction is completed.
+    def onTransactionCommit(_model)
+
+      if SESSION[:track_all_changes?] && !SESSION[:export_in_progress?]\
+        && (SESSION[:last_viewport_update] + 3) < Time.now.to_i
+
+        SESSION[:last_viewport_update] = Time.now.to_i
+
+        Viewport.update_model
+
+      end
+
+    end
+
     # rubocop: enable Naming/MethodName
 
   end

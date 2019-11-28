@@ -22,7 +22,6 @@ raise 'The PBR plugin requires at least Ruby 2.2.0 or SketchUp 2017.'\
 
 require 'sketchup'
 require 'pbr/shapes'
-require 'pbr/entity_observer'
 
 # PBR plugin namespace.
 module PBR
@@ -41,10 +40,6 @@ module PBR
       @light = Shapes.create_sphere('30cm', 10, 8, LAYER_NAME)
 
       @light.name = 'PBR Light'
-
-      SESSION[:lights_objects_ids].push(@light.object_id.to_i)
-
-      @light.add_observer(EntityObserver.new)
 
     end
 

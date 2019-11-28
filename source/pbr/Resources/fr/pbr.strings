@@ -34,7 +34,8 @@
 "HDR Image"="Image HDR";
 "Edit Materials..."="Modifier les matériaux...";
 "Add an Artificial Light"="Ajouter une lumière artificielle";
-"Reopen Viewport"="Rouvrir la fenêtre de visualisation";
+"Render scene in Viewport"="Rendre la scène dans la fenêtre de visu.";
+"Track all Changes"="Suivre tous les changements";
 "Export As 3D Object..."="Exporter en tant qu'objet 3D...";
 "Export As glTF"="Exporter en tant que fichier glTF";
 "Model well exported here:"="Modèle bien exporté ici :";
@@ -52,7 +53,7 @@
 "PBR"="RBP";
 "Define if a material is rough, is a metal, etc."="Définissez si un matériau est rugueux, est un métal, etc.";
 "Move it in space. Change its color."="Déplacez-la dans l'espace. Changez sa couleur.";
-"Render scene in real-time."="Rendez la scène en temps réel.";
+"This will reopen Viewport."="Ceci réouvrira la fenêtre de visualisation.";
 "Save 3D model as .gltf."="Enregistrez le modèle 3D en tant que .gltf.";
 
 //
@@ -117,6 +118,7 @@
 //
 
 "Untitled"="Sans titre";
+"Export geometry and textures to glTF format"="Export de la géométrie et des textures au format glTF";
 "PBR: Exporting geometry and textures... Please wait."="RBP : Export de la géométrie et des textures en cours... Veuillez patienter.";
 
 //

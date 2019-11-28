@@ -37,22 +37,26 @@ module PBR
   Sketchup.active_model.add_observer(ModelObserver.new)
 
   # Material Editor is not open yet.
-  SESSION[:mat_editor_open?] = false
+  SESSION[:material_editor_open?] = false
 
   # Storage for Chromium process ID.
-  SESSION[:viewport_pid] = 0
+  SESSION[:viewport_process_id] = 0
 
-  # Memory of artificial lights IDs.
-  SESSION[:lights_objects_ids] = []
+  # Changes are not tracked by default.
+  SESSION[:track_all_changes?] = false
 
-  # Plug PBR menu into SketchUp UI.
+  # Indicates if exporting to glTF...
+  SESSION[:export_in_progress?] = false
+
+  # Memory of last Viewport update.
+  SESSION[:last_viewport_update] = 0
+
+  # Plugs PBR menu into SketchUp UI.
   Menu.new(
     UI.menu('Plugins') # parent_menu
   )
 
   Toolbar.new.prepare.show
-
-  Viewport.open if Viewport.translate
 
   # Load complete.
 

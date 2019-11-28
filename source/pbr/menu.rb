@@ -70,6 +70,8 @@ module PBR
 
       add_reopen_viewport_item
 
+      add_track_changes_item
+
       add_export_as_gltf_item
 
       add_donate_to_author_item
@@ -122,13 +124,38 @@ module PBR
     # @return [nil]
     private def add_reopen_viewport_item
 
-      @menu.add_item(TRANSLATE['Reopen Viewport']) do
+      @menu.add_item(TRANSLATE['Render scene in Viewport']) do
 
         return PBR.open_required_plugin_page unless PBR.required_plugin_exist?
 
         Viewport.update_model_and_reopen
 
       end
+
+      nil
+
+    end
+
+    # Adds "Track all Changes" menu item.
+    #
+    # @return [nil]
+    private def add_track_changes_item
+
+      menu_item = @menu.add_item(TRANSLATE['Track all Changes']) do
+
+        SESSION[:track_all_changes?] = !SESSION[:track_all_changes?]
+
+      end
+
+      @menu.set_validation_proc(menu_item) {
+
+        if SESSION[:track_all_changes?]
+          MF_CHECKED
+        else
+          MF_UNCHECKED
+        end
+
+      }
 
       nil
 

@@ -71,6 +71,13 @@ module PBR
       # Overwrite glTF model. So, Viewport will display an up-to-date model.
       File.write(gltf_path, gltf.json) if gltf.valid?
 
+      ver_path = File.join(ASSETS_DIR, 'sketchup-model.ver')
+
+      # Overwrite model version, same reason.
+      File.write(ver_path, Time.now.to_i.to_s)
+
+      translate
+
       gltf.valid?
 
     end
@@ -103,7 +110,7 @@ module PBR
 
       Chromium.make_exec
 
-      SESSION[:viewport_pid] = Process.spawn(
+      SESSION[:viewport_process_id] = Process.spawn(
 
         Chromium.executable,
 
@@ -125,8 +132,9 @@ module PBR
     # @return [Boolean] true on success...
     def self.close
 
-      Process.kill('KILL', SESSION[:viewport_pid])
+      Process.kill('KILL', SESSION[:viewport_process_id])
       Chromium.simulate_normal_exit
+
       true
       
       rescue StandardError => _exception

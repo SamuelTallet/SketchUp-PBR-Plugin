@@ -112,8 +112,8 @@ module PBR
       command.small_icon = File.join(ICONS_PATH, 'rv'.concat(icon_extension))
       command.large_icon = File.join(ICONS_PATH, 'rv'.concat(icon_extension))
 
-      command.tooltip = TRANSLATE['Reopen Viewport']
-      command.status_bar_text = TRANSLATE['Render scene in real-time.']
+      command.tooltip = TRANSLATE['Render scene in Viewport']
+      command.status_bar_text = TRANSLATE['This will reopen Viewport.']
 
       @toolbar.add_item(command)
 
