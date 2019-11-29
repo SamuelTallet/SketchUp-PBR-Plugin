@@ -31,7 +31,7 @@ In PBR Viewport
 Issue | Workaround
 :--- | :---
 Texture is fully opaque whereas I set opacity to *n* %. | With your preferred photo editing software, set opacity **directly** to texture image. Use PNG as exchange format to preserve opacity. Reimport texture image in SketchUp.
-Texture is incorrect. | Reverse (back) face where texture is applied. Paint texture on (front) face.
+Texture is incorrect. | Reverse back face where texture is applied. Paint texture on front face.<br> If problem persists: triangulate **then** map entity with [SketchUV](https://extensions.sketchup.com/content/sketchuv) plugin.
 
 ### How to control scene camera?
 
