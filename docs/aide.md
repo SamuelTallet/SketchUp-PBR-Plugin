@@ -31,7 +31,7 @@ Dans la fenêtre de visualisation RBP
 Problème | Solution de contournement
 :--- | :---
 La texture est complètement opaque alors que j'ai réglé l'opacité sur *n* %. | Avec votre logiciel de retouche photo préféré, réglez l'opacité **directement** sur l'image de la texture. Utilisez le PNG comme format d'échange pour préserver l'opacité. Réimportez l'image de la texture dans SketchUp.
-La texture est incorrecte. | Retournez la face (arrière) où la texture est appliquée. Peignez la texture sur la face (avant).
+La texture est incorrecte. | Retournez la face arrière où la texture est appliquée. Peignez la texture sur la face avant.<br> Si le problème persiste : triangulez **puis** mappez l'entité avec le plugin [SketchUV](https://extensions.sketchup.com/fr/content/sketchuv).
 
 ### Comment contrôler la caméra de la scène ?
 
