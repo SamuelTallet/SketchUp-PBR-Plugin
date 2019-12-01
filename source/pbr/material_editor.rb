@@ -115,12 +115,14 @@ module PBR
         # Note: Paths below are relative to `HTMLDialogs::DIR`.
         document: 'material-editor.rhtml',
         scripts: [
-          'lib/popper.min.js',
-          'lib/tippy-bundle.iife.min.js',
+          'lib/drooltip.js',
           'lib/image-channel-packer.js',
           'material-editor.js'
         ],
-        styles: ['material-editor.css']
+        styles: [
+          'lib/drooltip.css',
+          'material-editor.css'
+        ]
 
       ))
 

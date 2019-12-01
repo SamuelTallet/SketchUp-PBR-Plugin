@@ -119,12 +119,12 @@ module PBR
       
     end
 
-    # Adds "Reopen Viewport" menu item.
+    # Adds "Render Scene in Viewport" menu item.
     #
     # @return [nil]
     private def add_reopen_viewport_item
 
-      @menu.add_item(TRANSLATE['Render scene in Viewport']) do
+      @menu.add_item(TRANSLATE['Render Scene in Viewport']) do
 
         return PBR.open_required_plugin_page unless PBR.required_plugin_exist?
 
@@ -161,12 +161,12 @@ module PBR
 
     end
 
-    # Adds "Export As 3D Object..." menu item.
+    # Adds "Export as 3D Object..." menu item.
     #
     # @return [void]
     private def add_export_as_gltf_item
 
-      @menu.add_item(TRANSLATE['Export As 3D Object...']) do
+      @menu.add_item(TRANSLATE['Export as 3D Object...']) do
 
         return PBR.open_required_plugin_page unless PBR.required_plugin_exist?
 

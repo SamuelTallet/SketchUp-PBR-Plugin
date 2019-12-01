@@ -288,7 +288,13 @@ document.addEventListener('DOMContentLoaded', _event => {
 	if ( typeof sketchup === 'object' ) {
 
 		PBR.pullMaterialsThenListen();
-		tippy('.tooltip');
+		
+		new Drooltip({
+			'element': '.tooltip',
+			'position': 'bottom',
+			'background': 'black',
+			'animation': 'fade'
+		});
 
 	} else {
 

@@ -60,7 +60,7 @@ module PBR
     # @return [nil]
     def self.export
 
-      user_path = UI.savepanel(TRANSLATE['Export As glTF'], nil, filename)
+      user_path = UI.savepanel(TRANSLATE['Export as glTF'], nil, filename)
 
       # Escape if user cancelled operation.
       return if user_path.nil?
@@ -123,6 +123,8 @@ module PBR
         SESSION[:export_in_progress?] = false
 
         Sketchup.status_text = nil
+
+        puts 'glTF export failed because: ' + _exception.to_s
 
       end
 

@@ -266,8 +266,8 @@ localforage.getItem('cameraPosition').then(function(cameraPosition) {
 
 						}
 
-						// Finally displays app canvas so loader animation disappears.
-						document.querySelector('#app canvas').style.display = 'block';
+						// Display application canvas so loader animation disappears.
+						document.querySelector('html').classList.add('ModelLoaded');
 
 				});
 

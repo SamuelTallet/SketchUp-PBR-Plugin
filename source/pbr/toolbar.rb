@@ -96,7 +96,7 @@ module PBR
 
     end
 
-    # Adds "Reopen Viewport" command.
+    # Adds "Render Scene in Viewport" command.
     #
     # @return [nil]
     private def add_reopen_viewport_command
@@ -112,7 +112,7 @@ module PBR
       command.small_icon = File.join(ICONS_PATH, 'rv'.concat(icon_extension))
       command.large_icon = File.join(ICONS_PATH, 'rv'.concat(icon_extension))
 
-      command.tooltip = TRANSLATE['Render scene in Viewport']
+      command.tooltip = TRANSLATE['Render Scene in Viewport']
       command.status_bar_text = TRANSLATE['This will reopen Viewport.']
 
       @toolbar.add_item(command)
@@ -121,7 +121,7 @@ module PBR
 
     end
 
-    # Adds "Export As 3D Object..." command.
+    # Adds "Export as 3D Object..." command.
     #
     # @return [nil]
     private def add_export_as_gltf_command
@@ -137,7 +137,7 @@ module PBR
       command.small_icon = File.join(ICONS_PATH, 'eag'.concat(icon_extension))
       command.large_icon = File.join(ICONS_PATH, 'eag'.concat(icon_extension))
 
-      command.tooltip = TRANSLATE['Export As 3D Object...']
+      command.tooltip = TRANSLATE['Export as 3D Object...']
       command.status_bar_text = TRANSLATE['Save 3D model as .gltf.']
 
       @toolbar.add_item(command)

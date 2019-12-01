@@ -34,16 +34,9 @@
 "HDR Image"="Image HDR";
 "Edit Materials..."="Modifier les matériaux...";
 "Add an Artificial Light"="Ajouter une lumière artificielle";
-"Render scene in Viewport"="Rendre la scène dans la fenêtre de visu.";
+"Render Scene in Viewport"="Rendre la scène dans la fenêtre de visu.";
 "Track all Changes"="Suivre tous les changements";
-"Export As 3D Object..."="Exporter en tant qu'objet 3D...";
-"Export As glTF"="Exporter en tant que fichier glTF";
-"Model well exported here:"="Modèle bien exporté ici :";
-
-"Propagate Materials to Whole Model"="Propager les matériaux à l'ensemble du modèle";
-
-"glTF export failed. Do you want help?"="L'export glTF a échoué. Voulez-vous de l'aide ?";
-
+"Export as 3D Object..."="Exporter en tant qu'objet 3D...";
 "Donate to Plugin Author"="Faire un don à l'auteur de l'extension";
 
 //
@@ -118,6 +111,9 @@
 //
 
 "Untitled"="Sans titre";
+"Export as glTF"="Exporter en tant que fichier glTF";
+"Model well exported here:"="Modèle bien exporté ici :";
+"glTF export failed. Do you want help?"="L'export glTF a échoué. Voulez-vous de l'aide ?";
 "Export geometry and textures to glTF format"="Export de la géométrie et des textures au format glTF";
 "PBR: Exporting geometry and textures... Please wait."="RBP : Export de la géométrie et des textures en cours... Veuillez patienter.";
 

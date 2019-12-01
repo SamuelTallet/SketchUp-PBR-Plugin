@@ -33,7 +33,7 @@ module PBR
 
         create_fallback_material
 
-        # Start model tree traversal...
+        # Starts model tree traversal...
         traverse(Sketchup.active_model)
 
       end
@@ -42,12 +42,18 @@ module PBR
       #
       # @note Don't confuse fallback material with default material.
       # Fallback material is not nil, while default material is nil.
+      #
+      # @return [nil]
       private def create_fallback_material
+
+      	@model = Sketchup.active_model
 
         @material_name = 'Fallback'
 
-        Sketchup.active_model.materials.add(@material_name).color = '#fff'\
-          if Sketchup.active_model.materials[@material_name].nil?
+        @model.materials.add(@material_name).color = '#fff'\
+          if @model.materials[@material_name].nil?
+
+        nil
 
       end
 
@@ -55,13 +61,13 @@ module PBR
       #
       # @param [Sketchup::Entity] entity
       #
-      # @return [void]
+      # @return [nil]
       private def traverse(entity)
 
         fix_face_material(entity)
 
-        # Take another model branch depending on entity type. Thanks Aerilius.
-        # See: https://github.com/Aerilius If you want to know who's Aerilius.
+        # Takes another model branch depending on entity type. Thanks Aerilius.
+        # See: https://github.com/Aerilius If you want to know who is Aerilius.
 
         if entity.is_a?(Sketchup::Group)\
          || entity.is_a?(Sketchup::ComponentInstance)
@@ -73,6 +79,8 @@ module PBR
           entity.entities.each { |sub_entity| traverse(sub_entity) }
 
         end
+
+        nil
       
       end
 
@@ -87,11 +95,25 @@ module PBR
         return unless entity.respond_to?(:material=)
 
         # If entity has no material at its level and is a face:
-        if entity.material.nil? && entity.is_a?(Sketchup::Face)
+        if (entity.material.nil? || !entity.respond_to?(:back_material))\
+          && entity.is_a?(Sketchup::Face)
 
           # 2. Apply directly to face last encountered reference material!
-          entity.material = Sketchup.active_model.materials[@material_name]
           
+          if entity.material.nil?
+          	entity.material = @model.materials[@material_name]
+          end
+
+          if !entity.respond_to?(:back_material)
+          	entity.back_material = @model.materials[@material_name]
+          end
+
+          # By the way, copies material from front face to back face.
+
+          if entity.material != entity.back_material
+            entity.back_material = entity.material
+          end
+
         # Else, if entity has a material at its level:
         elsif entity.material.is_a?(Sketchup::Material)
 
