@@ -162,7 +162,7 @@ module PBR
 
         @dialog.close
 
-        Viewport.update_model
+        Viewport.update
 
       end
 

@@ -128,7 +128,7 @@ module PBR
 
         return PBR.open_required_plugin_page unless PBR.required_plugin_exist?
 
-        Viewport.update_model_and_reopen
+        Viewport.update_and_reopen
 
       end
 

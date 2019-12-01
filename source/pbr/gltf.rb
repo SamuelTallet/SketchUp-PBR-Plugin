@@ -114,7 +114,7 @@ module PBR
 
         Sketchup.status_text = nil
 
-      rescue StandardError => _exception
+      rescue StandardError => exception
 
         @valid = false
 
@@ -124,7 +124,7 @@ module PBR
 
         Sketchup.status_text = nil
 
-        puts 'glTF export failed because: ' + _exception.to_s
+        puts 'glTF export failed because: ' + exception.to_s
 
       end
 

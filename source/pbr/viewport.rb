@@ -38,7 +38,22 @@ module PBR
     # Absolute path to assets directory.
     ASSETS_DIR = File.join(ROOT, 'assets').freeze
 
-    # Changes HDR Background.
+    # Updates Viewport data version.
+    #
+    # XXX This will refresh Viewport.
+    #
+    # @return [nil]
+    def self.update_data_version
+
+      data_ver_path = File.join(ASSETS_DIR, 'sketchup-data.version')
+
+      File.write(data_ver_path, Time.now.to_i.to_s)
+
+      nil
+
+    end
+
+    # Changes Viewport HDR background.
     #
     # @return [nil]
     def self.change_hdr_bg
@@ -51,55 +66,79 @@ module PBR
 
       FileUtils.cp(user_path, File.join(ASSETS_DIR, 'equirectangular.hdr'))
 
-      reopen
+      update_data_version
 
       nil
 
     end
 
-    # Updates Viewport glTF model asset.
-    #
-    # TODO: Incremential update.
-    #
-    # @return [Boolean] true on success...
-    def self.update_model
-
-      gltf_path = File.join(ASSETS_DIR, 'sketchup-model.gltf')
-
-      gltf = GlTF.new
-
-      # Overwrite glTF model. So, Viewport will display an up-to-date model.
-      File.write(gltf_path, gltf.json) if gltf.valid?
-
-      ver_path = File.join(ASSETS_DIR, 'sketchup-model.ver')
-
-      # Overwrite model version, same reason.
-      File.write(ver_path, Time.now.to_i.to_s)
-
-      translate
-
-      gltf.valid?
-
-    end
-
-    # Translates Viewport strings.
+    # Updates Viewport translation.
     #
     # @return [nil]
-    def self.translate
+    def self.update_translation
 
+      # Overwrite translation.
       locale_path = File.join(ASSETS_DIR, 'sketchup-locale.json')
 
       localization = {
+
         document_title: TRANSLATE['SketchUp PBR Viewport'],
         sunlight_intensity: TRANSLATE['Sunlight intensity'],
         help_link_href: GitHub.translated_help_url('PBR_VIEWPORT'),
         help_link_text: TRANSLATE['Help'],
         reset_cam_position: TRANSLATE['Reset camera position']
+
       }
 
       File.write(locale_path, 'sketchUpLocale = ' + localization.to_json + ';')
 
       nil
+
+    end
+
+    # Updates Viewport sun direction.
+    #
+    # @return [nil]
+    def self.update_sun_direction
+
+      sun_vec = Sketchup.active_model.shadow_info['SunDirection']
+
+      sun_dir = {
+
+        x: sun_vec.x,
+        y: sun_vec.y,
+        z: sun_vec.z
+
+      }
+
+      sun_dir_path = File.join(ASSETS_DIR, 'sketchup-sun-dir.json')
+
+      File.write(sun_dir_path, 'sketchUpSunDir = ' + sun_dir.to_json + ';')
+
+      nil
+
+    end
+
+    # Updates everything about Viewport: glTF model asset, data version, etc.
+    #
+    # TODO: Incremential update.
+    #
+    # @return [Boolean] true on success...
+    def self.update
+
+      gltf_path = File.join(ASSETS_DIR, 'sketchup-model.gltf')
+
+      gltf = GlTF.new
+
+      File.write(gltf_path, gltf.json) if gltf.valid?
+
+      update_sun_direction
+
+      update_translation
+
+      update_data_version
+
+      gltf.valid?
 
     end
 
@@ -153,16 +192,18 @@ module PBR
 
     end
 
-    # Updates Viewport glTF model then reopens Viewport?
+    # Updates Viewport then reopens it?
     #
     # @return [nil]
-    def self.update_model_and_reopen
+    def self.update_and_reopen
 
       return Menu.propose_help(
         TRANSLATE['glTF export failed. Do you want help?']
-      ) unless update_model
+      ) unless update
 
       reopen
+
+      nil
 
     end
 

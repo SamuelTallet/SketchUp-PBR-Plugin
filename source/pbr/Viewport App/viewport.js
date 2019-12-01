@@ -101,11 +101,11 @@ PBR.Viewport.naturalLights = {};
 PBR.Viewport.artificialLights = [];
 
 /**
- * Viewport glTF model version.
+ * Viewport data version timestamp.
  *
  * @type {number}
  */
-PBR.Viewport.modelVersion = 0;
+PBR.Viewport.dataVersion = 0;
 
 /**
  * Helper function to convert HTML colors.
@@ -198,7 +198,17 @@ localforage.getItem('cameraPosition').then(function(cameraPosition) {
 					PBR.Viewport.naturalLights.specular = ambientLight.specular;
 
 					// Create a directional light.
-					PBR.Viewport.naturalLights.direct = app.createDirectionalLight([-1, -1, -1], '#fff', 0.8);
+					PBR.Viewport.naturalLights.direct = app.createDirectionalLight(
+						[
+							// XXX XYZ to -X-ZY
+							sketchUpSunDir.x * -1,
+							sketchUpSunDir.z * -1,
+							sketchUpSunDir.y,
+						],
+						 '#fff',
+						 0.8
+					);
+
 					PBR.Viewport.naturalLights.direct.shadowResolution = 4096;
 
 					// Set HDR background image.
@@ -383,55 +393,55 @@ PBR.Viewport.listenToCameraReset = function() {
 };
 
 /**
- * Set model version from URL parameter?
+ * Set data version from URL parameter?
  */
-PBR.Viewport.setModelVersion = function() {
+PBR.Viewport.setDataVersion = function() {
 
-	PBR.Viewport.modelVersion = parseInt(document.location.search.replace(/\D/g, ''));
+	PBR.Viewport.dataVersion = parseInt(document.location.search.replace(/\D/g, ''));
 
-	if ( isNaN(PBR.Viewport.modelVersion) ) {
+	if ( isNaN(PBR.Viewport.dataVersion) ) {
 
-		PBR.Viewport.modelVersion = parseInt(Date.now() / 1000);
+		PBR.Viewport.dataVersion = parseInt(Date.now() / 1000);
 
 	}
 
 };
 
 /**
- * Refresh Viewport if a newer version of model is available.
+ * Refresh Viewport if a newer data version is available.
  */
-PBR.Viewport.checkForModelUpdates = function() {
+PBR.Viewport.checkForDataUpdates = function() {
 
 	var request = new XMLHttpRequest();
 
-	var lastModelVersion = 0;
+	var lastDataVersion = 0;
 
 	request.addEventListener('load', function(event) {
 
-		lastModelVersion = parseInt(event.target.response);
+		lastDataVersion = parseInt(event.target.response);
 
-		if ( PBR.Viewport.modelVersion < lastModelVersion ) {
+		if ( PBR.Viewport.dataVersion < lastDataVersion ) {
 
 			// Refresh Viewport.
-			document.location.search = 'model_ver=' + lastModelVersion;
+			document.location.search = 'last_data_ver=' + lastDataVersion;
 
 		}
 
 	});
 
-	request.open('GET', 'assets/sketchup-model.ver');
+	request.open('GET', 'assets/sketchup-data.version');
 
 	request.send();
 
 };
 
 /**
- * Set Viewport "Check Model Updates" interval.
+ * Set Viewport "Check Data Updates" interval.
  */
-PBR.Viewport.setCmuInterval = function() {
+PBR.Viewport.setCduInterval = function() {
 
 	window.setInterval(
-		PBR.Viewport.checkForModelUpdates,
+		PBR.Viewport.checkForDataUpdates,
 		1000
 	);
 
@@ -440,7 +450,7 @@ PBR.Viewport.setCmuInterval = function() {
 // When document is ready:
 document.addEventListener('DOMContentLoaded', function() {
 
-	PBR.Viewport.setModelVersion();
+	PBR.Viewport.setDataVersion();
 
 	PBR.Viewport.translateStrings();
 
@@ -450,7 +460,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 	PBR.Viewport.listenToCameraReset();
 
-	PBR.Viewport.setCmuInterval();
+	PBR.Viewport.setCduInterval();
 
 });
 

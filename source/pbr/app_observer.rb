@@ -23,6 +23,7 @@ raise 'The PBR plugin requires at least Ruby 2.2.0 or SketchUp 2017.'\
 require 'sketchup'
 require 'pbr/viewport'
 require 'pbr/model_observer'
+require 'pbr/sun_observer'
 
 # PBR plugin namespace.
 module PBR
@@ -41,6 +42,8 @@ module PBR
 
       model.add_observer(ModelObserver.new)
 
+      model.shadow_info.add_observer(SunObserver.new)
+
     end
 
     # When SketchUp user opens an existing model:
@@ -51,6 +54,8 @@ module PBR
       SESSION[:track_all_changes?] = false
 
       model.add_observer(ModelObserver.new)
+
+      model.shadow_info.add_observer(SunObserver.new)
 
     end
 

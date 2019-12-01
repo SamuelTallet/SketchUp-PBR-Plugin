@@ -46,7 +46,7 @@ module PBR
 
         SESSION[:last_viewport_update] = Time.now.to_i
 
-        Viewport.update_model
+        Viewport.update
 
       end
 

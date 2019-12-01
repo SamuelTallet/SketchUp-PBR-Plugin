@@ -20,46 +20,35 @@
 raise 'The PBR plugin requires at least Ruby 2.2.0 or SketchUp 2017.'\
   unless RUBY_VERSION.to_f >= 2.2 # SketchUp 2017 includes Ruby 2.2.4.
 
-require 'pbr/updates'
 require 'sketchup'
-require 'pbr/app_observer'
-require 'pbr/model_observer'
-require 'pbr/sun_observer'
-require 'pbr/menu'
-require 'pbr/toolbar'
 require 'pbr/viewport'
 
 # PBR plugin namespace.
 module PBR
 
-  Updates.new.check
+  # Observes SketchUp sun events and reacts.
+  class SunObserver < Sketchup::ShadowInfoObserver
 
-  Sketchup.add_observer(AppObserver.new)
-  Sketchup.active_model.add_observer(ModelObserver.new)
-  Sketchup.active_model.shadow_info.add_observer(SunObserver.new)
+    # rubocop: disable Naming/MethodName
 
-  # Material Editor is not open yet.
-  SESSION[:material_editor_open?] = false
+    # When user changes shadow settings:
+    def onShadowInfoChanged(_shadow_info, type)
 
-  # Storage for Chromium process ID.
-  SESSION[:viewport_process_id] = 0
+      # Escape if it's not about "Time/Date sliders".
+      return unless type.zero?
 
-  # Changes are not tracked by default.
-  SESSION[:track_all_changes?] = false
+      if SESSION[:track_all_changes?]
 
-  # Indicates if exporting to glTF...
-  SESSION[:export_in_progress?] = false
+        Viewport.update_sun_direction
+      
+        Viewport.update_data_version
 
-  # Memory of last Viewport update.
-  SESSION[:last_viewport_update] = 0
+      end
 
-  # Plugs PBR menu into SketchUp UI.
-  Menu.new(
-    UI.menu('Plugins') # parent_menu
-  )
+    end
 
-  Toolbar.new.prepare.show
+    # rubocop: enable Naming/MethodName
 
-  # Load complete.
+  end
 
 end
