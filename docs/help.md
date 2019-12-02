@@ -13,7 +13,7 @@ glTF export failed. | Be sure **all** texture images are in JPEG or PNG format. 
 
 ### How to add a light to model?
 
-1. Click on "Add an Artificial Light" in PBR Toolbar or PBR Menu.
+1. Click on "Add an Artificial Light" in PBR Toolbar or Menu.
 2. Sphere created is your light. Move it. Paint it with a color.
 3. Reopen PBR Viewport and voilà!
 
