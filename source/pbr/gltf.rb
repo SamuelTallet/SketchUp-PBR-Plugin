@@ -97,7 +97,7 @@ module PBR
 
         Sketchup.active_model.start_operation(
           TRANSLATE['Export geometry and textures to glTF format'],
-          true # disable_ui
+          false # disable_ui
         )
 
         Sketchup.status_text = TRANSLATE[
