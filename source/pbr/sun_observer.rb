@@ -34,12 +34,12 @@ module PBR
     # When user changes shadow settings:
     def onShadowInfoChanged(_shadow_info, type)
 
-      # Escape if it's not about "Time/Date sliders".
-      return unless type.zero?
+      # Escape if it's not about "Time/Date/Light/Dark sliders".
+      return unless type == 0 || type == 2
 
       if SESSION[:track_all_changes?]
 
-        Viewport.update_sun_direction
+        Viewport.update_sunlight
       
         Viewport.update_data_version
 

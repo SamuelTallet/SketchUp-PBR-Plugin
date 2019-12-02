@@ -157,7 +157,8 @@ localforage.getItem('cameraPosition').then(function(cameraPosition) {
 
 			// Instantiate an adv. renderer.
 			this._advancedRenderer = new ClayAdvancedRenderer(
-				app.renderer, app.scene, app.timeline, PBR.Viewport.cfg.advancedGraphics
+				app.renderer, app.scene, app.timeline,
+				PBR.Viewport.cfg.advancedGraphics
 			);
 
 			// Create a perspective camera.
@@ -191,8 +192,13 @@ localforage.getItem('cameraPosition').then(function(cameraPosition) {
 
 			// Create an cubemap ambient light and an spherical harmonic ambient
 			// light for specular and diffuse lighting in PBR rendering.
-			return app.createAmbientCubemapLight('assets/equirectangular.hdr', 0.8, 0.8)
-				.then(function (ambientLight){
+			return app.createAmbientCubemapLight(
+
+					'assets/equirectangular.hdr',
+					sketchUpSunlight.intensity,
+					sketchUpSunlight.intensity
+
+				).then(function(ambientLight) {
 
 					PBR.Viewport.naturalLights.diffuse = ambientLight.diffuse;
 					PBR.Viewport.naturalLights.specular = ambientLight.specular;
@@ -201,25 +207,31 @@ localforage.getItem('cameraPosition').then(function(cameraPosition) {
 					PBR.Viewport.naturalLights.direct = app.createDirectionalLight(
 						[
 							// XXX XYZ to -X-ZY
-							sketchUpSunDir.x * -1,
-							sketchUpSunDir.z * -1,
-							sketchUpSunDir.y,
+							sketchUpSunlight.direction.x * -1,
+							sketchUpSunlight.direction.z * -1,
+							sketchUpSunlight.direction.y,
 						],
-						 '#fff',
-						 0.8
+						'#fff',
+						sketchUpSunlight.intensity
 					);
+
+					document.querySelector('#sunlightIntensity .slider').value = sketchUpSunlight.intensity;
 
 					PBR.Viewport.naturalLights.direct.shadowResolution = 4096;
 
 					// Set HDR background image.
 					new clay.plugin.Skybox({
+
 						scene: app.scene,
 						environmentMap: ambientLight.environmentMap
+
 					});
 
 					// Load a glTF format model.
 					app.loadModel('assets/sketchup-model.gltf', {
+
 						textureConvertToPOT: true
+
 					}).then(function (model) {
 
 						if ( model.json.extras && model.json.extras.lights ) {
@@ -262,14 +274,18 @@ localforage.getItem('cameraPosition').then(function(cameraPosition) {
 							if ( glTFMaterial.extras && glTFMaterial.extras.parallaxOcclusionTextureURI ) {
 
 								app.loadTexture(glTFMaterial.extras.parallaxOcclusionTextureURI, {
+
 									convertToPOT: true,
 									anisotropic: 16,
 									flipY: false
-								}).then(function (parallaxOcclusionTexture) {
+
+								}).then(function(parallaxOcclusionTexture) {
+
 									clayMaterial.set('parallaxOcclusionMap', parallaxOcclusionTexture);
 									clayMaterial.set('parallaxOcclusionScale', 0.05);
 									clayMaterial.set('parallaxMinLayers', 50);
 									clayMaterial.set('parallaxMaxLayers', 50);
+									
 								});
 
 							}

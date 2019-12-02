@@ -96,24 +96,32 @@ module PBR
 
     end
 
-    # Updates Viewport sun direction.
+    # Updates Viewport sunlight.
     #
     # @return [nil]
-    def self.update_sun_direction
+    def self.update_sunlight
 
-      sun_vec = Sketchup.active_model.shadow_info['SunDirection']
+      sun_direction = Sketchup.active_model.shadow_info['SunDirection']
 
-      sun_dir = {
+      sun_intensity = Sketchup.active_model.shadow_info['Light'].to_f / 100
 
-        x: sun_vec.x,
-        y: sun_vec.y,
-        z: sun_vec.z
+      sunlight = {
+
+        direction: {
+
+          x: sun_direction.x,
+          y: sun_direction.y,
+          z: sun_direction.z
+
+        },
+
+        intensity: sun_intensity
 
       }
 
-      sun_dir_path = File.join(ASSETS_DIR, 'sketchup-sun-dir.json')
+      sunlight_path = File.join(ASSETS_DIR, 'sketchup-sunlight.json')
 
-      File.write(sun_dir_path, 'sketchUpSunDir = ' + sun_dir.to_json + ';')
+      File.write(sunlight_path, 'sketchUpSunlight = ' + sunlight.to_json + ';')
 
       nil
 
@@ -132,7 +140,7 @@ module PBR
 
       File.write(gltf_path, gltf.json) if gltf.valid?
 
-      update_sun_direction
+      update_sunlight
 
       update_translation
 
