@@ -1,7 +1,7 @@
 <a href="https://github.com/SamuelTS/SketchUp-PBR-Plugin/blob/master/docs/LISEZMOI.md">Version française <img height="16" width="16" src="https://emojipedia-us.s3.amazonaws.com/thumbs/60/google/119/flag-for-france_1f1eb-1f1f7.png"></a>
 
-Open-source PBR extension for SketchUp
-======================================
+Free PBR extension for SketchUp
+===============================
 
 💅 Add reflections, reliefs and lights to your SketchUp models. 🏃‍♀️ Render in real-time. ✈️ Export to 2D or 3D.
 
