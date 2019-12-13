@@ -1,5 +1,5 @@
-Extension RBP à code source ouvert pour SketchUp
-================================================
+Extension RBP gratuite pour SketchUp
+====================================
 
 💅 Ajoutez des reflets, reliefs et lumières à vos modèles SketchUp. 🏃‍♀️ Obtenez un rendu en temps réel. ✈️ Exportez en 2D/3D.
 
