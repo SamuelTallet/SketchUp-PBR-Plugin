@@ -1,5 +1,5 @@
 # Physically-Based Rendering extension for SketchUp 2017 or newer.
-# Copyright: © 2019 Samuel Tallet <samuel.tallet arobase gmail.com>
+# Copyright: © 2020 Samuel Tallet <samuel.tallet arobase gmail.com>
 # 
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -26,7 +26,7 @@ require 'extensions'
 # PBR plugin namespace.
 module PBR
 
-  VERSION = '1.5.8'.freeze
+  VERSION = '1.5.9'.freeze
 
   # Load translation if it's available for current locale.
   TRANSLATE = LanguageHandler.new('pbr.strings')
@@ -45,7 +45,7 @@ module PBR
 
   extension.version     = VERSION
   extension.creator     = 'Samuel Tallet'
-  extension.copyright   = "© 2019 #{extension.creator}"
+  extension.copyright   = "© 2020 #{extension.creator}"
 
   features = [
     TRANSLATE['Add reflects, reliefs and lights to your SketchUp models.'],
@@ -79,7 +79,7 @@ module PBR
 
     UI.messagebox(TRANSLATE['Please install required plugin: glTF Export.'])
 
-    UI.openURL('https://extensions.sketchup.com/content/gltf-exporter')
+    UI.openURL('http://extensions.sketchup.com/en/content/gltf-exporter')
 
   end
 
