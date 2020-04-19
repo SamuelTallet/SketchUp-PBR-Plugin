@@ -48,9 +48,9 @@ A [help document](https://github.com/SamuelTS/SketchUp-PBR-Plugin/blob/master/do
 Thanks
 ------
 
-PBR plugin project would not have succeeded without: [SketchUp](https://www.sketchup.com), [glTF](https://www.khronos.org/gltf/), [glTF Exporter](https://extensions.sketchup.com/content/gltf-exporter), [Chromium](https://www.chromium.org/) and [ClayGL](http://claygl.xyz/).
+PBR plugin project would not have succeeded without: [SketchUp](https://www.sketchup.com), [glTF](https://www.khronos.org/gltf/), [glTF Exporter](http://extensions.sketchup.com/en/content/gltf-exporter), [Chromium](https://www.chromium.org/) and [ClayGL](http://claygl.xyz/).
 
 Copyright
 ---------
 
-© 2019 Samuel Tallet
+© 2020 Samuel Tallet
