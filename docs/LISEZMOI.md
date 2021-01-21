@@ -19,13 +19,15 @@ Captures d'écran
 
 ![Interface de modif. des matériaux RBP](https://github.com/SamuelTS/SketchUp-PBR-Plugin/raw/master/docs/screenshots/pbr-material-editor-in-french.png)
 
-Installation
-------------
+Documentation
+-------------
+
+### Comment installer ce plugin ?
 
 1. S'assurer d'avoir SketchUp 2017 ou une version plus récente installée.
 2. Télécharger le plugin requis : [glTF Export](https://extensions.sketchup.com/fr/content/gltf-exporter).
 3. Télécharger le dernier plugin RBP depuis le [SketchUcation PluginStore](https://sketchucation.com/pluginstore?pln=pbr).
-4. Installer les deux plugins en suivant ce [guide](https://help.sketchup.com/article/3000263).
+4. Installer les deux plugins en suivant ce [guide](https://www.youtube.com/watch?v=tyM5f81eRno).
 
 Maintenant, vous devriez avoir dans SketchUp un menu "Rendu basé sur la physique" et une barre d'outils "RBP". 👍
 
@@ -38,8 +40,7 @@ Optionnel. Installer la bibliothèque de matériaux PBR :
 
 Profitez de cents matériaux PBR prêts à l'emploi dans SketchUp ! 😊
 
-Documentation
--------------
+### J'ai besoin de plus d'aide.
 
 Un [document d'aide](https://github.com/SamuelTS/SketchUp-PBR-Plugin/blob/master/docs/aide.md) est disponible.
 
@@ -51,4 +52,4 @@ Le projet du plugin RBP n'aurait pas abouti sans : [SketchUp](https://www.sketch
 Droits d'auteur
 ---------------
 
-© 2019 Samuel Tallet
+© 2021 Samuel Tallet
