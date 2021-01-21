@@ -21,13 +21,15 @@ Screenshots
 
 ![PBR Material Editor](https://github.com/SamuelTS/SketchUp-PBR-Plugin/raw/master/docs/screenshots/pbr-material-editor-in-english.png)
 
-Installation
-------------
+Documentation
+-------------
+
+### How to install this plugin?
 
 1. Be sure to have SketchUp 2017 or newer version installed.
 2. Download required plugin: [glTF Export](http://extensions.sketchup.com/en/content/gltf-exporter).
 3. Download latest PBR plugin from the [SketchUcation PluginStore](https://sketchucation.com/pluginstore?pln=pbr).
-4. Install both plugins following this [guide](https://help.sketchup.com/article/3000263).
+4. Install both plugins following this [guide](https://www.youtube.com/watch?v=tyM5f81eRno).
 
 Now, you should have in SketchUp a "Physically-Based Rendering" menu and a "PBR" toolbar. 👍
 
@@ -40,8 +42,7 @@ If you use Windows, extract *.zip* contents to this folder: *%AppData%\SketchUp\
 
 Enjoy one hundred ready-to-use PBR materials in SketchUp! 😊
 
-Documentation
--------------
+### I need more help.
 
 A [help document](https://github.com/SamuelTS/SketchUp-PBR-Plugin/blob/master/docs/help.md) is available.
 
@@ -53,4 +54,4 @@ PBR plugin project would not have succeeded without: [SketchUp](https://www.sket
 Copyright
 ---------
 
-© 2020 Samuel Tallet
+© 2021 Samuel Tallet
