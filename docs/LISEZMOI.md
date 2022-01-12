@@ -8,16 +8,16 @@ Démonstrations
 
 Un modèle SketchUp rendu `sans` l'extension RBP | Le même modèle SketchUp rendu `avec` l'extension RBP
 :--- | :---
-![Un modèle SketchUp rendu sans l'extension RBP](https://github.com/SamuelTS/SketchUp-PBR-Plugin/raw/master/docs/demos/a-sketchup-model-rendered-without-pbr-extension.png) | ![Le même modèle SketchUp rendu avec l'extension RBP](https://github.com/SamuelTS/SketchUp-PBR-Plugin/raw/master/docs/demos/same-sketchup-model-rendered-with-pbr-extension.png)
+![Un modèle SketchUp rendu sans l'extension RBP](https://github.com/SamuelTallet/SketchUp-PBR-Plugin/raw/master/docs/demos/a-sketchup-model-rendered-without-pbr-extension.png) | ![Le même modèle SketchUp rendu avec l'extension RBP](https://github.com/SamuelTallet/SketchUp-PBR-Plugin/raw/master/docs/demos/same-sketchup-model-rendered-with-pbr-extension.png)
 
 Un récif virtuel rendu `avec` l'extension SketchUp RBP.
 --- |
-![Récif](https://github.com/SamuelTS/SketchUp-PBR-Plugin/raw/master/docs/demos/a-virtual-reef-rendered-with-sketchup-pbr-extension.jpg)
+![Récif](https://github.com/SamuelTallet/SketchUp-PBR-Plugin/raw/master/docs/demos/a-virtual-reef-rendered-with-sketchup-pbr-extension.jpg)
 
 Captures d'écran
 ----------------
 
-![Interface de modif. des matériaux RBP](https://github.com/SamuelTS/SketchUp-PBR-Plugin/raw/master/docs/screenshots/pbr-material-editor-in-french.png)
+![Interface de modif. des matériaux RBP](https://github.com/SamuelTallet/SketchUp-PBR-Plugin/raw/master/docs/screenshots/pbr-material-editor-in-french.png)
 
 Documentation
 -------------
@@ -33,7 +33,7 @@ Maintenant, vous devriez avoir dans SketchUp un menu "Rendu basé sur la physiqu
 
 Optionnel. Installer la bibliothèque de matériaux PBR :
 
-5. Télécharger *sketchup_pbr_material_lib.zip* depuis ce [lien](https://github.com/SamuelTS/SketchUp-PBR-Plugin/releases/download/v1.4.5/sketchup_pbr_material_lib.zip).
+5. Télécharger *sketchup_pbr_material_lib.zip* depuis ce [lien](https://github.com/SamuelTallet/SketchUp-PBR-Plugin/releases/download/v1.4.5/sketchup_pbr_material_lib.zip).
 6. Si vous utilisez macOS, extraire le contenu du *.zip* vers ce dossier : *~/Library/Application Support/SketchUp `2017`/SketchUp/Materials*<br>
  Si vous utilisez Windows, extraire le contenu du *.zip* vers ce dossier : *%AppData%\SketchUp\SketchUp `2017`\SketchUp\Materials*
 7. Redémarrer SketchUp.
@@ -42,7 +42,7 @@ Profitez de cents matériaux PBR prêts à l'emploi dans SketchUp ! 😊
 
 ### J'ai besoin de plus d'aide.
 
-Un [document d'aide](https://github.com/SamuelTS/SketchUp-PBR-Plugin/blob/master/docs/aide.md) est disponible.
+Un [document d'aide](https://github.com/SamuelTallet/SketchUp-PBR-Plugin/blob/master/docs/aide.md) est disponible.
 
 Remerciements
 -------------

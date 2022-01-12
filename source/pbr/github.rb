@@ -27,7 +27,7 @@ module PBR
   module GitHub
 
     # Homepage URL w/o trailing slash.
-    URL = 'https://github.com/SamuelTS/SketchUp-PBR-Plugin'.freeze
+    URL = 'https://github.com/SamuelTallet/SketchUp-PBR-Plugin'.freeze
 
     # Gives Help URL, maybe translated.
     #

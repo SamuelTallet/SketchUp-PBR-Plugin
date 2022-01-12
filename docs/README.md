@@ -1,4 +1,4 @@
-<a href="https://github.com/SamuelTS/SketchUp-PBR-Plugin/blob/master/docs/LISEZMOI.md">Version française <img height="16" width="16" src="https://emojipedia-us.s3.amazonaws.com/thumbs/60/google/119/flag-for-france_1f1eb-1f1f7.png"></a>
+<a href="https://github.com/SamuelTallet/SketchUp-PBR-Plugin/blob/master/docs/LISEZMOI.md">Version française <img height="16" width="16" src="https://emojipedia-us.s3.amazonaws.com/thumbs/60/google/119/flag-for-france_1f1eb-1f1f7.png"></a>
 
 Free PBR extension for SketchUp
 ===============================
@@ -10,16 +10,16 @@ Demos
 
 A SketchUp model rendered `without` PBR extension | Same SketchUp model rendered `with` PBR extension
 :--- | :---
-![A SketchUp model rendered without PBR extension](https://github.com/SamuelTS/SketchUp-PBR-Plugin/raw/master/docs/demos/a-sketchup-model-rendered-without-pbr-extension.png) | ![Same SketchUp model rendered with PBR extension](https://github.com/SamuelTS/SketchUp-PBR-Plugin/raw/master/docs/demos/same-sketchup-model-rendered-with-pbr-extension.png)
+![A SketchUp model rendered without PBR extension](https://github.com/SamuelTallet/SketchUp-PBR-Plugin/raw/master/docs/demos/a-sketchup-model-rendered-without-pbr-extension.png) | ![Same SketchUp model rendered with PBR extension](https://github.com/SamuelTallet/SketchUp-PBR-Plugin/raw/master/docs/demos/same-sketchup-model-rendered-with-pbr-extension.png)
 
 A virtual reef rendered `with` SketchUp PBR extension.
 --- |
-![Reef](https://github.com/SamuelTS/SketchUp-PBR-Plugin/raw/master/docs/demos/a-virtual-reef-rendered-with-sketchup-pbr-extension.jpg)
+![Reef](https://github.com/SamuelTallet/SketchUp-PBR-Plugin/raw/master/docs/demos/a-virtual-reef-rendered-with-sketchup-pbr-extension.jpg)
 
 Screenshots
 -----------
 
-![PBR Material Editor](https://github.com/SamuelTS/SketchUp-PBR-Plugin/raw/master/docs/screenshots/pbr-material-editor-in-english.png)
+![PBR Material Editor](https://github.com/SamuelTallet/SketchUp-PBR-Plugin/raw/master/docs/screenshots/pbr-material-editor-in-english.png)
 
 Documentation
 -------------
@@ -35,7 +35,7 @@ Now, you should have in SketchUp a "Physically-Based Rendering" menu and a "PBR"
 
 Optional. Install PBR Material Library:
 
-5. Download *sketchup_pbr_material_lib.zip* from this [link](https://github.com/SamuelTS/SketchUp-PBR-Plugin/releases/download/v1.4.5/sketchup_pbr_material_lib.zip).
+5. Download *sketchup_pbr_material_lib.zip* from this [link](https://github.com/SamuelTallet/SketchUp-PBR-Plugin/releases/download/v1.4.5/sketchup_pbr_material_lib.zip).
 6. If you use macOS, extract *.zip* contents to this folder: *~/Library/Application Support/SketchUp `2017`/SketchUp/Materials*<br>
 If you use Windows, extract *.zip* contents to this folder: *%AppData%\SketchUp\SketchUp `2017`\SketchUp\Materials*
 7. Restart SketchUp.
@@ -44,7 +44,7 @@ Enjoy one hundred ready-to-use PBR materials in SketchUp! 😊
 
 ### I need more help.
 
-A [help document](https://github.com/SamuelTS/SketchUp-PBR-Plugin/blob/master/docs/help.md) is available.
+A [help document](https://github.com/SamuelTallet/SketchUp-PBR-Plugin/blob/master/docs/help.md) is available.
 
 Thanks
 ------
