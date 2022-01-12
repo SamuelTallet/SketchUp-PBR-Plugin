@@ -1,7 +1,7 @@
 /**
  * Image Channel Packer.
  *
- * @copyright © 2018 Samuel Tallet-Sabathé
+ * @copyright © 2018 Samuel Tallet
  *
  * @licence GNU General Public License 3.0
  */
